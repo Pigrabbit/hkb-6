@@ -15,5 +15,5 @@ export default function Filter() {
     // subscribe(componentName, "", );
     setTimeout(render, 0);
 
-    return `<ul class=${filter}></ul>`;
+    return `<ul class=${componentName}></ul>`;
 }
