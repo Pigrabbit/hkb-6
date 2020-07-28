@@ -1,0 +1,14 @@
+$big-font:32px;
+$mid-font:26px;
+$small-font:20px;
+
+$brown-font:#4d3e3e;
+
+@mixin btn-style{
+    font-size:$small-font;
+    background:none;
+    color:#fff;
+    font-size:24px;
+   
+}
+

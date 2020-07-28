@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/866855100d.css">
     <title>배민샐러드</title>
 </head>
 <body>
    <main id="App">
-    <header class="header"> 
+    <header class="header">
+        <i class="fa fa-cutlery" aria-hidden="true" style="margin-right:10px"></i> 
         <div class="header-title">배민 샐러드</div>
-        <button class="header-paymenet-btn">결제수단관리</button>
+        <button class="header-payment-btn">결제수단관리</button>
     </header>
     <nav class="navbar">
         <div class="navbar-month">
+            <i class="fa fa-caret-left fa-3x" aria-hidden="true"></i>
+            <p>6월</p>
+            <i class="fa fa-caret-right fa-3x" aria-hidden="true"></i>
             
         </div>
-        <div class="navbar-tab">
-
-        </div>
+        <ul class="navbar-tab">
+                <li class="navbar-tab-item">내역</li>
+                <li class="navbar-tab-item">달력</li>
+                <li class="navbar-tab-item">통계</li>
+        </ul>
     </nav>
     <section>
-        <form class="form"></form>
+        <form class="form">
+
+            
+        </form>
         <div class="filter-container">
             <ul class="filter">
                 <li class="filter-item"></li>
@@ -29,21 +39,27 @@
         </div>
         <article class="ledger">
             <ul class="ledger-item">
-                <li class="ledger-item-date"></li>
+                <li class="ledger-item-header">
+                    <div class="ledger-item-header-date">6월 16일 화</div>
+                    <div class="ledger-item-header-amount">
+                        <p class="ledger-item-header-amount-income">+0원</p>
+                        <p class="ledger-item-header-amount-outcome">-26000원</p>
+                    </div>
+                </li>
                 <li class="ledger-item-record">
-                    <div class="ledger-item-record-col1">
-                    <div class="record-category"></div>
-                    <div class="record-content"></div>
+                    <div class="ledger-item-record-col">
+                        <div class="record-category">쇼핑/뷰티</div>
+                        <div class="record-content">미용실</div>
                     </div>
-                    <div class="ledger-item-record-col2">
-                    <div class="record-payment"></div>
-                    <div class="record-amount"></div>
+                    <div class="ledger-item-record-col">
+                        <div class="record-payment">현대카드</div>
+                        <div class="record-amount">-20000원</div>
                     </div>
-
                 </li>
             </ul>
         </article>
     </section>
+    <img id="brocolli" alt="브로콜리">
    </main>
 </body>
 </html>
