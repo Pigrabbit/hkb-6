@@ -6,7 +6,7 @@ import Ledger from "./component/Ledger";
 
 import brocolli from "./images/brocolli.png";
 
-import "./main.scss"
+import "./scss/main.scss"
 
 export function App() {
     return `
