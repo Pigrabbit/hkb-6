@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
 
-const apiRouter = require("./routes/api-router");
+const apiRouter = require("./route/api-router");
 app.use("/api", apiRouter);
 
 app.use("/", (req, res, next) => {
