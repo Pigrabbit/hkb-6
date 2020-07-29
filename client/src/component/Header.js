@@ -20,7 +20,7 @@ export default function Header() {
     // bindEvent("", "");
   }
 
-//   subscribe(componentName, "", render);
+  //   subscribe(componentName, "", render);
   setTimeout(render, 0);
 
   return `<header class=${componentName}></header>`;
