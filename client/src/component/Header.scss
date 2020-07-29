@@ -1,0 +1,39 @@
+@import "../scss/variable";
+
+.header {
+  display: flex;
+  position: relative;
+  min-height: 70px;
+  width: 100%;
+  background: $brown-font;
+  font-size: $big-font;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+
+  &-payment-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    @include btn-style;
+    border: none;
+
+    &:hover {
+      border-bottom: 2px solid #fff;
+      font-size: $mid-font;
+    }
+  }
+}
+
+.fa-cutlery {
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  35% {
+    transform: rotate(-5deg);
+  }
+  70% {
+    transform: rotate(5deg);
+  }
+}

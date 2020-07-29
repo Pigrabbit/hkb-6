@@ -1,0 +1,11 @@
+@import "../scss/variable";
+
+.ledger {
+  min-height: 400px;
+  width: 100%;
+
+  & ul {
+    list-style: none;
+    padding: 0;
+  }
+}

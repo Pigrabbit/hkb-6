@@ -1,4 +1,4 @@
-import "./scss/main.scss";
-import brocolli from "./images/brocolli.png";
+import App from "./App";
 
-document.getElementById("brocolli").src = brocolli;
+const $app = document.querySelector("#app");
+$app.innerHTML = App();

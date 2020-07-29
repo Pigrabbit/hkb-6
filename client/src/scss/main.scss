@@ -1,8 +1,6 @@
 @font-face { font-family: 'BMHANNAAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff'); font-weight: normal; font-style: normal; }
 @import './reset';
 @import './variable';
-@import './form';
-@import './filter';
 
 *{
     outline:none;
@@ -25,89 +23,12 @@ button:hover{
     z-index:-1;
 }
 
-#App{
+#app {
     display:flex;
     flex-direction:column;
     height:100vh;
     width:100vw;
     align-items:center;
-   
-
-}
-
-.header{
-    display:flex;
-    position:relative;
-    min-height:70px;
-    width:100%;
-    background:$brown-font;
-    font-size:$big-font;
-    color:#fff;
-    justify-content: center;
-    align-items: center;
-   
-    &-payment-btn{
-        position:absolute;
-        right:20px;
-        top:20px;
-        @include btn-style;
-        border:none;
-
-        &:hover{
-             border-bottom:2px solid  #fff;
-             font-size:$mid-font;
-        }
-    }
-
-
-}
-
-.fa-cutlery{
-    animation:beat 1s infinite;
-}
-
-@keyframes beat {
-    35% {
-      transform:rotate(-5deg)
-    }
-    70%{
-        transform:rotate(5deg);
-    }
-
-  }
-
-.navbar-month{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-   & *{
-       margin:20px 10px;
-       font-size:$mid-font;
-       
-   }
-}
-
-.navbar-tab{
-    font-size:$mid-font;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    list-style:none;
-    padding:0;
-    border-radius:10px;
-    background:#eee;
-    height:40px;
-
-    & li{
-        margin:0;
-        padding:0 50px;
-    }
-
-    & li:nth-child(2){
-        border-left:1px solid darkgray;
-        border-right:1px solid darkgray;
-    }
 }
 
 section{
@@ -120,73 +41,3 @@ section{
         margin:20px 0;
     }
 }
-
-
-
-.filter-container{
-    height:100px;
-    width:100%;
-    border:3px dashed seagreen;
-}
-
-.ledger{
-    min-height:400px;
-    width:100%;
-
-    &-item{
-        border-top:3px solid darkgray;
-        border-bottom:3px solid darkgray;
-    }
-
-    &-item-header{
-        display:flex;
-        align-items: center;
-        justify-content: space-between;
-
-        &-date{
-            margin:0 10px;
-        }
-
-        &-amount{
-            display:flex;
-            & p{
-                margin:0 10px;
-            }
-        }
-    }
-
-    &-item-record{
-        display:flex;
-        justify-content: space-between;
-        align-items: center;
-        &-col{
-            display:flex;
-            align-items:center;
-            & div{
-                margin:0 10px;
-            }
-        }
-
-        .record-category{
-            background:salmon;
-            color:#fff;
-            border-radius:10px;
-            padding:5px;
-        }
-
-    }
-
-    & ul{
-        list-style:none;
-        padding:0;
-    }
-
-    & li{
-        width:100%;
-        border-bottom: 2px solid #ddd;
-        height:50px;
-        margin:0;
-        background:#fff;
-    }
-}
-
