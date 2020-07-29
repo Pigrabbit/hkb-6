@@ -1,12 +1,6 @@
 #!/bin/bash
 
-# CLIENT_PUBLIC_BUNDLE_FILE=./client/public/index_bundle.js
 SERVER_PUBLIC_FOLDER=./server/public
-
-# if [ -f "$CLIENT_PUBLIC_BUNDLE_FILE" ]; then
-#     echo "기존 client 번들 결과 파일을 삭제합니다..."
-#     rm "$CLIENT_PUBLIC_BUNDLE_FILE"
-# fi
 
 if [ -d "$SERVER_PUBLIC_FOLDER" ]; then
     echo "기존 server 번들 결과 파일을 삭제합니다..."
