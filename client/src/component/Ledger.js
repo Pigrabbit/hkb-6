@@ -7,7 +7,7 @@ export default function Ledger() {
 
   function render() {
     const ledgerItem = getLedgerItem();
-    console.log(ledgerItem);
+    // console.log(ledgerItem);
     const html = `
             ${ledgerItem
               .map((item, idx) => {

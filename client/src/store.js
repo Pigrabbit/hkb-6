@@ -1,6 +1,6 @@
 export const state = {
   isModalVisible: {
-    data: true,
+    data: false,
     listeners: {},
   },
   ledgerItem: {
@@ -43,17 +43,23 @@ export function getIsModalVisible() {
   return state.isModalVisible.data;
 }
 
-export function fetchPaymentList() {
-  fetch("http://localhost:3000/api/payment", {
-    method: "GET",
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      // console.log(data);
-      state.paymentList.data = data;
-    });
+export function toggleModal() {
+  state.isModalVisible.data = !state.isModalVisible.data;
+  publish(state.isModalVisible);
 }
 
-export function getPaymentList() {
+export function fetchPaymentList() {
+  return new Promise((resolve, reject) => {
+    fetch("http://localhost:3000/api/payment", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
+  });
+}
+
+export async function getPaymentList() {
+  state.paymentList.data = await fetchPaymentList();
   return state.paymentList.data;
 }

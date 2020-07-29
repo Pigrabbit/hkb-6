@@ -8,20 +8,17 @@ import Modal from "./component/Modal";
 import brocolli from "./images/brocolli.png";
 
 import "./scss/main.scss";
-import { fetchPaymentList } from "./store";
 
 export function App() {
-  fetchPaymentList();
   return `
     ${Header()}
-    ${Modal()}
     ${Navbar()}
     <section>
         ${Form()}
         ${Filter()}
         ${Ledger()}
     </section>
- 
+    ${Modal()}
     <img id="brocolli" alt="브로콜리" src=${brocolli}/>
     `;
 }
