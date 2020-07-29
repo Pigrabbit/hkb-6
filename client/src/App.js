@@ -4,6 +4,8 @@ import Form from "./component/Form";
 import Filter from "./component/Filter";
 import Ledger from "./component/Ledger";
 
+import brocolli from "./images/brocolli.png";
+
 import "./main.scss"
 
 export function App() {
@@ -15,6 +17,7 @@ export function App() {
         ${Filter()}
         ${Ledger()}
     </section>
+    <img id="brocolli" alt="브로콜리" src=${brocolli}/>
     `;
 }
 

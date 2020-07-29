@@ -1,7 +1,7 @@
 import "./LedgerItem.scss";
 
-export default function LedgerItem() {
-  const componentName = "ledger-item";
+export default function LedgerItem(props, idx) {
+  const componentName = `ledger-item`;
 
   function render() {
     const html = `
@@ -14,17 +14,17 @@ export default function LedgerItem() {
       </li>
       <li class="ledger-item-record">
         <div class="ledger-item-record-col">
-          <div class="record-category">쇼핑/뷰티</div>
-          <div class="record-content">미용실</div>
+          <div class="record-category">${props.category}</div>
+          <div class="record-content">${props.content}</div>
         </div>
         <div class="ledger-item-record-col">
-          <div class="record-payment">현대카드</div>
-          <div class="record-amount">-20000원</div>
+          <div class="record-payment">${props.payment}</div>
+          <div class="record-amount">${props.amount}</div>
         </div>
       </li>
         `;
 
-    const $ledgerItem = document.querySelector(`.${componentName}`);
+    const $ledgerItem = document.querySelector(`ul#${componentName + "-" + idx}`);
     $ledgerItem.innerHTML = html;
 
     // bindEvent("", "", )
@@ -33,5 +33,5 @@ export default function LedgerItem() {
   // subscribe(componentName, "", );
   setTimeout(render, 0);
 
-  return `<ul class=${componentName}></ul>`;
+  return `<ul class=${componentName} id=${componentName + "-" + idx}></ul>`;
 }
