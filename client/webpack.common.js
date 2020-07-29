@@ -7,7 +7,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "index_bundle.js",
-    publicPath: "public/",
   },
   module: {
     rules: [

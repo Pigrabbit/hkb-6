@@ -6,20 +6,19 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const app = express();
-app.set("view engine", "html");
 
 app.use(cors({ origin: "*" }));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
 const apiRouter = require("./routes/api-router");
 app.use("/api", apiRouter);
 
 app.use("/", (req, res, next) => {
-  res.sendFile("public/index.html", { root: __dirname });
+  res.sendFile("public/hello.html", { root: __dirname });
 });
 
 // catch 404 and forward to error handler
