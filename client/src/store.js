@@ -54,12 +54,14 @@ export function fetchPaymentList() {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((data) => resolve(data))
+      .then((data) => {
+        resolve(data);
+      })
       .catch((err) => reject(err));
   });
 }
 
-export async function getPaymentList() {
-  state.paymentList.data = await fetchPaymentList();
+export function getPaymentList() {
+  fetchPaymentList().then((data) => (state.paymentList.data = data));
   return state.paymentList.data;
 }

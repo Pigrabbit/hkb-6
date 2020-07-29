@@ -1,18 +1,12 @@
 import "./Modal.scss";
-import {
-  subscribe,
-  getIsModalVisible,
-  getPaymentList,
-  fetchPaymentList,
-} from "../store";
+import { subscribe, getIsModalVisible, getPaymentList } from "../store";
 
 export default function Modal() {
   const componentName = "modal";
 
-  async function render() {
+  function render() {
     const isVisible = getIsModalVisible();
-    const paymentList = await getPaymentList();
-    console.log(paymentList);
+    const paymentList = getPaymentList();
 
     const html = `
     <div class="${componentName} ${isVisible ? "" : "hidden"}">

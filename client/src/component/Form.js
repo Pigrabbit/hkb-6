@@ -1,11 +1,10 @@
 import "./Form.scss";
 
 export default function Form() {
-    const componentName = "form";
+  const componentName = "form";
 
-
-    function render() {
-        const html = `
+  function render() {
+    const html = `
         <div class="form-row">
             <div class="form-col">
               <label for="inout">분류</label>
@@ -62,14 +61,14 @@ export default function Form() {
           <button class="form-submit-btn">확인</button>
         `;
 
-        const $form = document.querySelector(`.${componentName}`);
-        $form.innerHTML = html
+    const $form = document.querySelector(`.${componentName}`);
+    $form.innerHTML = html;
 
-        // bindEvent("", "", )
-    }
+    // bindEvent("", "", )
+  }
 
-    // subscribe(componentName, "", );
-    setTimeout(render, 0);
+  // subscribe(componentName, "", );
+  setTimeout(render, 0);
 
-    return `<form class=${componentName}></form>`;
+  return `<form class=${componentName}></form>`;
 }
