@@ -7,11 +7,11 @@ export default function Form() {
   let isPositive = true;
   function preventDefaultBtn(e) {
     e.preventDefault();
-    if (e.target.classList.contains("income")) {
-      positive = true;
+    if (e.target.classList.contains("form-income-btn")) {
+      isPositive = true;
     }
-    if (e.target.classList.contains("outcome")) {
-      positive = false;
+    if (e.target.classList.contains("form-outcome-btn")) {
+      isPositive = false;
     }
 
     if (e.target.classList.contains("form-submit-btn")) {
@@ -20,11 +20,9 @@ export default function Form() {
       let payment = document.getElementById("transaction-payment").value;
       let amount = document.getElementById("transaction-amount").value;
       let content = document.getElementById("transaction-content").value;
-      console.log(curdate);
       const data = {};
+      amount = isPositive ? +amount : -amount;
       data[curdate] = { category, payment, amount, content };
-
-      // console.log(data);
       addNewLedgeritem(curdate, data);
     }
   }

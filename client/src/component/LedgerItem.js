@@ -24,7 +24,7 @@ export default function LedgerItem(props, idx) {
         </div>
         <div class="ledger-item-record-col">
           <div class="record-payment">${record.payment}</div>
-          <div class="record-amount">${record.amount}</div>
+          <div class="record-amount">${record.amount}원</div>
         </div>
       </li>`;
       })}
