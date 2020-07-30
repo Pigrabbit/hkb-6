@@ -4,9 +4,12 @@ class PaymentController {
     }
 
     async getAllPayment(req, res, next) {
-        const result = await this.payment.findAll();
-        
-        res.json(result);
+        try {
+            const result = await this.payment.findAll();
+            res.json(result);
+        } catch(error) {
+            next(error);
+        }
     }
 }
 
