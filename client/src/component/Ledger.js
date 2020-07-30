@@ -1,21 +1,19 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
-import { getLedgerItem } from "../store";
+import { getLedgerItem, getLedgerItemDate } from "../store";
 
 export default function Ledger() {
   const componentName = "ledger";
 
   function render() {
-    const ledgerItem = getLedgerItem();
-    // console.log(ledgerItem);
+    const ledgerDate = getLedgerItemDate();
     const html = `
-            ${ledgerItem
-              .map((item, idx) => {
-                return LedgerItem(item, idx);
-              })
-              .join("")}
-        `;
-    // const html = `${LedgerItem()}`;
+      ${ledgerDate
+        .map((date, idx) => {
+          return LedgerItem({ date }, idx);
+        })
+        .join("")}
+    `;
 
     const $ledger = document.querySelector(`.${componentName}`);
     $ledger.innerHTML = html;

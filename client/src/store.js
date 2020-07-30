@@ -4,20 +4,30 @@ export const state = {
     listeners: {},
   },
   ledgerItem: {
-    data: [
-      {
-        category: "쇼핑/뷰티",
-        content: "미용실",
-        payment: "현대카드",
-        amount: "-20000원",
-      },
-      {
-        category: "식품",
-        content: "편의점",
-        payment: "우리카드",
-        amount: "-1000원",
-      },
-    ], // [{}, {}, {}]
+    data: {
+      "2020-07-30": [
+        {
+          category: "쇼핑/뷰티",
+          content: "미용실",
+          payment: "현대카드",
+          amount: "-20000원",
+        },
+        {
+          category: "쇼핑/뷰티",
+          content: "미용실",
+          payment: "현대카드",
+          amount: "-20000원",
+        },
+      ],
+      "2020-07-29": [
+        {
+          category: "식품",
+          content: "편의점",
+          payment: "우리카드",
+          amount: "-1000원",
+        },
+      ],
+    },
     listeners: {},
   },
   paymentList: {
@@ -37,6 +47,14 @@ const publish = (key) =>
 
 export function getLedgerItem() {
   return state.ledgerItem.data;
+}
+
+export function getLedgerItemDate() {
+  return Object.keys(state.ledgerItem.data);
+}
+
+export function getLedgerItemByDate(date) {
+  return state.ledgerItem.data[date];
 }
 
 export function getIsModalVisible() {
