@@ -6,8 +6,8 @@ export default function Navbar() {
   const componentName = "navbar";
 
   function onTabClick(e) {
-    console.log(e.target.getAttribute("route"));
-    Router.navigateTo(e.target.getAttribute("route"));
+    const path = e.target.getAttribute("route");
+    Router.navigateTo(path);
   }
 
   function render() {
