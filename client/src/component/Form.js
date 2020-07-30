@@ -5,15 +5,25 @@ import { addNewLedgeritem } from "../store";
 export default function Form() {
   const componentName = "form";
   let isPositive = true;
-  function preventDefaultBtn(e) {
-    e.preventDefault();
-    if (e.target.classList.contains("form-income-btn")) {
+
+  function btnToggle(e) {
+    const incomeBtn = document.querySelector(".form-income-btn");
+    const outcomeBtn = document.querySelector(".form-outcome-btn");
+    if (e.target === incomeBtn) {
       isPositive = true;
     }
-    if (e.target.classList.contains("form-outcome-btn")) {
+    if (e.target === outcomeBtn) {
       isPositive = false;
     }
+    incomeBtn.classList.toggle("category-btn-clicked");
+    outcomeBtn.classList.toggle("category-btn-clicked");
+  }
 
+  function preventDefaultBtn(e) {
+    e.preventDefault();
+  }
+
+  function submitForm(e) {
     if (e.target.classList.contains("form-submit-btn")) {
       let curdate = document.getElementById("transaction-date").value;
       let category = document.getElementById("transaction-category").value;
@@ -32,7 +42,7 @@ export default function Form() {
         <div class="form-row">
             <div class="form-col">
               <label for="inout">분류</label>
-              <button class="form-income-btn">수입</button>
+              <button class="form-income-btn category-btn-clicked">수입</button>
               <button class="form-outcome-btn">지출</button>
             </div>
           </div>
@@ -90,6 +100,8 @@ export default function Form() {
 
     // bindEvent("", "", )
     bindEventAll("button", "click", preventDefaultBtn);
+    bindEventAll("button", "click", btnToggle);
+    bindEventAll("button", "click", submitForm);
   }
 
   // subscribe(componentName, "", );
