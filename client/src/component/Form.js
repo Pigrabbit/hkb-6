@@ -11,12 +11,14 @@ export default function Form() {
     const outcomeBtn = document.querySelector(".form-outcome-btn");
     if (e.target === incomeBtn) {
       isPositive = true;
+      incomeBtn.classList.toggle("category-btn-clicked");
+      outcomeBtn.classList.toggle("category-btn-clicked");
     }
     if (e.target === outcomeBtn) {
       isPositive = false;
+      incomeBtn.classList.toggle("category-btn-clicked");
+      outcomeBtn.classList.toggle("category-btn-clicked");
     }
-    incomeBtn.classList.toggle("category-btn-clicked");
-    outcomeBtn.classList.toggle("category-btn-clicked");
   }
 
   function preventDefaultBtn(e) {
