@@ -3,18 +3,16 @@ import Router from "./router";
 import Header from "./component/Header";
 import Navbar from "./component/Navbar";
 import Modal from "./component/Modal";
-import ListPage from "./pages/listPage";
 
 import brocolli from "./images/brocolli.png";
 import "./scss/main.scss";
 
 export default function App() {
-
   window.addEventListener("popstate", (e) => {
     render();
   });
-  
-  function render() {    
+
+  function render() {
     const renderingPage = Router.getCurrentURLView(location.pathname);
 
     const $container = document.querySelector("section.container");

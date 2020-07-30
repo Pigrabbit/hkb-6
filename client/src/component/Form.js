@@ -1,15 +1,41 @@
 import "./Form.scss";
+import { bindEventAll } from "../util/util";
+import { addNewLedgeritem } from "../store";
 
 export default function Form() {
   const componentName = "form";
+  let isPositive = true;
+  function preventDefaultBtn(e) {
+    e.preventDefault();
+    if (e.target.classList.contains("income")) {
+      positive = true;
+    }
+    if (e.target.classList.contains("outcome")) {
+      positive = false;
+    }
+
+    if (e.target.classList.contains("form-submit-btn")) {
+      let curdate = document.getElementById("transaction-date").value;
+      let category = document.getElementById("transaction-category").value;
+      let payment = document.getElementById("transaction-payment").value;
+      let amount = document.getElementById("transaction-amount").value;
+      let content = document.getElementById("transaction-content").value;
+      console.log(curdate);
+      const data = {};
+      data[curdate] = { category, payment, amount, content };
+
+      // console.log(data);
+      addNewLedgeritem(curdate, data);
+    }
+  }
 
   function render() {
     const html = `
         <div class="form-row">
             <div class="form-col">
               <label for="inout">분류</label>
-              <button>수입</button>
-              <button>지출</button>
+              <button class="form-income-btn">수입</button>
+              <button class="form-outcome-btn">지출</button>
             </div>
           </div>
           <div class="form-row">
@@ -65,6 +91,7 @@ export default function Form() {
     $form.innerHTML = html;
 
     // bindEvent("", "", )
+    bindEventAll("button", "click", preventDefaultBtn);
   }
 
   // subscribe(componentName, "", );

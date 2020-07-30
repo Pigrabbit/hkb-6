@@ -1,6 +1,6 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
-import { getLedgerItem, getLedgerItemDate } from "../store";
+import { subscribe, getLedgerItemDate } from "../store";
 
 export default function Ledger() {
   const componentName = "ledger";
@@ -21,7 +21,7 @@ export default function Ledger() {
     // bindEvent("", "", )
   }
 
-  // subscribe(componentName, "", );
+  subscribe(componentName, "ledgerItem", render);
   setTimeout(render, 0);
 
   return `<article class=${componentName}></article>`;
