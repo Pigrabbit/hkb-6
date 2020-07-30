@@ -1,0 +1,12 @@
+### POST /transaction api
+POST http://localhost:3000/api/transaction
+Content-Type: application/json
+
+{
+    "category": "식비",
+    "content": "닭발",
+    "payment_name": "우리카드",
+    "amount": "-20000",
+    "t_type": "지출",
+    "created_at": "2020-07-30"
+}
