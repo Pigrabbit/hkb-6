@@ -46,8 +46,12 @@ const publish = (key) =>
   );
 
 export function addNewLedgeritem(date, data) {
-  state.ledgerItem.data[date].push(data[date]);
-
+  console.log(Object.keys(state.ledgerItem.data).find((item) => item === date));
+  if (
+    Object.keys(state.ledgerItem.data).find((key) => key === date) === undefined
+  )
+    state.ledgerItem.data[date] = [data[date]];
+  else state.ledgerItem.data[date].push(data[date]);
   console.log(state.ledgerItem.data);
   publish(state.ledgerItem);
 }
