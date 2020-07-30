@@ -1,7 +1,14 @@
 import "./Header.scss";
+import { bindEvent } from "../util/util";
+import { toggleModal } from "../store";
 
 export default function Header() {
   const componentName = "header";
+
+  function onPaymentBtnClick(e) {
+    console.log(e.target)
+    toggleModal();
+  }
 
   function render() {
     const html = `
@@ -17,10 +24,9 @@ export default function Header() {
     const $header = document.querySelector(`.${componentName}`);
     $header.innerHTML = html;
 
-    // bindEvent("", "");
+    bindEvent("button.header-payment-btn", "click", onPaymentBtnClick);
   }
 
-//   subscribe(componentName, "", render);
   setTimeout(render, 0);
 
   return `<header class=${componentName}></header>`;

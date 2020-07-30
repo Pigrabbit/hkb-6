@@ -1,29 +1,30 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
-import { getLedgerItem } from "../../store";
+import { getLedgerItem } from "../store";
 
 export default function Ledger() {
-    const componentName = "ledger";
+  const componentName = "ledger";
 
-
-    function render() {
-        const ledgerItem = getLedgerItem();
-        console.log(ledgerItem)
-        const html = `
-            ${ledgerItem.map((item, idx) => {
+  function render() {
+    const ledgerItem = getLedgerItem();
+    // console.log(ledgerItem);
+    const html = `
+            ${ledgerItem
+              .map((item, idx) => {
                 return LedgerItem(item, idx);
-            }).join('')}
-        `
-        // const html = `${LedgerItem()}`;
+              })
+              .join("")}
+        `;
+    // const html = `${LedgerItem()}`;
 
-        const $ledger = document.querySelector(`.${componentName}`);
-        $ledger.innerHTML = html
+    const $ledger = document.querySelector(`.${componentName}`);
+    $ledger.innerHTML = html;
 
-        // bindEvent("", "", )
-    }
+    // bindEvent("", "", )
+  }
 
-    // subscribe(componentName, "", );
-    setTimeout(render, 0);
+  // subscribe(componentName, "", );
+  setTimeout(render, 0);
 
-    return `<article class=${componentName}></article>`;
+  return `<article class=${componentName}></article>`;
 }
