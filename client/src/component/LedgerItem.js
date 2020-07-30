@@ -15,8 +15,9 @@ export default function LedgerItem(props, idx) {
           <p class="ledger-item-header-amount-outcome">-26000원</p>
         </div>
       </li>
-      ${records.map((record) => {
-        return `
+      ${records
+        .map((record) => {
+          return `
         <li class="ledger-item-record">
         <div class="ledger-item-record-col">
           <div class="record-category">${record.category}</div>
@@ -27,7 +28,8 @@ export default function LedgerItem(props, idx) {
           <div class="record-amount">${record.amount}원</div>
         </div>
       </li>`;
-      })}
+        })
+        .join("")}
   
         `;
 
