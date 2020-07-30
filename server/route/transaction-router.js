@@ -11,10 +11,8 @@ const transactionControllerInstance = new TransactionController(transactionModel
 router.post("/", transactionControllerInstance.createTransaction
         .bind(transactionControllerInstance));
 
-// TODO: retrieve
-router.get("/", (req, res, next) => {
-    res.json({"msg": "transaction api"});
-});
+router.get("/", transactionControllerInstance.getTxByYearMonth
+        .bind(transactionControllerInstance));
 
 // TODO: update        
 router.patch("/:t_id",);

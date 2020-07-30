@@ -7,10 +7,18 @@ class TransactionController {
     try {
       const data = req.body;
       data.username = req.cookies.username;
-    //   res.json(data);
+
       await this.transaction.create(data);
 
       res.status(201).json({ message: "transaction successfully created"});
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getTxByYearMonth(req, res, next) {
+    try {
+      
     } catch (error) {
       next(error);
     }
