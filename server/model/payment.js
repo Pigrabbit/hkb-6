@@ -1,10 +1,10 @@
-const db = require("../db");
-
 class Payment {
-  constructor() {}
+  constructor(db) {
+    this.db = db;
+  }
 
   async findAll() {
-    const conn = await db.getConnection();
+    const conn = await this.db.getConnection();
     try {
       const query = "select payment_name from payment";
       const [rows] = await conn.query(query);

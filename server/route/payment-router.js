@@ -1,10 +1,15 @@
 const express = require('express');
 const router = express.Router();
+
+const db = require("../db");
 const PaymentController = require("../controller/payment-controller");
+const Payment = require("../model/payment");
 
-const paymentControllerInstance = new PaymentController();
+const paymentModelInstance = new Payment(db);
+const paymentControllerInstance = new PaymentController(paymentModelInstance);
 
-router.get("/", paymentControllerInstance.getAllPayment);
+router.get("/", paymentControllerInstance.getAllPayment
+            .bind(paymentControllerInstance));
 router.post("/", );
 router.delete("/:p_id", );
 

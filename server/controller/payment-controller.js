@@ -1,13 +1,10 @@
-const Payment = require("../model/payment")
-
 class PaymentController {
-    constructor() {
-
+    constructor(payment) {
+        this.payment = payment;
     }
 
     async getAllPayment(req, res, next) {
-        const paymentInstance = new Payment();
-        const result = await paymentInstance.findAll();
+        const result = await this.payment.findAll();
         
         res.json(result);
     }
