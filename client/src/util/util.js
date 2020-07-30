@@ -4,3 +4,12 @@ export function bindEvent(query, event, handler, capturing=false) {
 
     element.addEventListener(event, handler, capturing);
 }
+
+export function bindEventAll(query, event, handler, capturing=false) {
+    const elements = [...document.querySelectorAll(query)];
+    if (!elements) return;
+
+    elements.forEach(element => {
+        element.addEventListener(event, handler, capturing);
+    })
+}
