@@ -18,7 +18,7 @@ const apiRouter = require("./route/api-router");
 app.use("/api", apiRouter);
 
 app.use("/", (req, res, next) => {
-  res.sendFile("public/hello.html", { root: __dirname });
+  res.sendFile("public/index.html", { root: __dirname });
 });
 
 // catch 404 and forward to error handler

@@ -11,7 +11,7 @@ const transactionControllerInstance = new TransactionController(transactionModel
 router.post("/", transactionControllerInstance.createTransaction
         .bind(transactionControllerInstance));
 
-router.get("/", transactionControllerInstance.getTxByYearMonth
+router.get("/:date", transactionControllerInstance.getTransactionByDate
         .bind(transactionControllerInstance));
 
 // TODO: update        

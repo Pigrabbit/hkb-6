@@ -16,9 +16,13 @@ class TransactionController {
     }
   }
 
-  async getTxByYearMonth(req, res, next) {
+  async getTransactionByDate(req, res, next) {
     try {
+      const date = req.params.date;
       
+      const transactions = await this.transaction.findByDate(date);
+
+      res.status(200).json(transactions);
     } catch (error) {
       next(error);
     }

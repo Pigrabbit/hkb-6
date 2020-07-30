@@ -1,3 +1,7 @@
+### GET /transaction api
+GET http://localhost:3000/api/transaction/2020_07
+
+
 ### POST /transaction api
 POST http://localhost:3000/api/transaction
 Content-Type: application/json
