@@ -1,24 +1,19 @@
 import "./Form.scss";
 import { bindEventAll } from "../util/util";
-import { addNewLedgeritem } from "../store";
+import {
+  subscribe,
+  addNewLedgeritem,
+  getIsFormIncomeSelected,
+  getIsFormOutcomeSelected,
+  toggleFormBtns,
+} from "../store";
 
 export default function Form() {
   const componentName = "form";
   let isPositive = true;
 
   function btnToggle(e) {
-    const incomeBtn = document.querySelector(".form-income-btn");
-    const outcomeBtn = document.querySelector(".form-outcome-btn");
-    if (e.target === incomeBtn) {
-      isPositive = true;
-      incomeBtn.classList.toggle("category-btn-clicked");
-      outcomeBtn.classList.toggle("category-btn-clicked");
-    }
-    if (e.target === outcomeBtn) {
-      isPositive = false;
-      incomeBtn.classList.toggle("category-btn-clicked");
-      outcomeBtn.classList.toggle("category-btn-clicked");
-    }
+    toggleFormBtns();
   }
 
   function preventDefaultBtn(e) {
@@ -33,19 +28,27 @@ export default function Form() {
       let amount = document.getElementById("transaction-amount").value;
       let content = document.getElementById("transaction-content").value;
       const data = {};
-      amount = isPositive ? +amount : -amount;
+
+      const isFormOutcomeSelected = getIsFormOutcomeSelected();
+      amount = isFormOutcomeSelected ? -amount : +amount;
       data[curdate] = { category, payment, amount, content };
       addNewLedgeritem(curdate, data);
     }
   }
 
   function render() {
+    const isFormIncomeSelected = getIsFormIncomeSelected();
+    const isFormOutcomeSelected = getIsFormOutcomeSelected();
     const html = `
         <div class="form-row">
             <div class="form-col">
               <label for="inout">분류</label>
-              <button class="form-income-btn category-btn-clicked">수입</button>
-              <button class="form-outcome-btn">지출</button>
+              <button class="form-income-btn ${
+                isFormIncomeSelected ? "category-btn-clicked" : ""
+              }">수입</button>
+              <button class="form-outcome-btn ${
+                isFormOutcomeSelected ? "category-btn-clicked" : ""
+              }">지출</button>
             </div>
           </div>
           <div class="form-row">
@@ -102,11 +105,14 @@ export default function Form() {
 
     // bindEvent("", "", )
     bindEventAll("button", "click", preventDefaultBtn);
-    bindEventAll("button", "click", btnToggle);
+    bindEventAll("button.form-income-btn", "click", btnToggle);
+    bindEventAll("button.form-outcome-btn", "click", btnToggle);
     bindEventAll("button", "click", submitForm);
   }
 
-  // subscribe(componentName, "", );
+  subscribe(componentName, "isFormIncomeSelected", render);
+  subscribe(componentName, "isFormOutcomeSelected", render);
+
   setTimeout(render, 0);
 
   return `<form class=${componentName}></form>`;

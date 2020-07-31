@@ -3,6 +3,15 @@ export const state = {
     data: false,
     listeners: {},
   },
+  isFormIncomeSelected: {
+    data: false,
+    listeners: {},
+  },
+  isFormOutcomeSelected: {
+    data: true,
+    listeners: {},
+  },
+
   ledgerItem: {
     data: {
       "2020-07-30": [
@@ -44,6 +53,20 @@ const publish = (key) =>
   Object.values(key.listeners).forEach((eventHandler) =>
     eventHandler(key.data)
   );
+
+export function getIsFormIncomeSelected() {
+  return state.isFormIncomeSelected.data;
+}
+export function getIsFormOutcomeSelected() {
+  return state.isFormOutcomeSelected.data;
+}
+export function toggleFormBtns() {
+  state.isFormIncomeSelected.data = !state.isFormIncomeSelected.data;
+  state.isFormOutcomeSelected.data = !state.isFormOutcomeSelected.data;
+
+  publish(state.isFormIncomeSelected);
+  publish(state.isFormOutcomeSelected);
+}
 
 export function addNewLedgeritem(date, data) {
   if (isDateInKey(date)) state.ledgerItem.data[date] = [data[date]];
