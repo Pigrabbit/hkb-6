@@ -51,8 +51,18 @@
    
   }
 
-  &-col {
+  &-col{
+    margin:0;
+  }
+
+  &-col-2 {
     margin: 0;
+    display:flex;
+    flex-direction:column;
+
+    & label{
+      margin:0;
+    }
   }
 
   &-submit-btn {

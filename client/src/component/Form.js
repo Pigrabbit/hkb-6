@@ -88,7 +88,7 @@ export default function Form() {
             </div>
           </div>
           <div class="form-row">
-            <div class="form-col">
+            <div class="form-col-2">
               <label for="form-date">날짜</label>
               <input
                 type="date"
@@ -96,7 +96,7 @@ export default function Form() {
                 id="transaction-date"
               />
             </div>
-            <div class="form-col">
+            <div class="form-col-2">
               <label for="form-category">카테고리</label>
               <select name="transaction-category" id="transaction-category">
                 <option value="default">선택하세요</option>
@@ -105,7 +105,7 @@ export default function Form() {
                 <option value="기타수입">기타수입</option>
               </select>
             </div>
-            <div class="form-col">
+            <div class="form-col-2">
               <label for="form-payment">결제수단</label>
               <select name="transaction-payment" id="transaction-payment">
                 <option value="default">선택하세요</option>
