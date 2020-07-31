@@ -1,43 +1,65 @@
-@font-face { font-family: 'BMHANNAAir'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff') format('woff'); font-weight: normal; font-style: normal; }
-@import './reset';
-@import './variable';
+@font-face {
+  font-family: "BMHANNAAir";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@import "./reset";
+@import "./variable";
 
-*{
-    outline:none;
-    font-family:"BMHANNAAir";
-    scroll-behavior: smooth;
-    transition:0.5s;
+* {
+  outline: none;
+  font-family: "BMHANNAAir";
+  scroll-behavior: smooth;
+  transition: 0.5s;
 }
 
-button:hover{
-    cursor: pointer;
+button:hover {
+  cursor: pointer;
 }
 
-#brocolli{
-    position:fixed;
-    bottom:-20px;
-    right:-20px;
-    transform:rotate(-30deg);
-    height:300px;
-    width:300px;
-    z-index:-1;
+#brocolli {
+  position: fixed;
+  bottom: -20px;
+  right: -20px;
+  transform: rotate(-30deg);
+  height: 300px;
+  width: 300px;
+  z-index: -1;
 }
 
 #app {
-    display:flex;
-    flex-direction:column;
-    height:100vh;
-    width:100vw;
-    align-items:center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
 }
 
-section{
-    display:flex;
-    flex-direction:column;
-    width:60%;
-    align-items:center;
+section {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  align-items: center;
 
-    & *{
-        margin:20px 0;
-    }
+  & * {
+    margin: 20px 0;
+  }
+}
+
+.income-text {
+  color: $income-color;
+}
+
+.outcome-text {
+  color: $outcome-color;
+}
+
+.income-element {
+  background-color: $income-color;
+}
+
+.outcome-element {
+  background-color: $outcome-color;
 }
