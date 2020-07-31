@@ -7,6 +7,7 @@ import {
   getIsFormOutcomeSelected,
   toggleFormBtns,
   getIsAlertlVisible,
+  toggleAlertMsg,
 } from "../store";
 
 export default function Form() {
@@ -48,10 +49,19 @@ export default function Form() {
 
   function attachComma(e) {
     const inputtedString = e.target.value.replace(/,/g, "");
-    if (!isNumber(inputtedString) || inputtedString.length > 12) {
-      const amountField = document.getElementById("transaction-amount");
+    const alertMsg = document.getElementById("alert-msg");
+    const amountField = document.getElementById("transaction-amount");
+    alertMsg.innerText = "";
+    if (!isNumber(inputtedString)) {
       amountField.value = "";
       amountField.focus();
+      alertMsg.innerText = `숫자로만 입력할 수 있습니다.`;
+      return;
+    }
+    if (inputtedString.length > 12) {
+      amountField.value = "";
+      amountField.focus();
+      alertMsg.innerText = `숫자가 너무 큽니다.`;
       return;
     }
     e.target.value = numberWithCommas(inputtedString);
@@ -64,7 +74,7 @@ export default function Form() {
   function render() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
-    const isVisible = getIsAlertlVisible();
+    const isAlertVisible = getIsAlertlVisible();
     const html = `
         <div class="form-row">
             <div class="form-col">
@@ -125,8 +135,7 @@ export default function Form() {
               />
             </div>
           </div>
-          <div id="alert-msg" class="form-row ${isVisible ? "" : "hidden"}">
-          </div>
+          <div id="alert-msg" class="form-row"></div>
           <button class="form-submit-btn">확인</button>
         `;
 

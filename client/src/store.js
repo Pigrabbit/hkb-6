@@ -109,6 +109,11 @@ export function getIsAlertlVisible() {
   return state.isAlertVisible.data;
 }
 
+export function toggleAlertMsg() {
+  state.isAlertVisible.data = !state.isAlertVisible.data;
+  publish(state.isAlertVisible);
+}
+
 export function toggleModal() {
   state.isModalVisible.data = !state.isModalVisible.data;
   publish(state.isModalVisible);
