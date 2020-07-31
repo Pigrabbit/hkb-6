@@ -1,8 +1,13 @@
 import "./Modal.scss";
-import { subscribe, getIsModalVisible, getPaymentList } from "../store";
+import { subscribe, getIsModalVisible, getPaymentList, toggleModal } from "../store";
+import { bindEvent } from "../util/util";
 
 export default function Modal() {
   const componentName = "modal";
+
+  function onCloseBtnClick(e) {
+    toggleModal();
+  }
 
   function render() {
     const isVisible = getIsModalVisible();
@@ -45,7 +50,7 @@ export default function Modal() {
     const $modal = document.querySelector(`.${componentName}-wrapper`);
     $modal.innerHTML = html;
 
-    // bindEvent("", "", )
+    bindEvent("button.modal-close-btn", "click", onCloseBtnClick);
   }
 
   subscribe(componentName, "isModalVisible", render);

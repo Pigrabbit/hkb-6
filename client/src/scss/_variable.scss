@@ -5,11 +5,13 @@ $small-font:20px;
 $brown-font:#4d3e3e;
 $mint-color:#4cd3c2;
 
+$income-color: #ff7675;
+$outcome-color: #0984e3;
+
 @mixin btn-style{
     font-size:$small-font;
     background:none;
     color:#fff;
     font-size:24px;
-   
 }
 

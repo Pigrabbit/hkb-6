@@ -22,29 +22,46 @@
   }
 
   &-record {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    &-col {
-      display: flex;
-      align-items: center;
-      & div {
-        margin: 0 10px;
-      }
-    }
+    display: grid;
+    grid-template-columns: 15% 45% 20% 20%;
+    height: 100%;
 
     .record-category {
-      background: salmon;
-      color: #fff;
+      grid-column: 1 / 2;
+      color: white;
+      width: 80%;
       border-radius: 10px;
       padding: 5px;
+
+      text-align: center;
+      justify-self: center;
+      align-self: center;
+    }
+
+    .record-content {
+      padding: 16px;
+      grid-column: 2 / 3;
+      align-self: center;
+    }
+
+    .record-payment {
+      grid-column: 3 / 4;
+      align-self: center;
+      text-align: center;
+    }
+
+    .record-amount {
+      grid-column: 4 / 5;
+      padding: 10px;
+      text-align: end;
+      justify-self: end;
+      align-self: center;
     }
   }
 
   & li {
     width: 100%;
     border-bottom: 2px solid #ddd;
-    height: 50px;
     margin: 0;
     background: #fff;
   }

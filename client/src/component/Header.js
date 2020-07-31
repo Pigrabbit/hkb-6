@@ -1,12 +1,11 @@
 import "./Header.scss";
 import { bindEvent } from "../util/util";
-import { toggleModal } from "../store";
+import { toggleModal, fetchPaymentList } from "../store";
 
 export default function Header() {
   const componentName = "header";
 
   function onPaymentBtnClick(e) {
-    console.log(e.target)
     toggleModal();
   }
 
@@ -27,6 +26,7 @@ export default function Header() {
     bindEvent("button.header-payment-btn", "click", onPaymentBtnClick);
   }
 
+  fetchPaymentList();
   setTimeout(render, 0);
 
   return `<header class=${componentName}></header>`;

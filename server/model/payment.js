@@ -6,7 +6,7 @@ class Payment {
   async findAll() {
     const conn = await this.db.getConnection();
     try {
-      const query = "elect payment_name from payment";
+      const query = "select payment_name from payment";
       const [rows] = await conn.query(query);
 
       return rows;

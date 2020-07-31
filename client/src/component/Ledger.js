@@ -1,12 +1,14 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
-import { subscribe, getLedgerItemDate } from "../store";
+import { subscribe, getLedgerItemDate, fetchLedgerItem } from "../store";
 
 export default function Ledger() {
   const componentName = "ledger";
-
+  fetchLedgerItem();
+  
   function render() {
     const ledgerDate = getLedgerItemDate();
+
     const html = `
       ${ledgerDate
         .map((date, idx) => {
@@ -22,6 +24,7 @@ export default function Ledger() {
   }
 
   subscribe(componentName, "ledgerItem", render);
+
   setTimeout(render, 0);
 
   return `<article class=${componentName}></article>`;
