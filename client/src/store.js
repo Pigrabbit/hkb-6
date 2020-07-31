@@ -3,6 +3,10 @@ export const state = {
     data: false,
     listeners: {},
   },
+  isAlertVisible: {
+    data: false,
+    listeners: {},
+  },
   isFormIncomeSelected: {
     data: false,
     listeners: {},
@@ -98,6 +102,9 @@ export function getLedgerItemByDate(date) {
 
 export function getIsModalVisible() {
   return state.isModalVisible.data;
+}
+export function getIsAlertlVisible() {
+  return state.isAlertVisible.data;
 }
 
 export function toggleModal() {

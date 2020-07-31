@@ -6,6 +6,7 @@ import {
   getIsFormIncomeSelected,
   getIsFormOutcomeSelected,
   toggleFormBtns,
+  getIsAlertlVisible,
 } from "../store";
 
 export default function Form() {
@@ -47,7 +48,7 @@ export default function Form() {
 
   function attachComma(e) {
     const inputtedString = e.target.value.replace(/,/g, "");
-    if (!isNumber(inputtedString)) {
+    if (!isNumber(inputtedString) || inputtedString.length > 12) {
       const amountField = document.getElementById("transaction-amount");
       amountField.value = "";
       amountField.focus();
@@ -63,6 +64,7 @@ export default function Form() {
   function render() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
+    const isVisible = getIsAlertlVisible();
     const html = `
         <div class="form-row">
             <div class="form-col">
@@ -122,6 +124,8 @@ export default function Form() {
                 placeholder="내용을 입력하세요"
               />
             </div>
+          </div>
+          <div id="alert-msg" class="form-row ${isVisible ? "" : "hidden"}">
           </div>
           <button class="form-submit-btn">확인</button>
         `;
