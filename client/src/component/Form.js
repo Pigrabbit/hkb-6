@@ -20,8 +20,8 @@ export default function Form() {
   }
 
   function submitForm(e) {
+    const $form = document.querySelector(".form");
     if (e.target.classList.contains("form-submit-btn")) {
-      const $form = document.querySelector(".form");
       const $inputElements = [
         ...$form.querySelectorAll("input:not(#transaction-date),select"),
       ];
@@ -47,7 +47,7 @@ export default function Form() {
 
   function attachComma(e) {
     const inputtedString = e.target.value.replace(/,/g, "");
-    if (!isNumber(string)) {
+    if (!isNumber(inputtedString)) {
       const amountField = document.getElementById("transaction-amount");
       amountField.value = "";
       amountField.focus();
