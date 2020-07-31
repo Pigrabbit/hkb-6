@@ -72,6 +72,10 @@ export function addNewLedgeritem(date, data) {
   if (isDateInKey(date)) state.ledgerItem.data[date] = [data[date]];
   else state.ledgerItem.data[date].push(data[date]);
   publish(state.ledgerItem);
+  const inputs = document.querySelectorAll(".form-input-text");
+  inputs.forEach((input) => {
+    input.value = "";
+  });
 }
 
 function isDateInKey(date) {
