@@ -17,7 +17,7 @@ export const state = {
       "2020-07-30": [
         {
           category: "쇼핑/뷰티",
-          content: "미용실",
+          content: "칫솔",
           payment: "현대카드",
           amount: "-20000",
         },

@@ -46,7 +46,18 @@ export default function Form() {
   }
 
   function attachComma(e) {
-    e.target.value = numberWithCommas(e.target.value.replace(/,/g, ""));
+    const inputtedString = e.target.value.replace(/,/g, "");
+    if (!isNumber(string)) {
+      const amountField = document.getElementById("transaction-amount");
+      amountField.value = "";
+      amountField.focus();
+      return;
+    }
+    e.target.value = numberWithCommas(inputtedString);
+  }
+
+  function isNumber(x) {
+    return /^\d+$/.test(x);
   }
 
   function render() {
@@ -99,7 +110,8 @@ export default function Form() {
                 type="text"
                 class="form-input-text"
                 id="transaction-amount"
-              />원
+                placeholder="1,000"
+              /> 원
             </div>
             <div class="form-col">
               <label for="form-content">내용</label>
@@ -107,6 +119,7 @@ export default function Form() {
                 type="text"
                 class="form-input-text"
                 id="transaction-content"
+                placeholder="내용을 입력하세요"
               />
             </div>
           </div>
