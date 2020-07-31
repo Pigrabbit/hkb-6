@@ -13,7 +13,7 @@ export default function Form() {
   const componentName = "form";
 
   function btnToggle(e) {
-    toggleFormBtns();
+    toggleFormBtns(e);
   }
 
   function preventDefaultBtn(e) {
@@ -70,10 +70,10 @@ export default function Form() {
             <div class="form-col">
               <label for="inout">분류</label>
               <button class="form-income-btn ${
-                isFormIncomeSelected ? "category-btn-clicked" : ""
+                isFormIncomeSelected ? "category-btn-income-clicked" : ""
               }">수입</button>
               <button class="form-outcome-btn ${
-                isFormOutcomeSelected ? "category-btn-clicked" : ""
+                isFormOutcomeSelected ? "category-btn-outcome-clicked" : ""
               }">지출</button>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function Form() {
     bindEvent("input.form-input-text", "input", attachComma);
     bindEventAll("button", "click", submitForm);
   }
-
+  subscribe(componentName, "isAlertVisible", render);
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
 

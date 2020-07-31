@@ -22,7 +22,8 @@
     background: #fff;
     border: 1px solid #4cd3c2;
     border-radius: 15px;
-    box-shadow: 0 3px #999;
+    box-shadow: 0 4px #999;
+    transition:2s;
   }
   #transaction-amount{
     text-align:right;
@@ -66,13 +67,20 @@
 
 @mixin toggleBtn {
   background: #4cd3c2;
-  color:#fff;
-  box-shadow: 0 2px #666;
+  color:black;
+  box-shadow: 0 1px #666;
   transform: translateY(1.5px);
 }
 
-.category-btn-clicked{
+.category-btn-income-clicked{
   @include toggleBtn;
+}
+
+.category-btn-outcome-clicked{
+ @include toggleBtn;
+ background:salmon;
+ border-color:salmon;
+ color:#fff;
 }
 
 .alert-msg{
