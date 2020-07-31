@@ -3,6 +3,10 @@ export const state = {
     data: false,
     listeners: {},
   },
+  isAlertVisible: {
+    data: false,
+    listeners: {},
+  },
   isFormIncomeSelected: {
     data: false,
     listeners: {},
@@ -17,7 +21,7 @@ export const state = {
       "2020-07-30": [
         {
           category: "쇼핑/뷰티",
-          content: "미용실",
+          content: "칫솔",
           payment: "현대카드",
           amount: "-20000",
         },
@@ -60,7 +64,9 @@ export function getIsFormIncomeSelected() {
 export function getIsFormOutcomeSelected() {
   return state.isFormOutcomeSelected.data;
 }
-export function toggleFormBtns() {
+export function toggleFormBtns(e) {
+  if (e.target.classList.contains("category-btn-income-clicked")) return;
+  if (e.target.classList.contains("category-btn-outcome-clicked")) return;
   state.isFormIncomeSelected.data = !state.isFormIncomeSelected.data;
   state.isFormOutcomeSelected.data = !state.isFormOutcomeSelected.data;
 
@@ -72,6 +78,10 @@ export function addNewLedgeritem(date, data) {
   if (isDateInKey(date)) state.ledgerItem.data[date] = [data[date]];
   else state.ledgerItem.data[date].push(data[date]);
   publish(state.ledgerItem);
+  const inputs = document.querySelectorAll(".form-input-text");
+  inputs.forEach((input) => {
+    input.value = "";
+  });
 }
 
 function isDateInKey(date) {
@@ -94,6 +104,14 @@ export function getLedgerItemByDate(date) {
 
 export function getIsModalVisible() {
   return state.isModalVisible.data;
+}
+export function getIsAlertlVisible() {
+  return state.isAlertVisible.data;
+}
+
+export function toggleAlertMsg() {
+  state.isAlertVisible.data = !state.isAlertVisible.data;
+  publish(state.isAlertVisible);
 }
 
 export function toggleModal() {

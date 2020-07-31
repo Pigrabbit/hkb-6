@@ -1,19 +1,20 @@
 import "./Form.scss";
-import { bindEventAll } from "../util/util";
+import { bindEventAll, bindEvent } from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
   getIsFormIncomeSelected,
   getIsFormOutcomeSelected,
   toggleFormBtns,
+  getIsAlertlVisible,
+  toggleAlertMsg,
 } from "../store";
 
 export default function Form() {
   const componentName = "form";
-  let isPositive = true;
 
   function btnToggle(e) {
-    toggleFormBtns();
+    toggleFormBtns(e);
   }
 
   function preventDefaultBtn(e) {
@@ -21,38 +22,73 @@ export default function Form() {
   }
 
   function submitForm(e) {
+    const $form = document.querySelector(".form");
     if (e.target.classList.contains("form-submit-btn")) {
+      const $inputElements = [
+        ...$form.querySelectorAll("input:not(#transaction-date),select"),
+      ];
       let curdate = document.getElementById("transaction-date").value;
-      let category = document.getElementById("transaction-category").value;
-      let payment = document.getElementById("transaction-payment").value;
-      let amount = document.getElementById("transaction-amount").value;
-      let content = document.getElementById("transaction-content").value;
-      const data = {};
-
+      const tmp = {};
+      tmp[curdate] = {};
+      $inputElements.forEach((element) => {
+        const id = element.id.toString().split("-")[1];
+        tmp[curdate][id] = element.value;
+      });
       const isFormOutcomeSelected = getIsFormOutcomeSelected();
-      amount = isFormOutcomeSelected ? -amount : +amount;
-      data[curdate] = { category, payment, amount, content };
-      addNewLedgeritem(curdate, data);
+      let absoluteAmount = tmp[curdate]["amount"];
+      absoluteAmount = isFormOutcomeSelected
+        ? -absoluteAmount
+        : +absoluteAmount;
+      addNewLedgeritem(curdate, tmp);
     }
+  }
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  function attachComma(e) {
+    const inputtedString = e.target.value.replace(/,/g, "");
+    const alertMsg = document.getElementById("alert-msg");
+    const amountField = document.getElementById("transaction-amount");
+    alertMsg.innerText = "";
+    if (!isNumber(inputtedString)) {
+      amountField.value = "";
+      amountField.focus();
+      alertMsg.innerText = `숫자로만 입력할 수 있습니다.`;
+      return;
+    }
+    if (inputtedString.length > 12) {
+      amountField.value = "";
+      amountField.focus();
+      alertMsg.innerText = `숫자가 너무 큽니다.`;
+      return;
+    }
+    e.target.value = numberWithCommas(inputtedString);
+  }
+
+  function isNumber(x) {
+    return /^\d+$/.test(x);
   }
 
   function render() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
+    const isAlertVisible = getIsAlertlVisible();
     const html = `
         <div class="form-row">
             <div class="form-col">
               <label for="inout">분류</label>
               <button class="form-income-btn ${
-                isFormIncomeSelected ? "category-btn-clicked" : ""
+                isFormIncomeSelected ? "category-btn-income-clicked" : ""
               }">수입</button>
               <button class="form-outcome-btn ${
-                isFormOutcomeSelected ? "category-btn-clicked" : ""
+                isFormOutcomeSelected ? "category-btn-outcome-clicked" : ""
               }">지출</button>
             </div>
           </div>
           <div class="form-row">
-            <div class="form-col">
+            <div class="form-col-2">
               <label for="form-date">날짜</label>
               <input
                 type="date"
@@ -60,7 +96,7 @@ export default function Form() {
                 id="transaction-date"
               />
             </div>
-            <div class="form-col">
+            <div class="form-col-2">
               <label for="form-category">카테고리</label>
               <select name="transaction-category" id="transaction-category">
                 <option value="default">선택하세요</option>
@@ -69,7 +105,7 @@ export default function Form() {
                 <option value="기타수입">기타수입</option>
               </select>
             </div>
-            <div class="form-col">
+            <div class="form-col-2">
               <label for="form-payment">결제수단</label>
               <select name="transaction-payment" id="transaction-payment">
                 <option value="default">선택하세요</option>
@@ -86,7 +122,8 @@ export default function Form() {
                 type="text"
                 class="form-input-text"
                 id="transaction-amount"
-              />
+                placeholder="1,000"
+              /> 원
             </div>
             <div class="form-col">
               <label for="form-content">내용</label>
@@ -94,22 +131,23 @@ export default function Form() {
                 type="text"
                 class="form-input-text"
                 id="transaction-content"
+                placeholder="내용을 입력하세요"
               />
             </div>
           </div>
+          <div id="alert-msg" class="form-row"></div>
           <button class="form-submit-btn">확인</button>
         `;
 
     const $form = document.querySelector(`.${componentName}`);
     $form.innerHTML = html;
-
-    // bindEvent("", "", )
     bindEventAll("button", "click", preventDefaultBtn);
-    bindEventAll("button.form-income-btn", "click", btnToggle);
-    bindEventAll("button.form-outcome-btn", "click", btnToggle);
+    bindEvent("button.form-income-btn", "click", btnToggle);
+    bindEvent("button.form-outcome-btn", "click", btnToggle);
+    bindEvent("input.form-input-text", "input", attachComma);
     bindEventAll("button", "click", submitForm);
   }
-
+  subscribe(componentName, "isAlertVisible", render);
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
 
