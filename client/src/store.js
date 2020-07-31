@@ -14,7 +14,6 @@ export const state = {
     data: true,
     listeners: {},
   },
-
   ledgerItem: {
     data: {},
     listeners: {},
@@ -23,15 +22,23 @@ export const state = {
     data: [],
     listeners: {},
   },
+  isLedgerIncomeVisible: {
+    data: true,
+    listeners: {}
+  },
+  isLedgerOutcomeVisible: {
+    data: true,
+    listeners: {}
+  },
 };
 
-export const subscribe = (component, key, eventHandler) => {
-  state[key].listeners[component] = eventHandler;
+export const subscribe = (component, key, action) => {
+  state[key].listeners[component] = action;
 };
 
 const publish = (key) =>
-  Object.values(key.listeners).forEach((eventHandler) =>
-    eventHandler(key.data)
+  Object.values(key.listeners).forEach((action) =>
+    action(key.data)
   );
 
 export function getIsFormIncomeSelected() {
@@ -93,4 +100,25 @@ export function getPaymentList() {
 export function fetchLedgerItem() {
   state.ledgerItem.data = fetchMockLedgerItem();
   publish(state.ledgerItem);
+}
+
+export function getIsLedgerIncomeVisible() {
+  return state.isLedgerIncomeVisible.data;
+}
+
+export function toggleLedgerIncomeVisible() {
+  console.log(state.isLedgerIncomeVisible)
+  state.isLedgerIncomeVisible.data = !state.isLedgerIncomeVisible.data;
+  console.log(state.isLedgerIncomeVisible)
+
+  publish(state.isLedgerIncomeVisible);
+}
+
+export function getIsLedgerOutcomeVisible() {
+  return state.isLedgerOutcomeVisible.data;
+}
+
+export function toggleLedgerOutcomeVisible() {
+  state.isLedgerOutcomeVisible.data = !state.isLedgerOutcomeVisible.data;
+  publish(state.isLedgerOutcomeVisible);
 }

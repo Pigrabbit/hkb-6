@@ -1,13 +1,31 @@
 import "./Filter.scss";
+import { bindEvent } from "../util/util";
+import { getIsLedgerIncomeVisible, getIsLedgerOutcomeVisible, toggleLedgerOutcomeVisible, toggleLedgerIncomeVisible, subscribe } from "../store";
 
 export default function Filter() {
   const componentName = "filter";
+  // TODO
+  // 수입, 지출 체크박스 선택여부에 따라 store의 정보 toggle하기
+
+  function onIncomeFilterClick(e) {
+    // console.log(e.target);
+    toggleLedgerIncomeVisible();
+  }
+
+  function onOutcomeFilterClick(e) {
+    // console.log(e.target)
+    toggleLedgerOutcomeVisible();
+  }
 
   function render() {
+    const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
+    const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
+
     const html = ` 
     <li class="filter-item">
         <input
           type="checkbox"
+          checked=${isLedgerIncomeVisible}
           id="filter-item-income"
           name="filter-item-income"
           value="filter-item-income"
@@ -19,6 +37,7 @@ export default function Filter() {
       <li class="filter-item">
         <input
           type="checkbox"
+          checked=${isLedgerOutcomeVisible}
           id="filter-item-outcome"
           name="filter-item-outcome"
           value="filter-item-outcome"
@@ -31,8 +50,12 @@ export default function Filter() {
     const $filter = document.querySelector(`.${componentName}`);
     $filter.innerHTML = html;
 
-    // bindEvent("", "", )
+    bindEvent("input#filter-item-income", "click", onIncomeFilterClick);
+    bindEvent("input#filter-item-outcome", "click", onOutcomeFilterClick);
   }
+
+  // subscribe(componentName, "isLedgerOutcomeVisible", render);
+  // subscribe(componentName, "isLedgerIncomeVisible", render);
 
   // subscribe(componentName, "", );
   setTimeout(render, 0);
