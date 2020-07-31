@@ -18,7 +18,7 @@ const apiRouter = require("./route/api-router");
 app.use("/api", apiRouter);
 
 app.use("/", (req, res, next) => {
-  res.sendFile("public/hello.html", { root: __dirname });
+  res.sendFile("public/index.html", { root: __dirname });
 });
 
 // catch 404 and forward to error handler
@@ -28,7 +28,8 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
+  console.error(err);
+  res.json({ message: err.message });
 });
 
 app.listen(process.env.PORT || 3000, () => {

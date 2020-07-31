@@ -1,16 +1,16 @@
-const Payment = require("../model/payment")
-
 class PaymentController {
-    constructor() {
+  constructor(payment) {
+    this.payment = payment;
+  }
 
+  async getAllPayment(req, res, next) {
+    try {
+      const result = await this.payment.findAll();
+      res.json(result);
+    } catch (error) {
+      next(error);
     }
-
-    async getAllPayment(req, res, next) {
-        const paymentInstance = new Payment();
-        const result = await paymentInstance.findAll();
-        
-        res.json(result);
-    }
+  }
 }
 
 module.exports = PaymentController;
