@@ -8,12 +8,10 @@ export default function Filter() {
   // 수입, 지출 체크박스 선택여부에 따라 store의 정보 toggle하기
 
   function onIncomeFilterClick(e) {
-    // console.log(e.target);
     toggleLedgerIncomeVisible();
   }
 
   function onOutcomeFilterClick(e) {
-    // console.log(e.target)
     toggleLedgerOutcomeVisible();
   }
 
@@ -25,7 +23,7 @@ export default function Filter() {
     <li class="filter-item">
         <input
           type="checkbox"
-          checked=${isLedgerIncomeVisible}
+          ${isLedgerIncomeVisible ? "checked": ""}
           id="filter-item-income"
           name="filter-item-income"
           value="filter-item-income"
@@ -37,7 +35,7 @@ export default function Filter() {
       <li class="filter-item">
         <input
           type="checkbox"
-          checked=${isLedgerOutcomeVisible}
+          ${isLedgerOutcomeVisible ? "checked": ""}
           id="filter-item-outcome"
           name="filter-item-outcome"
           value="filter-item-outcome"
@@ -54,10 +52,9 @@ export default function Filter() {
     bindEvent("input#filter-item-outcome", "click", onOutcomeFilterClick);
   }
 
-  // subscribe(componentName, "isLedgerOutcomeVisible", render);
-  // subscribe(componentName, "isLedgerIncomeVisible", render);
+  subscribe(componentName, "isLedgerOutcomeVisible", render);
+  subscribe(componentName, "isLedgerIncomeVisible", render);
 
-  // subscribe(componentName, "", );
   setTimeout(render, 0);
 
   return `<ul class=${componentName}></ul>`;

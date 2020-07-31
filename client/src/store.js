@@ -107,10 +107,7 @@ export function getIsLedgerIncomeVisible() {
 }
 
 export function toggleLedgerIncomeVisible() {
-  console.log(state.isLedgerIncomeVisible)
   state.isLedgerIncomeVisible.data = !state.isLedgerIncomeVisible.data;
-  console.log(state.isLedgerIncomeVisible)
-
   publish(state.isLedgerIncomeVisible);
 }
 
