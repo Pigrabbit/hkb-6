@@ -3,21 +3,40 @@ export const state = {
     data: false,
     listeners: {},
   },
+  isFormIncomeSelected: {
+    data: false,
+    listeners: {},
+  },
+  isFormOutcomeSelected: {
+    data: true,
+    listeners: {},
+  },
+
   ledgerItem: {
-    data: [
-      {
-        category: "쇼핑/뷰티",
-        content: "미용실",
-        payment: "현대카드",
-        amount: "-20000원",
-      },
-      {
-        category: "식품",
-        content: "편의점",
-        payment: "우리카드",
-        amount: "-1000원",
-      },
-    ], // [{}, {}, {}]
+    data: {
+      "2020-07-30": [
+        {
+          category: "쇼핑/뷰티",
+          content: "미용실",
+          payment: "현대카드",
+          amount: "-20000",
+        },
+        {
+          category: "쇼핑/뷰티",
+          content: "미용실",
+          payment: "현대카드",
+          amount: "-20000",
+        },
+      ],
+      "2020-07-29": [
+        {
+          category: "식품",
+          content: "편의점",
+          payment: "우리카드",
+          amount: "-1000",
+        },
+      ],
+    },
     listeners: {},
   },
   paymentList: {
@@ -35,8 +54,42 @@ const publish = (key) =>
     eventHandler(key.data)
   );
 
+export function getIsFormIncomeSelected() {
+  return state.isFormIncomeSelected.data;
+}
+export function getIsFormOutcomeSelected() {
+  return state.isFormOutcomeSelected.data;
+}
+export function toggleFormBtns() {
+  state.isFormIncomeSelected.data = !state.isFormIncomeSelected.data;
+  state.isFormOutcomeSelected.data = !state.isFormOutcomeSelected.data;
+
+  publish(state.isFormIncomeSelected);
+  publish(state.isFormOutcomeSelected);
+}
+
+export function addNewLedgeritem(date, data) {
+  if (isDateInKey(date)) state.ledgerItem.data[date] = [data[date]];
+  else state.ledgerItem.data[date].push(data[date]);
+  publish(state.ledgerItem);
+}
+
+function isDateInKey(date) {
+  return (
+    Object.keys(state.ledgerItem.data).find((key) => key === date) === undefined
+  );
+}
+
 export function getLedgerItem() {
   return state.ledgerItem.data;
+}
+
+export function getLedgerItemDate() {
+  return Object.keys(state.ledgerItem.data);
+}
+
+export function getLedgerItemByDate(date) {
+  return state.ledgerItem.data[date];
 }
 
 export function getIsModalVisible() {

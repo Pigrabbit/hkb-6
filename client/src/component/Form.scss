@@ -1,5 +1,7 @@
 @import "../scss/variable";
 
+
+
 .form {
   font-size: $mid-font;
   display: flex;
@@ -7,6 +9,23 @@
   min-height: 200px;
   width: 100%;
   border-radius: 10px;
+  box-shadow: 3px 3px 4px darkgray;
+
+  &-income-btn,
+  &-outcome-btn {
+    padding: 5px 10px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #4cd3c2;
+    background: #fff;
+    border: 1px solid #4cd3c2;
+    border-radius: 15px;
+    box-shadow: 0 3px #999;
+  }
+
+
 
   &-row {
     margin: 0 20px;
@@ -15,8 +34,8 @@
     justify-content: space-between;
 
     & input,
-    & select,
-    & button {
+    & select
+     {
       margin: 10px 0;
       border: none;
       border-bottom: 2px solid darkgray;
@@ -25,12 +44,7 @@
     & select {
       width: 150px;
     }
-
-    & button {
-      border: 1px solid #4cd3c2;
-      background: #fff;
-      color: #4cd3c2;
-    }
+   
   }
 
   &-col {
@@ -45,4 +59,15 @@
     border-radius: 0 0 5px 5px;
     height: 40px;
   }
+}
+
+@mixin toggleBtn {
+  background: #4cd3c2;
+  color:#fff;
+  box-shadow: 0 2px #666;
+  transform: translateY(1.5px);
+}
+
+.category-btn-clicked{
+  @include toggleBtn;
 }
