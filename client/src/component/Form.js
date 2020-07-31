@@ -10,7 +10,6 @@ import {
 
 export default function Form() {
   const componentName = "form";
-  let isPositive = true;
 
   function btnToggle(e) {
     toggleFormBtns();
@@ -22,17 +21,23 @@ export default function Form() {
 
   function submitForm(e) {
     if (e.target.classList.contains("form-submit-btn")) {
+      const $form = document.querySelector(".form");
+      const $inputElements = [
+        ...$form.querySelectorAll("input:not(#transaction-date),select"),
+      ];
       let curdate = document.getElementById("transaction-date").value;
-      let category = document.getElementById("transaction-category").value;
-      let payment = document.getElementById("transaction-payment").value;
-      let amount = document.getElementById("transaction-amount").value;
-      let content = document.getElementById("transaction-content").value;
-      const data = {};
-
+      const tmp = {};
+      tmp[curdate] = {};
+      $inputElements.forEach((element) => {
+        const id = element.id.toString().split("-")[1];
+        tmp[curdate][id] = element.value;
+      });
       const isFormOutcomeSelected = getIsFormOutcomeSelected();
-      amount = isFormOutcomeSelected ? -amount : +amount;
-      data[curdate] = { category, payment, amount, content };
-      addNewLedgeritem(curdate, data);
+      let absoluteAmount = tmp[curdate]["amount"];
+      absoluteAmount = isFormOutcomeSelected
+        ? -absoluteAmount
+        : +absoluteAmount;
+      addNewLedgeritem(curdate, tmp);
     }
   }
 
