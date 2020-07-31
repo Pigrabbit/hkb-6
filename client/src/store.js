@@ -1,3 +1,6 @@
+import { getPaymentListFromServer } from "./service/paymentService"
+import { fetchMockLedgerItem } from "./Data";
+
 export const state = {
   isModalVisible: {
     data: false,
@@ -14,28 +17,28 @@ export const state = {
 
   ledgerItem: {
     data: {
-      "2020-07-30": [
-        {
-          category: "쇼핑/뷰티",
-          content: "미용실",
-          payment: "현대카드",
-          amount: "-20000",
-        },
-        {
-          category: "쇼핑/뷰티",
-          content: "미용실",
-          payment: "현대카드",
-          amount: "-20000",
-        },
-      ],
-      "2020-07-29": [
-        {
-          category: "식품",
-          content: "편의점",
-          payment: "우리카드",
-          amount: "-1000",
-        },
-      ],
+      // "2020-07-30": [
+      //   {
+      //     category: "쇼핑/뷰티",
+      //     content: "미용실",
+      //     payment: "현대카드",
+      //     amount: "-20000",
+      //   },
+      //   {
+      //     category: "쇼핑/뷰티",
+      //     content: "미용실",
+      //     payment: "현대카드",
+      //     amount: "-20000",
+      //   },
+      // ],
+      // "2020-07-29": [
+      //   {
+      //     category: "식품",
+      //     content: "편의점",
+      //     payment: "우리카드",
+      //     amount: "-1000",
+      //   },
+      // ],
     },
     listeners: {},
   },
@@ -101,20 +104,16 @@ export function toggleModal() {
   publish(state.isModalVisible);
 }
 
-export function fetchPaymentList() {
-  return new Promise((resolve, reject) => {
-    fetch("http://localhost:3000/api/payment", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((err) => reject(err));
-  });
+export async function fetchPaymentList() {
+  state.paymentList.data = await getPaymentListFromServer();
+  publish(state.paymentList);
 }
 
 export function getPaymentList() {
-  fetchPaymentList().then((data) => (state.paymentList.data = data));
   return state.paymentList.data;
+}
+
+export function fetchLedgerItem() {
+  state.ledgerItem.data = fetchMockLedgerItem();
+  publish(state.ledgerItem);
 }
