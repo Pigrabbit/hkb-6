@@ -24,30 +24,29 @@ export default function LedgerItem(props, idx) {
     const outcomeSum =
       outcomeRecords.length > 0
         ? outcomeRecords.reduce(
-            (acc, cur) => acc + parseInt(cur.amount), 0)
+            (acc, cur) => acc + Math.abs(parseInt(cur.amount)), 0)
         : 0;
 
     const html = `
       <li class="ledger-item-header">
         <div class="ledger-item-header-date">${props.date}</div>
         <div class="ledger-item-header-amount">
-          <p class="ledger-item-header-amount-income income-text">+${incomeSum}원</p>
-          <p class="ledger-item-header-amount-outcome outcome-text">${outcomeSum}원</p>
+          <p class="ledger-item-header-amount-income income-text">+${incomeSum} 원</p>
+          <p class="ledger-item-header-amount-outcome outcome-text">-${outcomeSum} 원</p>
         </div>
       </li>
       ${records
         .map((record) => {
           return `
         <li class="ledger-item-record">
-        <div class="ledger-item-record-col">
+        
           <div class="record-category ${
             (record.t_type === "지출") 
             ? "outcome-element"
             : "income-element"
           }">${record.category}</div>
           <div class="record-content">${record.content}</div>
-        </div>
-        <div class="ledger-item-record-col">
+        
           <div class="record-payment">${record.payment}</div>
           <div class="record-amount ${
             (record.t_type === "지출") 
@@ -57,8 +56,8 @@ export default function LedgerItem(props, idx) {
             (record.t_type === "수입") 
             ? "+" + record.amount 
             : record.amount
-          }원</div>
-        </div>
+          } 원</div>
+        
       </li>`;
         })
         .join("")}
