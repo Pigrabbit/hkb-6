@@ -1,5 +1,5 @@
 import "./Form.scss";
-import { bindEventAll } from "../util/util";
+import { bindEventAll, bindEvent } from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -39,6 +39,14 @@ export default function Form() {
         : +absoluteAmount;
       addNewLedgeritem(curdate, tmp);
     }
+  }
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  function attachComma(e) {
+    e.target.value = numberWithCommas(e.target.value.replace(/,/g, ""));
   }
 
   function render() {
@@ -91,7 +99,7 @@ export default function Form() {
                 type="text"
                 class="form-input-text"
                 id="transaction-amount"
-              />
+              />원
             </div>
             <div class="form-col">
               <label for="form-content">내용</label>
@@ -107,11 +115,10 @@ export default function Form() {
 
     const $form = document.querySelector(`.${componentName}`);
     $form.innerHTML = html;
-
-    // bindEvent("", "", )
     bindEventAll("button", "click", preventDefaultBtn);
-    bindEventAll("button.form-income-btn", "click", btnToggle);
-    bindEventAll("button.form-outcome-btn", "click", btnToggle);
+    bindEvent("button.form-income-btn", "click", btnToggle);
+    bindEvent("button.form-outcome-btn", "click", btnToggle);
+    bindEvent("input.form-input-text", "input", attachComma);
     bindEventAll("button", "click", submitForm);
   }
 

@@ -39,10 +39,11 @@
       margin: 10px 0;
       border: none;
       border-bottom: 2px solid darkgray;
+      width:180px;
     }
 
-    & select {
-      width: 150px;
+    & input:not(#transaction-date) {
+      width: 240px;
     }
    
   }
