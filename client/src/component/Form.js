@@ -42,24 +42,40 @@ export default function Form() {
   //새로운 가계부를 입력하도록 form을 제출하는 함수
   function submitForm(e) {
     const $form = document.querySelector(".form");
-    if (e.target.classList.contains("form-submit-btn")) {
-      const $inputElements = [
-        ...$form.querySelectorAll("input:not(#transaction-date),select"),
-      ];
-      let curdate = document.getElementById("transaction-date").value;
-      const tmp = {};
-      tmp[curdate] = {};
-      $inputElements.forEach((element) => {
-        const id = element.id.toString().split("-")[1];
-        tmp[curdate][id] = element.value;
-      });
-      const isFormOutcomeSelected = getIsFormOutcomeSelected();
-      let absoluteAmount = removeComma(tmp[curdate]["amount"]);
-      tmp[curdate]["amount"] = isFormOutcomeSelected
-        ? -absoluteAmount
-        : +absoluteAmount;
-      addNewLedgeritem(curdate, tmp);
+    if (!e.target.classList.contains("form-submit-btn")) return;
+
+    const alertMsg = document.getElementById("alert-msg");
+    alertMsg.innerText = "";
+
+    const $inputElements = [
+      ...$form.querySelectorAll("input:not(#transaction-date),select"),
+    ];
+    let curdate = document.getElementById("transaction-date");
+    if (curdate.value === "" || curdate.value === "undefined") {
+      showAlertMessage(curdate, alertMsg, "날짜를 입력해주세요");
+      return;
     }
+    let passed = true;
+    $inputElements.forEach((element) => {
+      if (passed && (element.value === "" || element.value === "default")) {
+        passed = false;
+        showAlertMessage(element, alertMsg, "빈 부분을 입력하세요.");
+      }
+    });
+    if (!passed) return;
+
+    const tmp = {};
+    tmp[curdate.value] = {};
+    $inputElements.forEach((element) => {
+      const id = element.id.toString().split("-")[1];
+      tmp[curdate.value][id] = element.value;
+    });
+    const isFormOutcomeSelected = getIsFormOutcomeSelected();
+    let absoluteAmount = removeComma(tmp[curdate.value]["amount"]);
+    tmp[curdate.value]["amount"] = isFormOutcomeSelected
+      ? -absoluteAmount
+      : +absoluteAmount;
+    addNewLedgeritem(curdate.value, tmp);
   }
 
   //금액 유효성 검사 함수
@@ -90,6 +106,11 @@ export default function Form() {
         alertMsg,
         "내용에 - , / ^ 공백문자 외의 특수기호를 사용할 수 없습니다."
       );
+      return;
+    }
+
+    if (e.target.value.length > 50) {
+      showAlertMessage(e.target, alertMsg, "50글자 이상 입력할 수 없습니다.");
       return;
     }
   }
