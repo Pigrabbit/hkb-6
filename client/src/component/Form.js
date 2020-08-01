@@ -6,8 +6,6 @@ import {
   getIsFormIncomeSelected,
   getIsFormOutcomeSelected,
   toggleFormBtns,
-  getIsAlertlVisible,
-  toggleAlertMsg,
 } from "../store";
 
 export default function Form() {
@@ -35,8 +33,8 @@ export default function Form() {
         tmp[curdate][id] = element.value;
       });
       const isFormOutcomeSelected = getIsFormOutcomeSelected();
-      let absoluteAmount = tmp[curdate]["amount"];
-      absoluteAmount = isFormOutcomeSelected
+      let absoluteAmount = tmp[curdate]["amount"].replace(/,/g, "");
+      tmp[curdate]["amount"] = isFormOutcomeSelected
         ? -absoluteAmount
         : +absoluteAmount;
       addNewLedgeritem(curdate, tmp);
@@ -74,7 +72,6 @@ export default function Form() {
   function render() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
-    const isAlertVisible = getIsAlertlVisible();
     const html = `
         <div class="form-row">
             <div class="form-col">
@@ -147,7 +144,6 @@ export default function Form() {
     bindEvent("input.form-input-text", "input", attachComma);
     bindEventAll("button", "click", submitForm);
   }
-  subscribe(componentName, "isAlertVisible", render);
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
 
