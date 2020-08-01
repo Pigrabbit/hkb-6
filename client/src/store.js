@@ -107,7 +107,6 @@ export function toggleModal() {
 }
 
 export async function fetchPaymentList() {
-  console.log(process.env.API_URL);
   state.paymentList.data = await getPaymentListFromServer();
   publish(state.paymentList);
 }
