@@ -50,11 +50,8 @@ export function getIsFormOutcomeSelected() {
   return state.isFormOutcomeSelected.data;
 }
 export function toggleFormBtns(e) {
-  if (e.target.classList.contains("category-btn-income-clicked")) return;
-  if (e.target.classList.contains("category-btn-outcome-clicked")) return;
   state.isFormIncomeSelected.data = !state.isFormIncomeSelected.data;
   state.isFormOutcomeSelected.data = !state.isFormOutcomeSelected.data;
-
   publish(state.isFormIncomeSelected);
   publish(state.isFormOutcomeSelected);
 }

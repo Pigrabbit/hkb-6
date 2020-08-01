@@ -18,6 +18,8 @@ export default function Form() {
   const componentName = "form";
 
   function btnToggle(e) {
+    if (e.target.classList.contains("category-btn-income-clicked")) return;
+    if (e.target.classList.contains("category-btn-outcome-clicked")) return;
     toggleFormBtns(e);
   }
 
@@ -137,7 +139,7 @@ export default function Form() {
     bindEvent("button.form-income-btn", "click", btnToggle);
     bindEvent("button.form-outcome-btn", "click", btnToggle);
     bindEvent("input#transaction-amount", "input", amountValidationCheck);
-    bindEventAll("button", "click", submitForm);
+    bindEvent("button.form-submit-btn", "click", submitForm);
   }
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
