@@ -59,7 +59,11 @@ export default function Form() {
     $inputElements.forEach((element) => {
       if (passed && (element.value === "" || element.value === "default")) {
         passed = false;
-        showAlertMessage(element, alertMsg, "빈 부분을 입력하세요.");
+        showAlertMessage(
+          element,
+          alertMsg,
+          `${element.getAttribute("msg")}를 입력해주세요.`
+        );
       }
     });
     if (!passed) return;
@@ -141,7 +145,7 @@ export default function Form() {
             </div>
             <div class="form-col-2">
               <label for="form-category">카테고리</label>
-              <select name="transaction-category" id="transaction-category">
+              <select name="transaction-category" id="transaction-category" msg="카테고리">
                 <option value="default">선택하세요</option>
                 <option value="월급">월급</option>
                 <option value="용돈">용돈</option>
@@ -150,7 +154,7 @@ export default function Form() {
             </div>
             <div class="form-col-2">
               <label for="form-payment">결제수단</label>
-              <select name="transaction-payment" id="transaction-payment">
+              <select name="transaction-payment" id="transaction-payment" msg="결제수단">
                 <option value="default">선택하세요</option>
                 <option value="우리카드">우리카드</option>
                 <option value="카카오체크카드">카카오체크카드</option>
@@ -166,6 +170,7 @@ export default function Form() {
                 class="form-input-text"
                 id="transaction-amount"
                 placeholder="1,000"
+                msg="금액"
               /> 원
             </div>
             <div class="form-col">
@@ -175,6 +180,7 @@ export default function Form() {
                 class="form-input-text"
                 id="transaction-content"
                 placeholder="내용을 입력하세요"
+                msg="내용"
               />
             </div>
           </div>
