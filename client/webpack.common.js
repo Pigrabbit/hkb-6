@@ -39,8 +39,8 @@ module.exports = {
       filename: "style.css",
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      scriptLoading: 'defer',
-    })
+      template: "src/index.html",
+      scriptLoading: "defer",
+    }),
   ],
 };

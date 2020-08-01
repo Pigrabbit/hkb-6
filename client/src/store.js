@@ -49,7 +49,7 @@ export function getIsFormIncomeSelected() {
 export function getIsFormOutcomeSelected() {
   return state.isFormOutcomeSelected.data;
 }
-export function toggleFormBtns(e) {
+export function toggleFormBtns() {
   state.isFormIncomeSelected.data = !state.isFormIncomeSelected.data;
   state.isFormOutcomeSelected.data = !state.isFormOutcomeSelected.data;
   publish(state.isFormIncomeSelected);

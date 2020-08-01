@@ -7,7 +7,7 @@ export function isNumber(x) {
 }
 
 export function isNormalText(x) {
-  return !/[^a-zA-Z0-9|ㄱ-ㅎ|ㅏ-ㅣ|가-힣\-,^?\/]/.test(x);
+  return !/[^a-zA-Z0-9|ㄱ-ㅎ|ㅏ-ㅣ|가-힣\-,^?(\s+)\/]/.test(x);
 }
 
 export function removeComma(x) {

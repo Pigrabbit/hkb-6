@@ -21,11 +21,20 @@ export default function Form() {
   function btnToggle(e) {
     if (e.target.classList.contains("category-btn-income-clicked")) return;
     if (e.target.classList.contains("category-btn-outcome-clicked")) return;
-    toggleFormBtns(e);
+    toggleFormBtns();
+    render();
   }
 
   function preventDefaultBtn(e) {
     e.preventDefault();
+  }
+
+  function submitByEnter(e) {
+    if (e.keyCode === 13) {
+      console.log("enter");
+      e.preventDefault();
+      document.querySelector(".form-submit-btn").click();
+    }
   }
 
   function submitForm(e) {
@@ -154,6 +163,7 @@ export default function Form() {
     bindEvent("button.form-outcome-btn", "click", btnToggle);
     bindEvent("input#transaction-amount", "input", amountValidationCheck);
     bindEvent("input#transaction-content", "input", contentValidationCheck);
+    bindEvent("input#transaction-content", "keyup", submitByEnter);
     bindEvent("button.form-submit-btn", "click", submitForm);
   }
   subscribe(componentName, "isFormIncomeSelected", render);
@@ -161,5 +171,5 @@ export default function Form() {
 
   setTimeout(render, 0);
 
-  return `<form class=${componentName}></form>`;
+  return `<form class=${componentName} onkeydown="return event.key != 'Enter';"></form>`;
 }
