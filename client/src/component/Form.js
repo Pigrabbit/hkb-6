@@ -12,6 +12,7 @@ import {
   attachComma,
   showAlertMessage,
   removeComma,
+  isNormalText,
 } from "../util/validation";
 
 export default function Form() {
@@ -53,17 +54,30 @@ export default function Form() {
     if (e.target.id !== "transaction-amount") return;
     const inputtedString = removeComma(e.target.value);
     const alertMsg = document.getElementById("alert-msg");
-    const amountField = document.getElementById("transaction-amount");
     alertMsg.innerText = "";
     if (!isNumber(inputtedString)) {
-      showAlertMessage(amountField, alertMsg, "숫자로만 입력할 수 있습니다.");
+      showAlertMessage(e.target, alertMsg, "숫자로만 입력할 수 있습니다.");
       return;
     }
     if (inputtedString.length > 12) {
-      showAlertMessage(amountField, alertMsg, "숫자가 너무 큽니다");
+      showAlertMessage(e.target, alertMsg, "숫자가 너무 큽니다");
       return;
     }
     attachComma(e);
+  }
+
+  function contentValidationCheck(e) {
+    if (e.target.id !== "transaction-content") return;
+    const alertMsg = document.getElementById("alert-msg");
+    alertMsg.innerText = "";
+    if (!isNormalText(e.target.value)) {
+      showAlertMessage(
+        e.target,
+        alertMsg,
+        "내용에 - , / ^ 외의 특수기호를 사용할 수 없습니다."
+      );
+      return;
+    }
   }
 
   function render() {
@@ -139,6 +153,7 @@ export default function Form() {
     bindEvent("button.form-income-btn", "click", btnToggle);
     bindEvent("button.form-outcome-btn", "click", btnToggle);
     bindEvent("input#transaction-amount", "input", amountValidationCheck);
+    bindEvent("input#transaction-content", "input", contentValidationCheck);
     bindEvent("button.form-submit-btn", "click", submitForm);
   }
   subscribe(componentName, "isFormIncomeSelected", render);

@@ -6,6 +6,10 @@ export function isNumber(x) {
   return /^\d+$/.test(x);
 }
 
+export function isNormalText(x) {
+  return !/[^a-zA-Z0-9|ㄱ-ㅎ|ㅏ-ㅣ|가-힣\-,^?\/]/.test(x);
+}
+
 export function removeComma(x) {
   return x.replace(/,/g, "");
 }
@@ -19,5 +23,5 @@ export function attachComma(e) {
 export function showAlertMessage(target, msgTarget, message) {
   target.value = "";
   target.focus();
-  msgTarget.innerText = message;
+  msgTarget.innerText = `알림: ${message}`;
 }
