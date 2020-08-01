@@ -18,6 +18,7 @@ import {
 export default function Form() {
   const componentName = "form";
 
+  // 수입, 지출 버튼 토글하는 함수
   function btnToggle(e) {
     if (e.target.classList.contains("category-btn-income-clicked")) return;
     if (e.target.classList.contains("category-btn-outcome-clicked")) return;
@@ -25,18 +26,20 @@ export default function Form() {
     render();
   }
 
+  //각 버튼들의 기본 동작을 막아주는 함수
   function preventDefaultBtn(e) {
     e.preventDefault();
   }
 
+  //엔터 입력시 새로운 가계부 제출하는 기능 구현
   function submitByEnter(e) {
     if (e.keyCode === 13) {
-      console.log("enter");
       e.preventDefault();
       document.querySelector(".form-submit-btn").click();
     }
   }
 
+  //새로운 가계부를 입력하도록 form을 제출하는 함수
   function submitForm(e) {
     const $form = document.querySelector(".form");
     if (e.target.classList.contains("form-submit-btn")) {
@@ -59,6 +62,7 @@ export default function Form() {
     }
   }
 
+  //금액 유효성 검사 함수
   function amountValidationCheck(e) {
     if (e.target.id !== "transaction-amount") return;
     const inputtedString = removeComma(e.target.value);
@@ -75,6 +79,7 @@ export default function Form() {
     attachComma(e);
   }
 
+  //내용 유효성 검사 함수
   function contentValidationCheck(e) {
     if (e.target.id !== "transaction-content") return;
     const alertMsg = document.getElementById("alert-msg");
@@ -83,7 +88,7 @@ export default function Form() {
       showAlertMessage(
         e.target,
         alertMsg,
-        "내용에 - , / ^ 외의 특수기호를 사용할 수 없습니다."
+        "내용에 - , / ^ 공백문자 외의 특수기호를 사용할 수 없습니다."
       );
       return;
     }
