@@ -13,3 +13,5 @@ export function bindEventAll(query, event, handler, capturing = false) {
     element.addEventListener(event, handler, capturing);
   });
 }
+
+export const $ =  document.querySelector.bind(document);

@@ -1,6 +1,7 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
-import { subscribe, getLedgerItemDate, fetchLedgerItem } from "../store";
+import { subscribe, getLedgerItemDate } from "../store";
+import { $ } from "../util/util";
 
 export default function Ledger() {
   const componentName = "ledger";
@@ -16,7 +17,7 @@ export default function Ledger() {
         .join("")}
     `;
 
-    const $ledger = document.querySelector(`.${componentName}`);
+    const $ledger = $(`.${componentName}`);
     $ledger.innerHTML = html;
   }
 
