@@ -8,9 +8,9 @@ class Router {
   constructor() {
     this.routes = {
       "": ListPage, // TODO: make home page
-      "list": ListPage,
-      "calendar": CalendarPage,
-      "statistics": StatisticsPage, // TODO: make statistics page
+      list: ListPage,
+      calendar: CalendarPage,
+      statistics: StatisticsPage, // TODO: make statistics page
     };
     this.root = "/";
   }
@@ -27,7 +27,7 @@ class Router {
   navigateTo(path) {
     history.pushState(null, null, this.root + this.removeSlashes(path));
 
-    const popStateEvent = new PopStateEvent('popstate');
+    const popStateEvent = new PopStateEvent("popstate");
     dispatchEvent(popStateEvent);
   }
 }
