@@ -40,10 +40,8 @@ export default function Form() {
   }
 
   //새로운 가계부를 입력하도록 form을 제출하는 함수
-  function submitForm(e) {
+  function submitForm() {
     const $form = document.querySelector(".form");
-    if (!e.target.classList.contains("form-submit-btn")) return;
-
     const alertMsg = document.getElementById("alert-msg");
     alertMsg.innerText = "";
 
