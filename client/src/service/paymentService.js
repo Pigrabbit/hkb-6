@@ -1,3 +1,5 @@
+const API_URL = "http://localhost:3000/api";
+
 export function getPaymentListFromServer() {
   return new Promise((resolve, reject) => {
     fetch(`${process.env.API_URL}/payment`, {
