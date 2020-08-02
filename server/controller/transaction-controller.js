@@ -20,7 +20,7 @@ class TransactionController {
     try {
       const date = req.params.date;
       const transactions = await this.transaction.findByDate(date);
-      res.status(statusCode.OK).json(transactions);
+      res.status(200).json(transactions);
     } catch (error) {
       next(error);
     }
