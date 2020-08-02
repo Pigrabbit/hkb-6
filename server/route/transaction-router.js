@@ -33,6 +33,11 @@ router.patch(
 );
 
 // TODO: delete
-router.delete("/:t_id");
+router.delete(
+  "/:t_id",
+  transactionControllerInstance.deleteTransaction.bind(
+    transactionControllerInstance
+  )
+);
 
 module.exports = router;

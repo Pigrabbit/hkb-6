@@ -147,6 +147,22 @@ class Transaction {
       conn.release();
     }
   }
+
+  async delete(t_id) {
+    const conn = await this.db.getConnection();
+    try {
+      await conn.beginTransaction();
+      const query = "DELETE FROM transaction where id=?";
+
+      await conn.query(query, [t_id]);
+      await conn.commit();
+    } catch (error) {
+      conn.rollback();
+      throw error;
+    } finally {
+      conn.release();
+    }
+  }
 }
 
 module.exports = Transaction;

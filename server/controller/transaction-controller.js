@@ -39,6 +39,18 @@ class TransactionController {
       next(err);
     }
   }
+
+  async deleteTransaction(req, res, next) {
+    try {
+      const t_id = req.params.t_id;
+      await this.transaction.delete(t_id);
+
+      res.status(200).json({ message: "transaction successfully deleted" });
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+  }
 }
 
 module.exports = TransactionController;
