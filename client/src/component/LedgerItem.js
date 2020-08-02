@@ -62,8 +62,6 @@ export default function LedgerItem(props, idx) {
       `ul#${componentName + "-" + idx}`
     );
     $ledgerItem.innerHTML = html;
-
-    // bindEvent("", "", )
   }
 
   subscribe(componentName, "ledgerItem", render);

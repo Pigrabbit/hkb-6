@@ -141,12 +141,14 @@ export default function Form() {
 
     const $form = document.querySelector(`.${componentName}`);
     $form.innerHTML = html;
+
     bindEventAll("button", "click", preventDefaultBtn);
     bindEvent("button.form-income-btn", "click", btnToggle);
     bindEvent("button.form-outcome-btn", "click", btnToggle);
     bindEvent("input.form-input-text", "input", attachComma);
     bindEventAll("button", "click", submitForm);
   }
+
   subscribe(componentName, "isAlertVisible", render);
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);

@@ -7,6 +7,8 @@ import Modal from "./component/Modal";
 import brocolli from "./images/brocolli.png";
 import "./scss/main.scss";
 
+import { fetchLedgerItem } from "./store";
+
 export default function App() {
   window.addEventListener("popstate", (e) => {
     render();
@@ -19,6 +21,7 @@ export default function App() {
     $container.innerHTML = renderingPage();
   }
 
+  fetchLedgerItem();
   setTimeout(render, 0);
 
   return `
