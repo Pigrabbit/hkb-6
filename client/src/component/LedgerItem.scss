@@ -1,13 +1,11 @@
 @import "../scss/variable";
 
 .ledger-item {
-  border-top: 3px solid darkgray;
-  border-bottom: 3px solid darkgray;
-
   &-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-top: 3px solid darkgray;
 
     &-date {
       margin: 0 10px;

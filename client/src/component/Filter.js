@@ -1,11 +1,12 @@
 import "./Filter.scss";
-import { bindEvent } from "../util/util";
+import { bindEvent, $ } from "../util/util";
 import { getIsLedgerIncomeVisible, getIsLedgerOutcomeVisible, toggleLedgerOutcomeVisible, toggleLedgerIncomeVisible, subscribe } from "../store";
 
 export default function Filter() {
   const componentName = "filter";
   // TODO
   // 수입, 지출 체크박스 선택여부에 따라 store의 정보 toggle하기
+  // 월간 수입, 지출 합계 구하기
 
   function onIncomeFilterClick(e) {
     toggleLedgerIncomeVisible();
@@ -45,7 +46,8 @@ export default function Filter() {
         <div class="filter-item-outcome-amount filter-item-amount">444,000원</div>
       </li>`;
 
-    const $filter = document.querySelector(`.${componentName}`);
+    // const $filter = document.querySelector(`.${componentName}`);
+    const $filter = $(`.${componentName}`)
     $filter.innerHTML = html;
 
     bindEvent("input#filter-item-income", "click", onIncomeFilterClick);
