@@ -4,9 +4,6 @@ import { getIsLedgerIncomeVisible, getIsLedgerOutcomeVisible, toggleLedgerOutcom
 
 export default function Filter() {
   const componentName = "filter";
-  // TODO
-  // 수입, 지출 체크박스 선택여부에 따라 store의 정보 toggle하기
-  // 월간 수입, 지출 합계 구하기
 
   function onIncomeFilterClick(e) {
     toggleLedgerIncomeVisible();
@@ -16,26 +13,39 @@ export default function Filter() {
     toggleLedgerOutcomeVisible();
   }
 
+  function getMonthlyIncomeSum(ledgerItem) {
+    let monthlyIncomeSum = 0;
+    Object.values(ledgerItem)
+    .forEach(dailyTransactions => {
+      dailyTransactions.forEach(tx => {
+        if (tx.t_type === "수입") {
+          monthlyIncomeSum += parseInt(tx.amount);
+        }
+      })
+    })
+    return monthlyIncomeSum;
+  }
+
+  function getMonthlyOutcomeSum(ledgerItem) {
+    let monthlyOutcomeSum = 0;
+    Object.values(ledgerItem)
+    .forEach(dailyTransactions => {
+      dailyTransactions.forEach(tx => {
+        if (tx.t_type === "지출") {
+          monthlyOutcomeSum += parseInt(Math.abs(tx.amount));
+        }
+      })
+    })
+    return monthlyOutcomeSum;
+  }
+
   function render() {
     const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
     const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
-    
-    let monthlyIncomeSum = 0;
-    let monthlyOutcomeSum = 0;
 
-    const ledgerItemValues = Object.values(getLedgerItem());
-    console.log(ledgerItemValues);
-
-    ledgerItemValues.forEach(array => {
-        array.forEach(item => {
-          if (item.t_type === "수입") {
-            monthlyIncomeSum += parseInt(item.amount);
-          } else if (item.t_type === "지출") {
-            monthlyOutcomeSum += parseInt(Math.abs(item.amount));
-          }
-        })
-    })
-
+    const ledgerItem = getLedgerItem();
+    const monthlyIncomeSum = getMonthlyIncomeSum(ledgerItem);
+    const monthlyOutcomeSum = getMonthlyOutcomeSum(ledgerItem);
 
     const html = ` 
     <li class="filter-item">
