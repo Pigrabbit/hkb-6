@@ -23,7 +23,6 @@ export default function Form() {
     if (e.target.classList.contains("category-btn-income-clicked")) return;
     if (e.target.classList.contains("category-btn-outcome-clicked")) return;
     toggleFormBtns();
-    render();
   }
 
   //각 버튼들의 기본 동작을 막아주는 함수
