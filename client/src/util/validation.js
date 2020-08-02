@@ -19,9 +19,9 @@ export function removeComma(x) {
 }
 
 // 문자열에 콤마를 붙여주는 함수
-export function attachComma(e) {
-  const inputtedString = removeComma(e.target.value);
-  e.target.value = addCommaToNumber(inputtedString);
+export function attachComma(target,x) {
+  const inputtedString = removeComma(x);
+  target.value = addCommaToNumber(inputtedString);
 }
 
 // 상태에 따라 다른 알림 메세지를 표시해주는 함수

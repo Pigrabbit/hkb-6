@@ -50,6 +50,8 @@ export default function Form() {
     const $inputElements = [
       ...$form.querySelectorAll("input:not(#transaction-date),select"),
     ];
+
+    // 아직 입력하지 않은 부분이 있다면 관련 알림 메세지를 표시하고 포커스를 이동시킵니다.
     let curdate = document.getElementById("transaction-date");
     if (curdate.value === "" || curdate.value === "undefined") {
       showAlertMessage(curdate, alertMsg, "날짜를 입력해주세요");
@@ -68,6 +70,11 @@ export default function Form() {
     });
     if (!passed) return;
 
+    // 폼을 제출할 때 금액과 내용의 유효성 검사 다시 실행해서 유효하지 않으면 ledgeritem 추가 불가
+    if (!amountValidationCheck()) return;
+    if (!contentValidationCheck()) return;
+
+    // 유효성 검사가 완료되면 가계부 리스트에 추가합니다
     const tmp = {};
     tmp[curdate.value] = {};
     $inputElements.forEach((element) => {
@@ -83,40 +90,42 @@ export default function Form() {
   }
 
   //금액 유효성 검사 함수
-  function amountValidationCheck(e) {
-    if (e.target.id !== "transaction-amount") return;
-    const inputtedString = removeComma(e.target.value);
+  function amountValidationCheck() {
+    const $amount = document.getElementById("transaction-amount");
+    const inputtedString = removeComma($amount.value);
     const alertMsg = document.getElementById("alert-msg");
     alertMsg.innerText = "";
     if (!isNumber(inputtedString)) {
-      showAlertMessage(e.target, alertMsg, "숫자로만 입력할 수 있습니다.");
-      return;
+      showAlertMessage($amount, alertMsg, "숫자로만 입력할 수 있습니다.");
+      return false;
     }
     if (inputtedString.length > 12) {
-      showAlertMessage(e.target, alertMsg, "숫자가 너무 큽니다");
-      return;
+      showAlertMessage($amount, alertMsg, "숫자가 너무 큽니다");
+      return false;
     }
-    attachComma(e);
+    attachComma($amount, $amount.value);
+    return true;
   }
 
   //내용 유효성 검사 함수
-  function contentValidationCheck(e) {
-    if (e.target.id !== "transaction-content") return;
+  function contentValidationCheck() {
+    const $content = document.getElementById("transaction-content");
     const alertMsg = document.getElementById("alert-msg");
     alertMsg.innerText = "";
-    if (!isNormalText(e.target.value)) {
+    if (!isNormalText($content.value)) {
       showAlertMessage(
-        e.target,
+        $content,
         alertMsg,
         "내용에 - , / ^ 공백문자 외의 특수기호를 사용할 수 없습니다."
       );
-      return;
+      return false;
     }
 
-    if (e.target.value.length > 50) {
-      showAlertMessage(e.target, alertMsg, "50글자 이상 입력할 수 없습니다.");
-      return;
+    if ($content.value.length > 50) {
+      showAlertMessage($content, alertMsg, "50글자 이상 입력할 수 없습니다.");
+      return false;
     }
+    return true;
   }
 
   function render() {
