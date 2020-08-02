@@ -6,10 +6,6 @@ export const state = {
     data: false,
     listeners: {},
   },
-  isAlertVisible: {
-    data: false,
-    listeners: {},
-  },
   isFormIncomeSelected: {
     data: false,
     listeners: {},

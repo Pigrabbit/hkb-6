@@ -1,5 +1,4 @@
 import Router from "./router";
-
 import Header from "./component/Header";
 import Navbar from "./component/Navbar";
 import Modal from "./component/Modal";
