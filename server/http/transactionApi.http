@@ -22,7 +22,7 @@ PATCH  http://localhost:3000/api/transaction/151
 
 
 {
-    "category": "업뎃",
+    "category": "생활",
     "content": "업데이트",
     "payment_name": "국민은행",
     "amount": "-15000",

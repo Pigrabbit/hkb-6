@@ -20,8 +20,7 @@ class TransactionController {
     try {
       const date = req.params.date;
       const transactions = await this.transaction.findByDate(date);
-
-      res.status(200).json(transactions);
+      res.status(statusCode.OK).json(transactions);
     } catch (error) {
       next(error);
     }
@@ -31,7 +30,6 @@ class TransactionController {
     try {
       const data = req.body;
       const t_id = req.params.t_id;
-
       await this.transaction.update(data, t_id);
 
       res.status(200).json({ message: "transaction successfully updated" });
@@ -44,10 +42,8 @@ class TransactionController {
     try {
       const t_id = req.params.t_id;
       await this.transaction.delete(t_id);
-
       res.status(200).json({ message: "transaction successfully deleted" });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
