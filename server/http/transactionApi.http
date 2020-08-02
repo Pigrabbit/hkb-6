@@ -9,9 +9,23 @@ Cookie: username=coldbrew
 
 {
     "category": "생활",
-    "content": "미용실",
+    "content": "저녁먹음",
     "payment_name": "국민은행",
     "amount": "-15000",
     "t_type": "지출",
-    "created_at": "2020-07-29"
+    "created_at": "2020-07-27"
+}
+
+### UPDATE /transaction api
+
+PATCH  http://localhost:3000/api/transaction/151
+
+
+{
+    "category": "업뎃",
+    "content": "업데이트",
+    "payment_name": "국민은행",
+    "amount": "-15000",
+    "t_type": "지출",
+    "created_at": "2020-08-02"
 }

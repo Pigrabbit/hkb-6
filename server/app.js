@@ -15,6 +15,7 @@ app.use(cookieParser());
 app.use(express.static("public"));
 
 const apiRouter = require("./route/api-router");
+const { version } = require("os");
 app.use("/api", apiRouter);
 
 app.use("/", (req, res, next) => {
