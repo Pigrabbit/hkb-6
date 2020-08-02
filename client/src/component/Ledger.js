@@ -4,11 +4,10 @@ import { subscribe, getLedgerItemDate, fetchLedgerItem } from "../store";
 
 export default function Ledger() {
   const componentName = "ledger";
-  fetchLedgerItem();
   
   function render() {
     const ledgerDate = getLedgerItemDate();
-
+    
     const html = `
       ${ledgerDate
         .map((date, idx) => {
@@ -19,8 +18,6 @@ export default function Ledger() {
 
     const $ledger = document.querySelector(`.${componentName}`);
     $ledger.innerHTML = html;
-
-    // bindEvent("", "", )
   }
 
   subscribe(componentName, "ledgerItem", render);
