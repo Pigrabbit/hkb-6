@@ -1,6 +1,6 @@
 import "./Filter.scss";
 import { bindEvent, $ } from "../util/util";
-import { getIsLedgerIncomeVisible, getIsLedgerOutcomeVisible, toggleLedgerOutcomeVisible, toggleLedgerIncomeVisible, subscribe } from "../store";
+import { getIsLedgerIncomeVisible, getIsLedgerOutcomeVisible, toggleLedgerOutcomeVisible, toggleLedgerIncomeVisible, subscribe, getLedgerItem } from "../store";
 
 export default function Filter() {
   const componentName = "filter";
@@ -19,6 +19,23 @@ export default function Filter() {
   function render() {
     const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
     const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
+    
+    let monthlyIncomeSum = 0;
+    let monthlyOutcomeSum = 0;
+
+    const ledgerItemValues = Object.values(getLedgerItem());
+    console.log(ledgerItemValues);
+
+    ledgerItemValues.forEach(array => {
+        array.forEach(item => {
+          if (item.t_type === "수입") {
+            monthlyIncomeSum += parseInt(item.amount);
+          } else if (item.t_type === "지출") {
+            monthlyOutcomeSum += parseInt(Math.abs(item.amount));
+          }
+        })
+    })
+
 
     const html = ` 
     <li class="filter-item">
@@ -31,7 +48,7 @@ export default function Filter() {
         />
         <label for="filter-item-income"></label>
         <div class="filter-item-income-label">수입</div>
-        <div class="filter-item-income-amount filter-item-amount">2,750,000원</div>
+        <div class="filter-item-income-amount filter-item-amount">${monthlyIncomeSum} 원</div>
       </li>
       <li class="filter-item">
         <input
@@ -43,11 +60,10 @@ export default function Filter() {
         />
         <label for="filter-item-outcome"></label>
         <div class="filter-item-outcome-label">지출</div>
-        <div class="filter-item-outcome-amount filter-item-amount">444,000원</div>
+        <div class="filter-item-outcome-amount filter-item-amount">${monthlyOutcomeSum} 원</div>
       </li>`;
 
-    // const $filter = document.querySelector(`.${componentName}`);
-    const $filter = $(`.${componentName}`)
+    const $filter = $(`.${componentName}`);
     $filter.innerHTML = html;
 
     bindEvent("input#filter-item-income", "click", onIncomeFilterClick);
@@ -56,7 +72,8 @@ export default function Filter() {
 
   subscribe(componentName, "isLedgerOutcomeVisible", render);
   subscribe(componentName, "isLedgerIncomeVisible", render);
-
+  subscribe(componentName, "ledgerItem", render);
+  
   setTimeout(render, 0);
 
   return `<ul class=${componentName}></ul>`;

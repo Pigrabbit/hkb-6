@@ -9,6 +9,13 @@ export function fetchMockLedgerItem() {
         t_type: "지출"
       },
       {
+        category: "기타",
+        content: "로또",
+        payment: "현금",
+        amount: "5000",
+        t_type: "수입"
+      },
+      {
         category: "식품",
         content: "점심식사",
         payment: "우리카드",
