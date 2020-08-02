@@ -32,7 +32,6 @@
     "webpack-merge": "^5.0.9"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "dotenv": "^8.2.0"
+    "core-js": "^3.6.5"
   }
 }
