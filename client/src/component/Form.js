@@ -6,14 +6,20 @@ import {
   getIsFormIncomeSelected,
   getIsFormOutcomeSelected,
   toggleFormBtns,
-  getIsAlertlVisible,
-  toggleAlertMsg,
 } from "../store";
+import {
+  isNumber,
+  attachComma,
+  showAlertMessage,
+  removeComma,
+} from "../util/validation";
 
 export default function Form() {
   const componentName = "form";
 
   function btnToggle(e) {
+    if (e.target.classList.contains("category-btn-income-clicked")) return;
+    if (e.target.classList.contains("category-btn-outcome-clicked")) return;
     toggleFormBtns(e);
   }
 
@@ -35,46 +41,34 @@ export default function Form() {
         tmp[curdate][id] = element.value;
       });
       const isFormOutcomeSelected = getIsFormOutcomeSelected();
-      let absoluteAmount = tmp[curdate]["amount"];
-      absoluteAmount = isFormOutcomeSelected
+      let absoluteAmount = removeComma(tmp[curdate]["amount"]);
+      tmp[curdate]["amount"] = isFormOutcomeSelected
         ? -absoluteAmount
         : +absoluteAmount;
       addNewLedgeritem(curdate, tmp);
     }
   }
 
-  function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-
-  function attachComma(e) {
-    const inputtedString = e.target.value.replace(/,/g, "");
+  function amountValidationCheck(e) {
+    if (e.target.id !== "transaction-amount") return;
+    const inputtedString = removeComma(e.target.value);
     const alertMsg = document.getElementById("alert-msg");
     const amountField = document.getElementById("transaction-amount");
     alertMsg.innerText = "";
     if (!isNumber(inputtedString)) {
-      amountField.value = "";
-      amountField.focus();
-      alertMsg.innerText = `숫자로만 입력할 수 있습니다.`;
+      showAlertMessage(amountField, alertMsg, "숫자로만 입력할 수 있습니다.");
       return;
     }
     if (inputtedString.length > 12) {
-      amountField.value = "";
-      amountField.focus();
-      alertMsg.innerText = `숫자가 너무 큽니다.`;
+      showAlertMessage(amountField, alertMsg, "숫자가 너무 큽니다");
       return;
     }
-    e.target.value = numberWithCommas(inputtedString);
-  }
-
-  function isNumber(x) {
-    return /^\d+$/.test(x);
+    attachComma(e);
   }
 
   function render() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
-    const isAlertVisible = getIsAlertlVisible();
     const html = `
         <div class="form-row">
             <div class="form-col">
@@ -145,11 +139,10 @@ export default function Form() {
     bindEventAll("button", "click", preventDefaultBtn);
     bindEvent("button.form-income-btn", "click", btnToggle);
     bindEvent("button.form-outcome-btn", "click", btnToggle);
-    bindEvent("input.form-input-text", "input", attachComma);
-    bindEventAll("button", "click", submitForm);
+    bindEvent("input#transaction-amount", "input", amountValidationCheck);
+    bindEvent("button.form-submit-btn", "click", submitForm);
   }
-
-  subscribe(componentName, "isAlertVisible", render);
+  
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
 

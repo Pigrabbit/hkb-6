@@ -1,4 +1,4 @@
-import { getPaymentListFromServer } from "./service/paymentService"
+import { getPaymentListFromServer } from "./service/paymentService";
 import { fetchMockLedgerItem } from "./Data";
 
 export const state = {
@@ -28,11 +28,11 @@ export const state = {
   },
   isLedgerIncomeVisible: {
     data: true,
-    listeners: {}
+    listeners: {},
   },
   isLedgerOutcomeVisible: {
     data: true,
-    listeners: {}
+    listeners: {},
   },
 };
 
@@ -41,9 +41,7 @@ export const subscribe = (component, key, action) => {
 };
 
 const publish = (key) =>
-  Object.values(key.listeners).forEach((action) =>
-    action(key.data)
-  );
+  Object.values(key.listeners).forEach((action) => action(key.data));
 
 export function getIsFormIncomeSelected() {
   return state.isFormIncomeSelected.data;
@@ -52,11 +50,8 @@ export function getIsFormOutcomeSelected() {
   return state.isFormOutcomeSelected.data;
 }
 export function toggleFormBtns(e) {
-  if (e.target.classList.contains("category-btn-income-clicked")) return;
-  if (e.target.classList.contains("category-btn-outcome-clicked")) return;
   state.isFormIncomeSelected.data = !state.isFormIncomeSelected.data;
   state.isFormOutcomeSelected.data = !state.isFormOutcomeSelected.data;
-
   publish(state.isFormIncomeSelected);
   publish(state.isFormOutcomeSelected);
 }
