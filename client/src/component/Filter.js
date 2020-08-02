@@ -1,6 +1,7 @@
 import "./Filter.scss";
 import { bindEvent, $ } from "../util/util";
 import { getIsLedgerIncomeVisible, getIsLedgerOutcomeVisible, toggleLedgerOutcomeVisible, toggleLedgerIncomeVisible, subscribe, getLedgerItem } from "../store";
+import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
 
 export default function Filter() {
   const componentName = "filter";
@@ -18,7 +19,7 @@ export default function Filter() {
     Object.values(ledgerItem)
     .forEach(dailyTransactions => {
       dailyTransactions.forEach(tx => {
-        if (tx.t_type === "수입") {
+        if (tx.t_type === INCOME_TYPE) {
           monthlyIncomeSum += parseInt(tx.amount);
         }
       })
@@ -31,7 +32,7 @@ export default function Filter() {
     Object.values(ledgerItem)
     .forEach(dailyTransactions => {
       dailyTransactions.forEach(tx => {
-        if (tx.t_type === "지출") {
+        if (tx.t_type === OUTCOME_TYPE) {
           monthlyOutcomeSum += parseInt(Math.abs(tx.amount));
         }
       })

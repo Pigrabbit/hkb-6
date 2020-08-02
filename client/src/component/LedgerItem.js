@@ -6,21 +6,21 @@ import {
   getIsLedgerOutcomeVisible,
 } from "../store";
 import { $ } from "../util/util";
+import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
 
 export default function LedgerItem(props, idx) {
   const componentName = `ledger-item`;
 
-  // t_type 에 따라 내역을 filtering하는 함수
   function filterTransaction(records) {
     const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
     const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
 
     if (!isLedgerIncomeVisible) {
-      records = records.filter((record) => record.t_type !== "수입");
+      records = records.filter((record) => record.t_type !== INCOME_TYPE);
     }
 
     if (!isLedgerOutcomeVisible) {
-      records = records.filter((record) => record.t_type !== "지출");
+      records = records.filter((record) => record.t_type !== OUTCOME_TYPE);
     }
 
     return records;
@@ -32,7 +32,7 @@ export default function LedgerItem(props, idx) {
   }
 
   function getDailyIncomeSum(records) {
-    const incomeRecords = records.filter((record) => record.t_type === "수입");
+    const incomeRecords = records.filter((record) => record.t_type === INCOME_TYPE);
     const incomeSum =
       incomeRecords.length > 0
         ? incomeRecords.reduce((acc, cur) => acc + parseInt(cur.amount), 0)
@@ -41,7 +41,7 @@ export default function LedgerItem(props, idx) {
   }
 
   function getDailyOutcomeSum(records) {
-    const outcomeRecords = records.filter((record) => record.t_type === "지출");
+    const outcomeRecords = records.filter((record) => record.t_type === OUTCOME_TYPE);
     const outcomeSum =
       outcomeRecords.length > 0
         ? outcomeRecords.reduce(
@@ -57,7 +57,6 @@ export default function LedgerItem(props, idx) {
     // TODO
     // 마우스 오버 이벤트가 생기면 수정 버튼 만들기
     // 수정 버튼 눌렀을 때 현재 레코드의 내용을 input form에 default로 채워주기
-    // records 로 받은 transaction의 array에서 현재 수입/지출 t_type 만 필터링 하기
     records = filterTransaction(records);
 
     if (records.length === 0) {
@@ -81,14 +80,14 @@ export default function LedgerItem(props, idx) {
           return `
         <li class="ledger-item-record">
           <div class="record-category ${
-            record.t_type === "지출" ? "outcome-element" : "income-element"
+            record.t_type === OUTCOME_TYPE ? "outcome-element" : "income-element"
           }">${record.category}</div>
           <div class="record-content">${record.content}</div>
           <div class="record-payment">${record.payment}</div>
           <div class="record-amount ${
-            record.t_type === "지출" ? "outcome-text" : "income-text"
+            record.t_type === OUTCOME_TYPE ? "outcome-text" : "income-text"
           }">${
-            record.t_type === "수입" ? "+" + record.amount : record.amount
+            record.t_type === INCOME_TYPE ? "+" + record.amount : record.amount
           } 원</div>
       </li>`;
         })
