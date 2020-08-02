@@ -13,15 +13,16 @@ export default function LedgerItem(props, idx) {
     const incomeRecords = records.filter((record) => record.t_type === "수입");
     const incomeSum =
       incomeRecords.length > 0
-        ? incomeRecords.reduce(
-            (acc, cur) => acc + parseInt(cur.amount), 0)
+        ? incomeRecords.reduce((acc, cur) => acc + parseInt(cur.amount), 0)
         : 0;
 
     const outcomeRecords = records.filter((record) => record.t_type === "지출");
     const outcomeSum =
       outcomeRecords.length > 0
         ? outcomeRecords.reduce(
-            (acc, cur) => acc + Math.abs(parseInt(cur.amount)), 0)
+            (acc, cur) => acc + Math.abs(parseInt(cur.amount)),
+            0
+          )
         : 0;
 
     const html = `
@@ -37,20 +38,14 @@ export default function LedgerItem(props, idx) {
           return `
         <li class="ledger-item-record">
           <div class="record-category ${
-            (record.t_type === "지출") 
-            ? "outcome-element"
-            : "income-element"
+            record.t_type === "지출" ? "outcome-element" : "income-element"
           }">${record.category}</div>
           <div class="record-content">${record.content}</div>
           <div class="record-payment">${record.payment}</div>
           <div class="record-amount ${
-            (record.t_type === "지출") 
-            ? "outcome-text"
-            : "income-text"
+            record.t_type === "지출" ? "outcome-text" : "income-text"
           }">${
-            (record.t_type === "수입") 
-            ? "+" + record.amount 
-            : record.amount
+            record.t_type === "수입" ? "+" + record.amount : record.amount
           } 원</div>
       </li>`;
         })
