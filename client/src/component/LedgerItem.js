@@ -32,7 +32,9 @@ export default function LedgerItem(props, idx) {
   }
 
   function getDailyIncomeSum(records) {
-    const incomeRecords = records.filter((record) => record.t_type === INCOME_TYPE);
+    const incomeRecords = records.filter(
+      (record) => record.t_type === INCOME_TYPE
+    );
     const incomeSum =
       incomeRecords.length > 0
         ? incomeRecords.reduce((acc, cur) => acc + parseInt(cur.amount), 0)
@@ -41,7 +43,9 @@ export default function LedgerItem(props, idx) {
   }
 
   function getDailyOutcomeSum(records) {
-    const outcomeRecords = records.filter((record) => record.t_type === OUTCOME_TYPE);
+    const outcomeRecords = records.filter(
+      (record) => record.t_type === OUTCOME_TYPE
+    );
     const outcomeSum =
       outcomeRecords.length > 0
         ? outcomeRecords.reduce(
@@ -67,12 +71,17 @@ export default function LedgerItem(props, idx) {
     const incomeSum = getDailyIncomeSum(records);
     const outcomeSum = getDailyOutcomeSum(records);
 
+    const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
+    const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
+
     const html = `
       <li class="ledger-item-header">
         <div class="ledger-item-header-date">${props.date}</div>
         <div class="ledger-item-header-amount">
-          <p class="ledger-item-header-amount-income income-text">+${incomeSum} 원</p>
-          <p class="ledger-item-header-amount-outcome outcome-text">-${outcomeSum} 원</p>
+          <p class="ledger-item-header-amount-income income-text
+           ${isLedgerIncomeVisible? "" : "hidden"}">+${incomeSum} 원</p>
+          <p class="ledger-item-header-amount-outcome outcome-text
+           ${isLedgerOutcomeVisible? "" : "hidden"}">-${outcomeSum} 원</p>
         </div>
       </li>
       ${records
@@ -80,7 +89,9 @@ export default function LedgerItem(props, idx) {
           return `
         <li class="ledger-item-record">
           <div class="record-category ${
-            record.t_type === OUTCOME_TYPE ? "outcome-element" : "income-element"
+            record.t_type === OUTCOME_TYPE
+              ? "outcome-element"
+              : "income-element"
           }">${record.category}</div>
           <div class="record-content">${record.content}</div>
           <div class="record-payment">${record.payment}</div>

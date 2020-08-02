@@ -38,6 +38,13 @@ export function fetchMockLedgerItem() {
         amount: "2000000",
         t_type: "수입"
       },
+      {
+        category: "식품",
+        content: "아웃백",
+        payment: "카카오체크카드",
+        amount: "-100000",
+        t_type: "지출"
+      },
     ],
   };
 }

@@ -1,6 +1,13 @@
 import "./Filter.scss";
 import { bindEvent, $ } from "../util/util";
-import { getIsLedgerIncomeVisible, getIsLedgerOutcomeVisible, toggleLedgerOutcomeVisible, toggleLedgerIncomeVisible, subscribe, getLedgerItem } from "../store";
+import {
+  getIsLedgerIncomeVisible,
+  getIsLedgerOutcomeVisible,
+  toggleLedgerOutcomeVisible,
+  toggleLedgerIncomeVisible,
+  subscribe,
+  getLedgerItem,
+} from "../store";
 import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
 
 export default function Filter() {
@@ -16,27 +23,25 @@ export default function Filter() {
 
   function getMonthlyIncomeSum(ledgerItem) {
     let monthlyIncomeSum = 0;
-    Object.values(ledgerItem)
-    .forEach(dailyTransactions => {
-      dailyTransactions.forEach(tx => {
+    Object.values(ledgerItem).forEach((dailyTransactions) => {
+      dailyTransactions.forEach((tx) => {
         if (tx.t_type === INCOME_TYPE) {
           monthlyIncomeSum += parseInt(tx.amount);
         }
-      })
-    })
+      });
+    });
     return monthlyIncomeSum;
   }
 
   function getMonthlyOutcomeSum(ledgerItem) {
     let monthlyOutcomeSum = 0;
-    Object.values(ledgerItem)
-    .forEach(dailyTransactions => {
-      dailyTransactions.forEach(tx => {
+    Object.values(ledgerItem).forEach((dailyTransactions) => {
+      dailyTransactions.forEach((tx) => {
         if (tx.t_type === OUTCOME_TYPE) {
           monthlyOutcomeSum += parseInt(Math.abs(tx.amount));
         }
-      })
-    })
+      });
+    });
     return monthlyOutcomeSum;
   }
 
@@ -52,7 +57,7 @@ export default function Filter() {
     <li class="filter-item">
         <input
           type="checkbox"
-          ${isLedgerIncomeVisible ? "checked": ""}
+          ${isLedgerIncomeVisible ? "checked" : ""}
           id="filter-item-income"
           name="filter-item-income"
           value="filter-item-income"
@@ -64,7 +69,7 @@ export default function Filter() {
       <li class="filter-item">
         <input
           type="checkbox"
-          ${isLedgerOutcomeVisible ? "checked": ""}
+          ${isLedgerOutcomeVisible ? "checked" : ""}
           id="filter-item-outcome"
           name="filter-item-outcome"
           value="filter-item-outcome"
@@ -84,7 +89,7 @@ export default function Filter() {
   subscribe(componentName, "isLedgerOutcomeVisible", render);
   subscribe(componentName, "isLedgerIncomeVisible", render);
   subscribe(componentName, "ledgerItem", render);
-  
+
   setTimeout(render, 0);
 
   return `<ul class=${componentName}></ul>`;

@@ -1,6 +1,6 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
-import { subscribe, getLedgerItemDate, fetchLedgerItem } from "../store";
+import { subscribe, getLedgerItemDate } from "../store";
 import { $ } from "../util/util";
 
 export default function Ledger() {
