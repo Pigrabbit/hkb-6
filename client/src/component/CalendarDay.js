@@ -4,6 +4,7 @@ import {
   getLedgerItemByDate,
   getIsLedgerIncomeVisible,
   getIsLedgerOutcomeVisible,
+  subscribe,
 } from "../store";
 import { getDailyOutcomeSum, getDailyIncomeSum } from "../util/sumCalculator";
 
@@ -26,7 +27,6 @@ export default function CalendarDay(props) {
   function render() {
     const isLedgerIncomeVisble = getIsLedgerIncomeVisible();
     const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
-    console.log(isLedgerIncomeVisble, isLedgerOutcomeVisible);
 
     let records = getLedgerItemByDate(date);
 
@@ -50,6 +50,9 @@ export default function CalendarDay(props) {
     const $calendarDay = $(`div#${componentName}`);
     $calendarDay.innerHTML = html;
   }
+
+  subscribe(componentName, "isLedgerIncomeVisible", render);
+  subscribe(componentName, "isLedgerOutcomeVisible", render);
 
   setTimeout(render, 0);
 

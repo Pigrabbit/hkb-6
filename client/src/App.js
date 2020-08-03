@@ -6,10 +6,14 @@ import Modal from "./component/Modal";
 import brocolli from "./images/brocolli.png";
 import "./scss/main.scss";
 
-import { fetchLedgerItem } from "./store";
+import { fetchLedgerItem, unsubscribe } from "./store";
 
 export default function App() {
   window.addEventListener("popstate", (e) => {
+    const getPrevComponents = Router.getPrevComponents(history.state.prevURL);
+    getPrevComponents.forEach(component => {
+      unsubscribe(component);
+    })
     render();
   });
 

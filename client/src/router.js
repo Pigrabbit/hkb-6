@@ -12,6 +12,12 @@ class Router {
       "calendar": CalendarPage,
       "statistics": StatisticsPage, // TODO: make statistics page
     };
+    this.componentList = {
+      "": [], 
+      "list": ["form", "filter", "ledger", "ledger-item"],
+      "calendar": ["filter", "calendar", "calendar-day"],
+      "statistics": []
+    }
     this.root = "/";
   }
 
@@ -20,12 +26,17 @@ class Router {
     return this.routes[key];
   }
 
+  getPrevComponents(path) {
+    const key = this.removeSlashes(path);
+    return this.componentList[key];
+  }
+
   removeSlashes(path) {
     return path.toString().replace(/\/$/, "").replace(/^\//, "");
   }
 
   navigateTo(path) {
-    history.pushState(null, null, this.root + this.removeSlashes(path));
+    history.pushState({ prevURL: location.pathname }, null, this.root + this.removeSlashes(path));
 
     const popStateEvent = new PopStateEvent('popstate');
     dispatchEvent(popStateEvent);

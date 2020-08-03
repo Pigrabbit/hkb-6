@@ -44,12 +44,25 @@ export const subscribe = (component, key, action) => {
   state[key].listeners[component] = action;
 };
 
-export const unsubscribe = (component, key) => {
-  
-}
+// TODO: 로직 개선
+export const unsubscribe = (component) => {
+  for (let key in state) {
+    if (state[key].listeners[component]) {
+      state[key].listeners[component] = null;
+    }
+
+    for (let listener in state[key].listeners) {
+      if (/^ledger-item-*/.test(listener) || /^calendar-day-*/.test(listener)) {
+        state[key].listeners[listener] = null;
+      }
+    }
+  }
+};
 
 const publish = (key) =>
-  Object.values(key.listeners).forEach((action) => action(key.data));
+  Object.values(key.listeners).forEach((action) => {
+    if (action) action(key.data)
+  });
 
 export function getIsFormIncomeSelected() {
   return state.isFormIncomeSelected.data;
