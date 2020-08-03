@@ -1,10 +1,16 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
-import { subscribe, getLedgerItemDate } from "../store";
+import { subscribe, getLedgerItemDate, unsubscribe } from "../store";
 import { $ } from "../util/util";
 
 export default function Ledger() {
   const componentName = "ledger";
+  
+  function onPopState() {
+    unsubscribe(componentName, "ledgerItem");
+  }
+
+  window.addEventListener("popstate", onPopState.bind(this));
   
   function render() {
     const ledgerDate = getLedgerItemDate();

@@ -7,11 +7,20 @@ import {
   toggleLedgerIncomeVisible,
   subscribe,
   getLedgerItem,
+  unsubscribe,
 } from "../store";
-import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
+import { getMonthlyIncomeSum, getMonthlyOutcomeSum } from "../util/sumCalculator";
 
 export default function Filter() {
   const componentName = "filter";
+
+  function onPopState() {
+    unsubscribe(componentName, "isLedgerIncomeVisible")
+    unsubscribe(componentName, "isLedgerOutcomeVisible")
+    unsubscribe(componentName, "ledgerItem")
+  }
+
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function onIncomeFilterClick(e) {
     toggleLedgerIncomeVisible();
@@ -21,35 +30,12 @@ export default function Filter() {
     toggleLedgerOutcomeVisible();
   }
 
-  function getMonthlyIncomeSum(ledgerItem) {
-    let monthlyIncomeSum = 0;
-    Object.values(ledgerItem).forEach((dailyTransactions) => {
-      dailyTransactions.forEach((tx) => {
-        if (tx.t_type === INCOME_TYPE) {
-          monthlyIncomeSum += parseInt(tx.amount);
-        }
-      });
-    });
-    return monthlyIncomeSum;
-  }
-
-  function getMonthlyOutcomeSum(ledgerItem) {
-    let monthlyOutcomeSum = 0;
-    Object.values(ledgerItem).forEach((dailyTransactions) => {
-      dailyTransactions.forEach((tx) => {
-        if (tx.t_type === OUTCOME_TYPE) {
-          monthlyOutcomeSum += parseInt(Math.abs(tx.amount));
-        }
-      });
-    });
-    return monthlyOutcomeSum;
-  }
-
   function render() {
     const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
     const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
 
     const ledgerItem = getLedgerItem();
+    
     const monthlyIncomeSum = getMonthlyIncomeSum(ledgerItem);
     const monthlyOutcomeSum = getMonthlyOutcomeSum(ledgerItem);
 

@@ -30,14 +30,28 @@ export const state = {
     data: true,
     listeners: {},
   },
+  currentDate: {
+    data: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate(),
+    },
+    listeners: {},
+  },
 };
 
 export const subscribe = (component, key, action) => {
   state[key].listeners[component] = action;
 };
 
+export function unsubscribe(component, key) {
+  delete state[key].listeners[component];
+}
+
 const publish = (key) =>
-  Object.values(key.listeners).forEach((action) => action(key.data));
+  Object.values(key.listeners).forEach((action) => {
+    if (action) action(key.data)
+  });
 
 export function getIsFormIncomeSelected() {
   return state.isFormIncomeSelected.data;
@@ -55,7 +69,9 @@ export function toggleFormBtns() {
 export function addNewLedgeritem(date, data) {
   if (isDateInKey(date)) state.ledgerItem.data[date] = [data[date]];
   else state.ledgerItem.data[date].push(data[date]);
+
   publish(state.ledgerItem);
+
   const inputs = document.querySelectorAll(".form-input-text");
   inputs.forEach((input) => {
     input.value = "";
@@ -127,4 +143,28 @@ export function getIsLedgerOutcomeVisible() {
 export function toggleLedgerOutcomeVisible() {
   state.isLedgerOutcomeVisible.data = !state.isLedgerOutcomeVisible.data;
   publish(state.isLedgerOutcomeVisible);
+}
+
+export function getCurrentDate() {
+  return state.currentDate.data;
+}
+
+export function toPrevMonth() {
+  if (state.currentDate.data.month === 1) {
+    --state.currentDate.data.year;
+    state.currentDate.data.month = 12;
+  } else {
+    --state.currentDate.data.month;
+  }
+  publish(state.currentDate);
+}
+
+export function toNextMonth() {
+  if (state.currentDate.data.month === 12) {
+    ++state.currentDate.data.year;
+    state.currentDate.data.month = 1;
+  } else {
+    ++state.currentDate.data.month;
+  }
+  publish(state.currentDate);
 }

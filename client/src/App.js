@@ -6,6 +6,7 @@ import Modal from "./component/Modal";
 import brocolli from "./images/brocolli.png";
 import "./scss/main.scss";
 
+
 import { fetchLedgerItem, fetchPaymentList } from "./store";
 
 export default function App() {

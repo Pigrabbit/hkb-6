@@ -1,0 +1,39 @@
+div {
+  margin: 0;
+  padding: 0;
+}
+
+
+.calendar {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: stretch;
+  row-gap: 0;
+}
+
+.calendar-header {
+  grid-row: 1 / 2;
+  margin-bottom:-20px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: stretch;
+}
+
+.calendar-header-day {
+  margin: 0;
+  align-self: stretch;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  border: 1px solid black;
+}
+
+.calendar-body {
+  grid-row: 2 / 3;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto;
+  justify-items: stretch;
+  align-items: stretch;
+}
