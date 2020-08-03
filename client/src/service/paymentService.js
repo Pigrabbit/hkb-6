@@ -2,7 +2,6 @@ import {
   getFetchManger,
   postFetchManger,
   deleteFetchManager,
-  patchFetchManger,
 } from "../util/fetchManager";
 
 export async function getPaymentListFromServer() {
@@ -13,4 +12,6 @@ export async function createNewPayment(newItem) {
   return await postFetchManger("/payment", newItem);
 }
 
-
+export async function deletePayment(p_id) {
+  return await deleteFetchManager(`/payment/${p_id}`);
+}
