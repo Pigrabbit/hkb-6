@@ -1,0 +1,27 @@
+* {
+    margin: 0
+}
+
+.calendar-day {
+//   height: 4rem;
+  margin: 0;
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.calendar-day-number {
+  padding: 0.25rem;
+  margin: 0;
+}
+
+.prev-month-day,
+.next-month-day {
+  color: gray;
+}
+
+p.calendar-body-income,
+p.calendar-body-outcome {
+  text-align: right;
+  font-size: 0.8rem;
+}
