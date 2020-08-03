@@ -21,6 +21,8 @@ export default function Modal() {
     await addNewPayment($input.value);
   }
 
+  function deletePayment() {}
+
   function render() {
     const isVisible = getIsModalVisible();
     const paymentList = getPaymentList();
@@ -46,6 +48,7 @@ export default function Modal() {
           <ul class="modal-payment-list">
           ${paymentList
             .map((item) => {
+              console.log(item);
               return `
             <li class="modal-payment-item">
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
