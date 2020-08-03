@@ -1,0 +1,47 @@
+.calendar {
+  width: 70vw;
+  display: grid;
+  grid-template-rows: 5vh 50vh;
+}
+
+.calendar-header {
+  grid-row: 1 / 2;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: stretch;
+}
+
+.calendar-header-day {
+  padding: 0.2rem 0 0 0.2rem;
+  border: 1px solid black;
+}
+
+.calendar-body {
+  grid-row: 2 / 3;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: stretch;
+}
+
+.calendar-body-day {
+  height: 6.5rem;
+  border: 1px solid black;
+
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.calendar-body-day-number {
+  padding: 0.25rem;
+}
+
+.prev-month-day,
+.next-month-day {
+  color: gray;
+}
+
+p.calendar-body-day-income,
+p.calendar-body-day-outcome {
+  text-align: right;
+  font-size: 0.8rem;
+}
