@@ -19,7 +19,7 @@ export function removeComma(x) {
 }
 
 // 문자열에 콤마를 붙여주는 함수
-export function attachComma(target,x) {
+export function attachComma(target, x) {
   const inputtedString = removeComma(x);
   target.value = addCommaToNumber(inputtedString);
 }
