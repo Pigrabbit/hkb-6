@@ -30,13 +30,14 @@ export const state = {
     data: true,
     listeners: {},
   },
-  yearMonth: {
+  currentDate: {
     data: {
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
+      day: new Date().getDate(),
     },
-    listeners: {}
-  }
+    listeners: {},
+  },
 };
 
 export const subscribe = (component, key, action) => {
@@ -62,7 +63,9 @@ export function toggleFormBtns() {
 export function addNewLedgeritem(date, data) {
   if (isDateInKey(date)) state.ledgerItem.data[date] = [data[date]];
   else state.ledgerItem.data[date].push(data[date]);
+
   publish(state.ledgerItem);
+
   const inputs = document.querySelectorAll(".form-input-text");
   inputs.forEach((input) => {
     input.value = "";
@@ -136,24 +139,26 @@ export function toggleLedgerOutcomeVisible() {
   publish(state.isLedgerOutcomeVisible);
 }
 
-export function getYearMonth() {
-  return state.yearMonth.data;
+export function getCurrentDate() {
+  return state.currentDate.data;
 }
 
 export function toPrevMonth() {
-  if (state.yearMonth.data.month === 1) {
-    state.yearMonth.data = { year: --state.yearMonth.data.year, month: 12};
+  if (state.currentDate.data.month === 1) {
+    --state.currentDate.data.year;
+    state.currentDate.data.month = 12;
   } else {
-    --state.yearMonth.data.month;
+    --state.currentDate.data.month;
   }
-  publish(state.yearMonth);
+  publish(state.currentDate);
 }
 
 export function toNextMonth() {
-  if (state.yearMonth.data.month === 12) {
-    state.yearMonth.data = { year: ++state.yearMonth.data.year, month: 1};
+  if (state.currentDate.data.month === 12) {
+    ++state.currentDate.data.year;
+    state.currentDate.data.month = 1;
   } else {
-    ++state.yearMonth.data.month;
+    ++state.currentDate.data.month;
   }
-  publish(state.yearMonth);
+  publish(state.currentDate);
 }

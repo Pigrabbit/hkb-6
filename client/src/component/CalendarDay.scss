@@ -1,18 +1,23 @@
+@import "../scss/variable";
+
 * {
-    margin: 0
+  margin: 0;
 }
 
 .calendar-day {
-//   height: 4rem;
   margin: 0;
   border: 1px solid black;
   display: grid;
   grid-template-rows: 1fr auto;
 }
 
+.calendar-day.today {
+    border: 0.25rem solid $mint-color;
+}
+
 .calendar-day-number {
-  padding: 0.25rem;
-  margin: 0;
+  margin: 0.5rem 0.5rem 2rem 0.5rem;
+  font-size: 1.2rem;
 }
 
 .prev-month-day,
@@ -20,8 +25,10 @@
   color: gray;
 }
 
-p.calendar-body-income,
-p.calendar-body-outcome {
+p.calendar-day-income,
+p.calendar-day-outcome {
+  margin: 0.2rem;
   text-align: right;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
+

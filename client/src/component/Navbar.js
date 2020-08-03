@@ -1,7 +1,7 @@
 import "./Navbar.scss";
 import { bindEventAll, bindEvent } from "../util/util";
 import Router from "../router";
-import { getYearMonth, subscribe, toPrevMonth, toNextMonth } from "../store";
+import { getCurrentDate, subscribe, toPrevMonth, toNextMonth } from "../store";
 
 export default function Navbar() {
   const componentName = "navbar";
@@ -20,7 +20,7 @@ export default function Navbar() {
   }
 
   function render() {
-    const { year, month } = getYearMonth();
+    const { year, month } = getCurrentDate();
 
     const html = `
         <div class="navbar-month">
@@ -43,7 +43,7 @@ export default function Navbar() {
     bindEvent("i.fa-caret-right", "click", onToNextMonthBtnClick);
   }
 
-  subscribe(componentName, "yearMonth", render);
+  subscribe(componentName, "currentDate", render);
   setTimeout(render, 0);
 
   return `<nav class=${componentName}></nav>`;

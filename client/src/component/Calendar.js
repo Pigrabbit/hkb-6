@@ -2,13 +2,14 @@ import "./Calendar.scss";
 import { $ } from "../util/util";
 import { WEEKDAYS } from "../util/constant";
 import CalendarDay from "./CalendarDay";
-import { getYearMonth, subscribe } from "../store";
+import { getCurrentDate, subscribe } from "../store";
 
 export default function Calendar() {
   const componentName = "calendar";
 
   function render() {
-    const { year, month } = getYearMonth();
+    const { year, month, day } = getCurrentDate();
+    const today = day;
 
     // 이번 달 첫 날이 무슨요일인지
     // 0: 일요일, 1: 월요일 ... 6: 토요일
@@ -43,7 +44,7 @@ export default function Calendar() {
                   .join("")}
                 ${currentMonthDays
                   .map((day) => {
-                    return CalendarDay({ month, day });
+                    return CalendarDay({ month, day, isToday: (day + 1 === today)? true : false });
                   })
                   .join("")}
                   ${nextMonthFirstWeekIdx.map((day) => {
@@ -60,7 +61,7 @@ export default function Calendar() {
     $calendar.innerHTML = html;
   }
 
-  subscribe(componentName, "yearMonth", render);
+  subscribe(componentName, "currentDate", render);
   setTimeout(render, 0);
 
   return `<div class=${componentName}></div>`;
