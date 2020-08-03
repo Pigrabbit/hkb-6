@@ -9,6 +9,10 @@
     margin: 20px 10px;
     font-size: $mid-font;
   }
+
+  i.fa:hover {
+    cursor: pointer;
+  }
 }
 
 .navbar-tab {

@@ -2,14 +2,13 @@ import "./Calendar.scss";
 import { $ } from "../util/util";
 import { WEEKDAYS } from "../util/constant";
 import CalendarDay from "./CalendarDay";
-import { getYearMonth } from "../store";
+import { getYearMonth, subscribe } from "../store";
 
 export default function Calendar() {
   const componentName = "calendar";
 
   function render() {
     const { year, month } = getYearMonth();
-    console.log(year, month);
 
     // 이번 달 첫 날이 무슨요일인지
     // 0: 일요일, 1: 월요일 ... 6: 토요일
@@ -61,6 +60,7 @@ export default function Calendar() {
     $calendar.innerHTML = html;
   }
 
+  subscribe(componentName, "yearMonth", render);
   setTimeout(render, 0);
 
   return `<div class=${componentName}></div>`;

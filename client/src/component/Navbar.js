@@ -1,7 +1,7 @@
 import "./Navbar.scss";
-import { bindEventAll } from "../util/util";
+import { bindEventAll, bindEvent } from "../util/util";
 import Router from "../router";
-import { getYearMonth, subscribe } from "../store";
+import { getYearMonth, subscribe, toPrevMonth, toNextMonth } from "../store";
 
 export default function Navbar() {
   const componentName = "navbar";
@@ -9,6 +9,14 @@ export default function Navbar() {
   function onTabClick(e) {
     const path = e.target.getAttribute("route");
     Router.navigateTo(path);
+  }
+
+  function onToPrevMonthBtnClick(e) {
+    toPrevMonth();
+  }
+
+  function onToNextMonthBtnClick(e) {
+    toNextMonth();
   }
 
   function render() {
@@ -31,6 +39,8 @@ export default function Navbar() {
     $navbar.innerHTML = html;
 
     bindEventAll("li.navbar-tab-item", "click", onTabClick);
+    bindEvent("i.fa-caret-left", "click", onToPrevMonthBtnClick);
+    bindEvent("i.fa-caret-right", "click", onToNextMonthBtnClick);
   }
 
   subscribe(componentName, "yearMonth", render);

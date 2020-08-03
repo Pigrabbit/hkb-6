@@ -139,3 +139,21 @@ export function toggleLedgerOutcomeVisible() {
 export function getYearMonth() {
   return state.yearMonth.data;
 }
+
+export function toPrevMonth() {
+  if (state.yearMonth.data.month === 1) {
+    state.yearMonth.data = { year: --state.yearMonth.data.year, month: 12};
+  } else {
+    --state.yearMonth.data.month;
+  }
+  publish(state.yearMonth);
+}
+
+export function toNextMonth() {
+  if (state.yearMonth.data.month === 12) {
+    state.yearMonth.data = { year: ++state.yearMonth.data.year, month: 1};
+  } else {
+    ++state.yearMonth.data.month;
+  }
+  publish(state.yearMonth);
+}
