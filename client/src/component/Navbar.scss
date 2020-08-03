@@ -26,8 +26,12 @@
     margin: 0;
     padding: 0 50px;
 
+
     &:hover{
       cursor: pointer;
+      color:$brown-font;
+      text-shadow: 2px 2px 2px darkgray;
+      transform:translateY(-3px)
     }
   }
 
@@ -35,4 +39,5 @@
     border-left: 1px solid darkgray;
     border-right: 1px solid darkgray;
   }
+
 }

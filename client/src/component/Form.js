@@ -1,5 +1,5 @@
 import "./Form.scss";
-import { bindEventAll, bindEvent } from "../util/util";
+import { bindEventAll, bindEvent, $, $id } from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -14,6 +14,7 @@ import {
   removeComma,
   isNormalText,
 } from "../util/validation";
+import { incomeCategory, outcomeCategory } from "./CategoryList";
 
 export default function Form() {
   const componentName = "form";
@@ -34,14 +35,14 @@ export default function Form() {
   function submitByEnter(e) {
     if (e.keyCode === 13) {
       e.preventDefault();
-      document.querySelector(".form-submit-btn").click();
+      $(".form-submit-btn").click();
     }
   }
 
   //새로운 가계부를 입력하도록 form을 제출하는 함수
   function submitForm() {
-    const $form = document.querySelector(".form");
-    const alertMsg = document.getElementById("alert-msg");
+    const $form = $(".form");
+    const alertMsg = $id("alert-msg");
     alertMsg.innerText = "";
 
     const $inputElements = [
@@ -49,7 +50,7 @@ export default function Form() {
     ];
 
     // 아직 입력하지 않은 부분이 있다면 관련 알림 메세지를 표시하고 포커스를 이동시킵니다.
-    let curdate = document.getElementById("transaction-date");
+    let curdate = $id("transaction-date");
     if (curdate.value === "" || curdate.value === "undefined") {
       showAlertMessage(curdate, alertMsg, "날짜를 입력해주세요");
       return;
@@ -88,9 +89,9 @@ export default function Form() {
 
   //금액 유효성 검사 함수
   function amountValidationCheck() {
-    const $amount = document.getElementById("transaction-amount");
+    const $amount = $id("transaction-amount");
     const inputtedString = removeComma($amount.value);
-    const alertMsg = document.getElementById("alert-msg");
+    const alertMsg = $id("alert-msg");
     alertMsg.innerText = "";
     if (!isNumber(inputtedString)) {
       showAlertMessage($amount, alertMsg, "숫자로만 입력할 수 있습니다.");
@@ -106,8 +107,8 @@ export default function Form() {
 
   //내용 유효성 검사 함수
   function contentValidationCheck() {
-    const $content = document.getElementById("transaction-content");
-    const alertMsg = document.getElementById("alert-msg");
+    const $content = $id("transaction-content");
+    const alertMsg = $id("alert-msg");
     alertMsg.innerText = "";
     if (!isNormalText($content.value)) {
       showAlertMessage(
@@ -153,9 +154,8 @@ export default function Form() {
               <label for="form-category">카테고리</label>
               <select name="transaction-category" id="transaction-category" msg="카테고리">
                 <option value="default">선택하세요</option>
-                <option value="월급">월급</option>
-                <option value="용돈">용돈</option>
-                <option value="기타수입">기타수입</option>
+
+                ${isFormIncomeSelected ? incomeCategory() : outcomeCategory()}
               </select>
             </div>
             <div class="form-col-2">
@@ -194,7 +194,7 @@ export default function Form() {
           <button class="form-submit-btn">확인</button>
         `;
 
-    const $form = document.querySelector(`.${componentName}`);
+    const $form = $(`.${componentName}`);
     $form.innerHTML = html;
 
     bindEventAll("button", "click", preventDefaultBtn);
@@ -205,7 +205,7 @@ export default function Form() {
     bindEvent("input#transaction-content", "keyup", submitByEnter);
     bindEvent("button.form-submit-btn", "click", submitForm);
   }
-  
+
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
 
