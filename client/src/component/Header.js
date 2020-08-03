@@ -26,7 +26,7 @@ export default function Header() {
     bindEvent("button.header-payment-btn", "click", onPaymentBtnClick);
   }
 
-  fetchPaymentList();
+ 
   setTimeout(render, 0);
 
   return `<header class=${componentName}></header>`;

@@ -6,6 +6,7 @@ import {
   getIsFormIncomeSelected,
   getIsFormOutcomeSelected,
   toggleFormBtns,
+  getPaymentList,
 } from "../store";
 import {
   isNumber,
@@ -129,6 +130,8 @@ export default function Form() {
   function render() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
+    const paymentList = getPaymentList();
+    console.log(paymentList);
     const html = `
         <div class="form-row">
             <div class="form-col">
@@ -162,9 +165,10 @@ export default function Form() {
               <label for="form-payment">결제수단</label>
               <select name="transaction-payment" id="transaction-payment" msg="결제수단">
                 <option value="default">선택하세요</option>
-                <option value="우리카드">우리카드</option>
-                <option value="카카오체크카드">카카오체크카드</option>
-                <option value="국민은행">국민은행</option>
+                ${paymentList.map((item) => {
+                  return `<option value="${item.payment_name}">${item.payment_name}</option>`;
+                })}
+
               </select>
             </div>
           </div>
@@ -205,7 +209,7 @@ export default function Form() {
     bindEvent("input#transaction-content", "keyup", submitByEnter);
     bindEvent("button.form-submit-btn", "click", submitForm);
   }
-
+  subscribe(componentName, "paymentList", render);
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
 
