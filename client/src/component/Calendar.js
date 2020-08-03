@@ -2,10 +2,16 @@ import "./Calendar.scss";
 import { $ } from "../util/util";
 import { WEEKDAYS } from "../util/constant";
 import CalendarDay from "./CalendarDay";
-import { getCurrentDate, subscribe } from "../store";
+import { getCurrentDate, subscribe, unsubscribe } from "../store";
 
 export default function Calendar() {
   const componentName = "calendar";
+
+  function onPopState() {
+    unsubscribe(componentName, "currentDate");
+  }
+
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function render() {
     const { year, month, day } = getCurrentDate();
@@ -25,9 +31,6 @@ export default function Calendar() {
     // 0: 일요일, 1: 월요일 ... 6: 토요일
     const lastDayIdx = new Date(year, month, 0).getDay();
     const nextMonthFirstWeekIdx = [...Array(6 - lastDayIdx).keys()];
-
-    // TODO
-    // 일별 수입 지출, 보여주기
 
     const html = `
             <div class="calendar-header">

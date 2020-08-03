@@ -44,27 +44,8 @@ export const subscribe = (component, key, action) => {
   state[key].listeners[component] = action;
 };
 
-// TODO: 로직 개선
-export const unsubscribe = (component) => {
-  for (let key in state) {
-    if (state[key].listeners[component]) {
-      state[key].listeners[component] = null;
-    }
-
-    for (let listener in state[key].listeners) {
-      if (/^ledger-item-*/.test(listener) || /^calendar-day-*/.test(listener)) {
-        state[key].listeners[listener] = null;
-      }
-    }
-  }
-};
-
-export function unsubscribeByKey(component, key) {
-  console.log(`in unsubscribeByKey ${component}, ${key}`);
-  console.log(state[key].listeners);
-  
+export function unsubscribe(component, key) {
   delete state[key].listeners[component];
-  console.log(state[key].listeners);
 }
 
 const publish = (key) =>

@@ -1,5 +1,10 @@
 import "./Form.scss";
-import { bindEventAll, bindEvent, $, $id } from "../util/util";
+import {
+  bindEventAll,
+  bindEvent,
+  $,
+  $id
+} from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -7,6 +12,7 @@ import {
   getIsFormOutcomeSelected,
   toggleFormBtns,
   getPaymentList,
+  unsubscribe,
 } from "../store";
 import {
   isNumber,
@@ -15,10 +21,21 @@ import {
   removeComma,
   isNormalText,
 } from "../util/validation";
-import { incomeCategory, outcomeCategory } from "./CategoryList";
+import {
+  incomeCategory,
+  outcomeCategory
+} from "./CategoryList";
 
 export default function Form() {
   const componentName = "form";
+
+  function onPopState() {
+    unsubscribe(componentName, "paymentList");
+    unsubscribe(componentName, "isFormIncomeSelected", render);
+    unsubscribe(componentName, "isFormOutcomeSelected", render);
+  }
+
+  window.addEventListener("popstate", onPopState.bind(this));
 
   // 수입, 지출 버튼 토글하는 함수
   function btnToggle(e) {
@@ -82,9 +99,9 @@ export default function Form() {
     });
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
     let absoluteAmount = removeComma(tmp[curdate.value]["amount"]);
-    tmp[curdate.value]["amount"] = isFormOutcomeSelected
-      ? -absoluteAmount
-      : +absoluteAmount;
+    tmp[curdate.value]["amount"] = isFormOutcomeSelected ?
+      -absoluteAmount :
+      +absoluteAmount;
     addNewLedgeritem(curdate.value, tmp);
   }
 
@@ -131,7 +148,7 @@ export default function Form() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
     const paymentList = getPaymentList();
-    
+
     const html = `
         <div class="form-row">
             <div class="form-col">

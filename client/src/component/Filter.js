@@ -7,11 +7,20 @@ import {
   toggleLedgerIncomeVisible,
   subscribe,
   getLedgerItem,
+  unsubscribe,
 } from "../store";
 import { getMonthlyIncomeSum, getMonthlyOutcomeSum } from "../util/sumCalculator";
 
 export default function Filter() {
   const componentName = "filter";
+
+  function onPopState() {
+    unsubscribe(componentName, "isLedgerIncomeVisible")
+    unsubscribe(componentName, "isLedgerOutcomeVisible")
+    unsubscribe(componentName, "ledgerItem")
+  }
+
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function onIncomeFilterClick(e) {
     toggleLedgerIncomeVisible();

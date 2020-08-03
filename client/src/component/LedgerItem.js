@@ -4,7 +4,6 @@ import {
   getLedgerItemByDate,
   getIsLedgerIncomeVisible,
   getIsLedgerOutcomeVisible,
-  unsubscribeByKey,
   unsubscribe,
 } from "../store";
 import { $ } from "../util/util";
@@ -12,15 +11,13 @@ import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
 import { getDailyIncomeSum, getDailyOutcomeSum } from "../util/sumCalculator";
 
 export default function LedgerItem(props, idx) {
-  const componentName = `ledger-item`;
+  const componentClass = `ledger-item`;
+  const componentId = `${componentClass}-${idx}`;
 
   function onPopState() {
-    console.log(`${componentName}-${idx}`);
-    const componentId = `${componentName}-${idx}`;
-
-    unsubscribeByKey(componentName, "ledgerItem");
-    unsubscribeByKey(componentId, "isLedgerIncomeVisible");
-    unsubscribeByKey(componentId, "isLedgerOutcomeVisible");
+    unsubscribe(componentClass, "ledgerItem");
+    unsubscribe(componentId, "isLedgerIncomeVisible");
+    unsubscribe(componentId, "isLedgerOutcomeVisible");
   }
 
   window.addEventListener("popstate", onPopState.bind(this));
@@ -41,7 +38,7 @@ export default function LedgerItem(props, idx) {
   }
 
   function clearLedgerItem() {
-    const $ledgerItem = $(`ul#${componentName + "-" + idx}`);
+    const $ledgerItem = $(`ul#${componentId}`);
     $ledgerItem.innerHTML = "";
   }
 
@@ -95,15 +92,15 @@ export default function LedgerItem(props, idx) {
   
         `;
 
-    const $ledgerItem = $(`ul#${componentName + "-" + idx}`);
+    const $ledgerItem = $(`ul#${componentId}`);
     $ledgerItem.innerHTML = html;
   }
 
-  subscribe(componentName, "ledgerItem", render);
-  subscribe(`${componentName}-${idx}`, "isLedgerIncomeVisible", render);
-  subscribe(`${componentName}-${idx}`, "isLedgerOutcomeVisible", render);
+  subscribe(componentClass, "ledgerItem", render);
+  subscribe(`${componentId}`, "isLedgerIncomeVisible", render);
+  subscribe(`${componentId}`, "isLedgerOutcomeVisible", render);
 
   setTimeout(render, 0);
 
-  return `<ul class=${componentName} id=${componentName + "-" + idx}></ul>`;
+  return `<ul class=${componentClass} id=${componentId}></ul>`;
 }

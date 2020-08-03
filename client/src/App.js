@@ -7,14 +7,10 @@ import brocolli from "./images/brocolli.png";
 import "./scss/main.scss";
 
 
-import { fetchLedgerItem, unsubscribe, fetchPaymentList } from "./store";
+import { fetchLedgerItem, fetchPaymentList } from "./store";
 
 export default function App() {
   window.addEventListener("popstate", (e) => {
-    // const getPrevComponents = Router.getPrevComponents(history.state.prevURL);
-    // getPrevComponents.forEach(component => {
-    //   unsubscribe(component);
-    // })
     render();
   });
 

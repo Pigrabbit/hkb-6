@@ -5,17 +5,26 @@ import {
   getIsLedgerIncomeVisible,
   getIsLedgerOutcomeVisible,
   subscribe,
-  unsubscribeByKey,
+  unsubscribe,
 } from "../store";
 import { getDailyOutcomeSum, getDailyIncomeSum } from "../util/sumCalculator";
 
 export default function CalendarDay(props) {
   const componentClass = "calendar-day";
-  const componentName = `calendar-day-${props.month}-${props.day + 1}`;
+  const componentId = `calendar-day-${props.month}-${props.day + 1}`;
+
+  function onPopState() {
+    unsubscribe(componentId, "currentDate");
+    unsubscribe(componentId, "isLedgerIncomeVisible");
+    unsubscribe(componentId, "isLedgerOutcomeVisible");
+  }
+
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function onMonthMove() {
-    unsubscribeByKey(componentName, "isLedgerIncomeVisible");
-    unsubscribeByKey(componentName, "isLedgerOutcomeVisible");
+    unsubscribe(componentId, "isLedgerIncomeVisible");
+    unsubscribe(componentId, "isLedgerOutcomeVisible");
+    unsubscribe(componentId, "currentDate");
   }
 
   let { isToday, isPrevMonthDay, isNextMonthDay, year, month, day } = props;
@@ -53,15 +62,15 @@ export default function CalendarDay(props) {
             }">-${outcomeSum}원</p>
         `;
 
-    const $calendarDay = $(`div#${componentName}`);
+    const $calendarDay = $(`div#${componentId}`);
     $calendarDay.innerHTML = html;
   }
 
   
   if (isCurrentMonthDay) {
-    subscribe(componentName, "currentDate", onMonthMove.bind(this));
-    subscribe(componentName, "isLedgerIncomeVisible", render);
-    subscribe(componentName, "isLedgerOutcomeVisible", render);
+    subscribe(componentId, "currentDate", onMonthMove.bind(this));
+    subscribe(componentId, "isLedgerIncomeVisible", render);
+    subscribe(componentId, "isLedgerOutcomeVisible", render);
   }
 
   setTimeout(render, 0);
@@ -71,5 +80,5 @@ export default function CalendarDay(props) {
             ${isPrevMonthDay ? "prev-month-day" : ""}
             ${isNextMonthDay ? "next-month-day" : ""}
             "
-            id=${componentName}></div>`;
+            id=${componentId}></div>`;
 }

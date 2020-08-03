@@ -12,23 +12,12 @@ class Router {
       calendar: CalendarPage,
       statistics: StatisticsPage, // TODO: make statistics page
     };
-    this.componentList = {
-      "": ["form", "filter", "ledger", "ledger-item"], 
-      "list": ["form", "filter", "ledger", "ledger-item"],
-      "calendar": ["filter", "calendar", "calendar-day"],
-      "statistics": []
-    }
     this.root = "/";
   }
 
   getCurrentURLView(path) {
     const key = this.removeSlashes(path);
     return this.routes[key];
-  }
-
-  getPrevComponents(path) {
-    const key = this.removeSlashes(path);
-    return this.componentList[key];
   }
 
   removeSlashes(path) {
