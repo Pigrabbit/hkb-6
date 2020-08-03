@@ -106,6 +106,10 @@
       & li{
         display:flex;
         justify-content: space-evenly;
+        align-items: center;
+        padding:10px;
+        margin:0;
+        border-bottom:1px solid #ddd;
 
         & button{
           background:none;
