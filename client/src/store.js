@@ -30,6 +30,13 @@ export const state = {
     data: true,
     listeners: {},
   },
+  yearMonth: {
+    data: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+    },
+    listeners: {}
+  }
 };
 
 export const subscribe = (component, key, action) => {
@@ -127,4 +134,8 @@ export function getIsLedgerOutcomeVisible() {
 export function toggleLedgerOutcomeVisible() {
   state.isLedgerOutcomeVisible.data = !state.isLedgerOutcomeVisible.data;
   publish(state.isLedgerOutcomeVisible);
+}
+
+export function getYearMonth() {
+  return state.yearMonth.data;
 }
