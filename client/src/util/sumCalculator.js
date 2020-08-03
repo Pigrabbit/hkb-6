@@ -1,6 +1,5 @@
 const { INCOME_TYPE, OUTCOME_TYPE } = require("./constant");
 
-
 export function getDailyIncomeSum(records) {
   const incomeRecords = records.filter(
     (record) => record.t_type === INCOME_TYPE
@@ -24,4 +23,28 @@ export function getDailyOutcomeSum(records) {
         )
       : 0;
   return outcomeSum;
+}
+
+export function getMonthlyIncomeSum(ledgerItem) {
+  let monthlyIncomeSum = 0;
+  Object.values(ledgerItem).forEach((dailyTransactions) => {
+    dailyTransactions.forEach((tx) => {
+      if (tx.t_type === INCOME_TYPE) {
+        monthlyIncomeSum += parseInt(tx.amount);
+      }
+    });
+  });
+  return monthlyIncomeSum;
+}
+
+export function getMonthlyOutcomeSum(ledgerItem) {
+  let monthlyOutcomeSum = 0;
+  Object.values(ledgerItem).forEach((dailyTransactions) => {
+    dailyTransactions.forEach((tx) => {
+      if (tx.t_type === OUTCOME_TYPE) {
+        monthlyOutcomeSum += parseInt(Math.abs(tx.amount));
+      }
+    });
+  });
+  return monthlyOutcomeSum;
 }

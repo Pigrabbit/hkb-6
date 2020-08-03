@@ -44,6 +44,10 @@ export const subscribe = (component, key, action) => {
   state[key].listeners[component] = action;
 };
 
+export const unsubscribe = (component, key) => {
+  
+}
+
 const publish = (key) =>
   Object.values(key.listeners).forEach((action) => action(key.data));
 
