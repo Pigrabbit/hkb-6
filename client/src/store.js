@@ -1,5 +1,6 @@
 import { getPaymentListFromServer } from "./service/paymentService";
 import { fetchMockLedgerItem } from "./Data";
+import { $id, $all } from "./util/util";
 
 export const state = {
   isModalVisible: {
@@ -52,20 +53,30 @@ export function toggleFormBtns() {
   publish(state.isFormOutcomeSelected);
 }
 
-export function addNewLedgeritem(date, data) {
-  if (isDateInKey(date)) state.ledgerItem.data[date] = [data[date]];
-  else state.ledgerItem.data[date].push(data[date]);
+export function addNewPayment(newPayment) {
+  const tmp = { payment_name: newPayment };
+  if (isNotInKey(newPayment, state.paymentList.data)) {
+    state.paymentList.data.push(tmp);
+  } else {
+    state.paymentList.data = [tmp];
+  }
+  $id("modal-payment-name-input").value = "";
+  publish(state.paymentList);
+}
+
+export function addNewLedgeritem(date, newItem) {
+  if (isNotInKey(date, state.ledgerItem.data))
+    state.ledgerItem.data[date] = [newItem[date]];
+  else state.ledgerItem.data[date].push(newItem[date]);
   publish(state.ledgerItem);
-  const inputs = document.querySelectorAll(".form-input-text");
+  const inputs = $all(".form-input-text");
   inputs.forEach((input) => {
     input.value = "";
   });
 }
 
-function isDateInKey(date) {
-  return (
-    Object.keys(state.ledgerItem.data).find((key) => key === date) === undefined
-  );
+function isNotInKey(x, data) {
+  return Object.keys(data).find((elem) => elem === x) === undefined;
 }
 
 export function getLedgerItem() {

@@ -1,17 +1,30 @@
 import "./Modal.scss";
-import { subscribe, getIsModalVisible, getPaymentList, toggleModal } from "../store";
-import { bindEvent } from "../util/util";
+import {
+  subscribe,
+  getIsModalVisible,
+  getPaymentList,
+  toggleModal,
+  addNewPayment,
+} from "../store";
+import { bindEvent, $id } from "../util/util";
 
 export default function Modal() {
   const componentName = "modal";
 
-  function onCloseBtnClick(e) {
+  function onCloseBtnClick() {
     toggleModal();
+  }
+
+  function registerPayment(e) {
+    e.preventDefault();
+    const $input = $id("modal-payment-name-input");
+    addNewPayment($input.value);
   }
 
   function render() {
     const isVisible = getIsModalVisible();
     const paymentList = getPaymentList();
+    console.log(paymentList);
 
     const html = `
     <div class="${componentName} ${isVisible ? "" : "hidden"}">
@@ -51,9 +64,11 @@ export default function Modal() {
     $modal.innerHTML = html;
 
     bindEvent("button.modal-close-btn", "click", onCloseBtnClick);
+    bindEvent("button.modal-payment-submit-btn", "click", registerPayment);
   }
 
   subscribe(componentName, "isModalVisible", render);
+  subscribe(componentName, "paymentList", render);
   setTimeout(render, 0);
 
   return `<div class=${componentName}-wrapper></div>`;
