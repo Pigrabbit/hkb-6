@@ -26,6 +26,9 @@ export default function Calendar() {
     const lastDayIdx = new Date(year, month, 0).getDay();
     const nextMonthFirstWeekIdx = [...Array(6 - lastDayIdx).keys()];
 
+    // TODO
+    // 일별 수입 지출, 보여주기
+
     const html = `
             <div class="calendar-header">
                 ${WEEKDAYS.map((weekday) => {
@@ -36,7 +39,8 @@ export default function Calendar() {
                 ${prevMonthLastWeekIdx
                   .map((day) => {
                     return CalendarDay({
-                      month: month - 1,
+                      year: month === 1 ? year - 1 : year,
+                      month: month === 1 ? 12 : month - 1,
                       day: lastDayPrevMonth - 1 - day,
                       isPrevMonthDay: true,
                     });
@@ -44,16 +48,24 @@ export default function Calendar() {
                   .join("")}
                 ${currentMonthDays
                   .map((day) => {
-                    return CalendarDay({ month, day, isToday: (day + 1 === today)? true : false });
+                    return CalendarDay({
+                      year,
+                      month,
+                      day,
+                      isToday: (day + 1 === today) ? true : false,
+                    });
                   })
                   .join("")}
-                  ${nextMonthFirstWeekIdx.map((day) => {
-                    return CalendarDay({
-                        month: month + 1,
+                  ${nextMonthFirstWeekIdx
+                    .map((day) => {
+                      return CalendarDay({
+                        year: month === 12 ? year + 1 : year,
+                        month: month % 12 + 1,
                         day: day,
                         isNextMonthDay: true,
+                      });
                     })
-                  }).join("")}
+                    .join("")}
             </div>
         `;
 
