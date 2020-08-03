@@ -1,3 +1,5 @@
+const { OUTCOME_TYPE, INCOME_TYPE } = require("../utils/contant");
+
 class Transaction {
   constructor(db) {
     this.db = db;
@@ -18,7 +20,7 @@ class Transaction {
         created_at,
       } = data;
       // 지출: 0, 수입: 1
-      t_type = t_type === "지출" ? 0 : 1;
+      t_type = t_type === OUTCOME_TYPE ? 0 : 1;
 
       const getUserIdQuery = "SELECT id as user_id FROM user WHERE username=?";
       let [rows] = await conn.query(getUserIdQuery, [username]);
@@ -78,7 +80,7 @@ class Transaction {
           content: row.content,
           payment_name,
           created_at: row.created_at.toISOString().split("T")[0],
-          t_type: `${row.t_type === 0 ? "지출" : "수입"}`,
+          t_type: `${row.t_type === 0 ? OUTCOME_TYPE : INCOME_TYPE}`,
         };
       });
 
@@ -114,14 +116,14 @@ class Transaction {
         t_type,
         created_at,
       } = data;
-      t_type = t_type === "지출" ? 0 : 1;
+      t_type = t_type === outcome ? 0 : 1;
 
       //t_id에 해당하는 payment_id를 가져옵니다
       const getPaymentIdQuery = "SELECT payment_id FROM transaction WHERE id=?";
 
       const [rows] = await conn.query(getPaymentIdQuery, [t_id]);
       const { payment_id } = rows[0];
-
+      console.log(payment_id);
       //payment table변경: 해당하는 payment_id의 payment_name을 변경합니다
       const updatePaymentNameQuery =
         "UPDATE payment SET payment_name=? where id=?";

@@ -15,5 +15,6 @@ module.exports = {
   //거래
   TRANSACTION_CREATED: "transaction successfully created",
   TRANSACTION_UPDATED: "transaction successfully updated",
+  TRANSACTION_DELETED: "transaction successfully deleted",
   //결제방법
 };
