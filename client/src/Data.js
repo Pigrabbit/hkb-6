@@ -45,6 +45,6 @@ export function fetchMockLedgerItem() {
         amount: "-100000",
         t_type: "지출"
       },
-    ],
+    ]
   };
 }

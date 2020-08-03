@@ -7,6 +7,7 @@ import {
 } from "../store";
 import { $ } from "../util/util";
 import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
+import { getDailyIncomeSum, getDailyOutcomeSum } from "../util/sumCalculator";
 
 export default function LedgerItem(props, idx) {
   const componentName = `ledger-item`;
@@ -31,31 +32,6 @@ export default function LedgerItem(props, idx) {
     $ledgerItem.innerHTML = "";
   }
 
-  function getDailyIncomeSum(records) {
-    const incomeRecords = records.filter(
-      (record) => record.t_type === INCOME_TYPE
-    );
-    const incomeSum =
-      incomeRecords.length > 0
-        ? incomeRecords.reduce((acc, cur) => acc + parseInt(cur.amount), 0)
-        : 0;
-    return incomeSum;
-  }
-
-  function getDailyOutcomeSum(records) {
-    const outcomeRecords = records.filter(
-      (record) => record.t_type === OUTCOME_TYPE
-    );
-    const outcomeSum =
-      outcomeRecords.length > 0
-        ? outcomeRecords.reduce(
-            (acc, cur) => acc + Math.abs(parseInt(cur.amount)),
-            0
-          )
-        : 0;
-    return outcomeSum;
-  }
-
   function render() {
     let records = getLedgerItemByDate(props.date);
     // TODO
@@ -67,7 +43,7 @@ export default function LedgerItem(props, idx) {
       clearLedgerItem();
       return;
     }
-
+    
     const incomeSum = getDailyIncomeSum(records);
     const outcomeSum = getDailyOutcomeSum(records);
 

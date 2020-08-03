@@ -1,7 +1,7 @@
 import "./CalendarDay.scss";
 import { $ } from "../util/util";
 import { getLedgerItemByDate } from "../store";
-import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
+import { getDailyOutcomeSum, getDailyIncomeSum } from "../util/sumCalculator";
 
 export default function CalendarDay(props) {
   const componentClass = "calendar-day";
@@ -16,34 +16,9 @@ export default function CalendarDay(props) {
     day < 9 ? `0${day + 1}` : day + 1
   }`;
 
-  function getDailyIncomeSum(records) {
-    const incomeRecords = records.filter(
-      (record) => record.t_type === INCOME_TYPE
-    );
-    const incomeSum =
-      incomeRecords.length > 0
-        ? incomeRecords.reduce((acc, cur) => acc + parseInt(cur.amount), 0)
-        : 0;
-    return incomeSum;
-  }
-
-  function getDailyOutcomeSum(records) {
-    const outcomeRecords = records.filter(
-      (record) => record.t_type === OUTCOME_TYPE
-    );
-    const outcomeSum =
-      outcomeRecords.length > 0
-        ? outcomeRecords.reduce(
-            (acc, cur) => acc + Math.abs(parseInt(cur.amount)),
-            0
-          )
-        : 0;
-    return outcomeSum;
-  }
-
   function render() {
     let records = getLedgerItemByDate(date);
-
+    
     let incomeSum;
     let outcomeSum;
     if (records) {
