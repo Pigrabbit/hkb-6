@@ -21,10 +21,7 @@ import {
   removeComma,
   isNormalText,
 } from "../util/validation";
-import {
-  incomeCategory,
-  outcomeCategory
-} from "./CategoryList";
+import { INCOME_CATEGORY, OUTCOME_CATEGORY } from "../util/constant";
 
 export default function Form() {
   const componentName = "form";
@@ -174,8 +171,11 @@ export default function Form() {
               <label for="form-category">카테고리</label>
               <select name="transaction-category" id="transaction-category" msg="카테고리">
                 <option value="default">선택하세요</option>
-
-                ${isFormIncomeSelected ? incomeCategory() : outcomeCategory()}
+                  ${isFormIncomeSelected ? INCOME_CATEGORY.map(category => {
+                    return `<option value=${category}>${category}</option>`
+                  }).join("") : OUTCOME_CATEGORY.map(category => {
+                    return `<option value=${category}>${category}</option>`
+                  }).join("")}
               </select>
             </div>
             <div class="form-col-2">
