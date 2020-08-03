@@ -1,4 +1,7 @@
-import { getPaymentListFromServer } from "./service/paymentService";
+import {
+  getPaymentListFromServer,
+  getFetchManger,
+} from "./service/paymentService";
 import { fetchMockLedgerItem } from "./Data";
 import { $id, $all } from "./util/util";
 
