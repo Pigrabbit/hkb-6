@@ -1,5 +1,10 @@
 import "./Form.scss";
-import { bindEventAll, bindEvent, $, $id } from "../util/util";
+import {
+  bindEventAll,
+  bindEvent,
+  $,
+  $id
+} from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -7,6 +12,7 @@ import {
   getIsFormOutcomeSelected,
   toggleFormBtns,
   getPaymentList,
+  unsubscribe,
 } from "../store";
 import {
   isNumber,
@@ -15,10 +21,18 @@ import {
   removeComma,
   isNormalText,
 } from "../util/validation";
-import { incomeCategory, outcomeCategory } from "./CategoryList";
+import { INCOME_CATEGORY, OUTCOME_CATEGORY } from "../util/constant";
 
 export default function Form() {
   const componentName = "form";
+
+  function onPopState() {
+    unsubscribe(componentName, "paymentList");
+    unsubscribe(componentName, "isFormIncomeSelected", render);
+    unsubscribe(componentName, "isFormOutcomeSelected", render);
+  }
+
+  window.addEventListener("popstate", onPopState.bind(this));
 
   // 수입, 지출 버튼 토글하는 함수
   function btnToggle(e) {
@@ -82,9 +96,9 @@ export default function Form() {
     });
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
     let absoluteAmount = removeComma(tmp[curdate.value]["amount"]);
-    tmp[curdate.value]["amount"] = isFormOutcomeSelected
-      ? -absoluteAmount
-      : +absoluteAmount;
+    tmp[curdate.value]["amount"] = isFormOutcomeSelected ?
+      -absoluteAmount :
+      +absoluteAmount;
     addNewLedgeritem(curdate.value, tmp);
   }
 
@@ -131,6 +145,7 @@ export default function Form() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
     const paymentList = getPaymentList();
+
     const html = `
         <div class="form-row">
             <div class="form-col">
@@ -156,8 +171,11 @@ export default function Form() {
               <label for="form-category">카테고리</label>
               <select name="transaction-category" id="transaction-category" msg="카테고리">
                 <option value="default">선택하세요</option>
-
-                ${isFormIncomeSelected ? incomeCategory() : outcomeCategory()}
+                  ${isFormIncomeSelected ? INCOME_CATEGORY.map(category => {
+                    return `<option value=${category}>${category}</option>`
+                  }).join("") : OUTCOME_CATEGORY.map(category => {
+                    return `<option value=${category}>${category}</option>`
+                  }).join("")}
               </select>
             </div>
             <div class="form-col-2">

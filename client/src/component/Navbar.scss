@@ -9,6 +9,10 @@
     margin: 20px 10px;
     font-size: $mid-font;
   }
+
+  i.fa:hover {
+    cursor: pointer;
+  }
 }
 
 .navbar-tab {
@@ -17,6 +21,7 @@
   align-items: center;
   justify-content: center;
   list-style: none;
+  margin-bottom: 2rem;
   padding: 0;
   border-radius: 10px;
   background: #eee;

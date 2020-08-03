@@ -34,14 +34,28 @@ export const state = {
     data: true,
     listeners: {},
   },
+  currentDate: {
+    data: {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate(),
+    },
+    listeners: {},
+  },
 };
 
 export const subscribe = (component, key, action) => {
   state[key].listeners[component] = action;
 };
 
+export function unsubscribe(component, key) {
+  delete state[key].listeners[component];
+}
+
 const publish = (key) =>
-  Object.values(key.listeners).forEach((action) => action(key.data));
+  Object.values(key.listeners).forEach((action) => {
+    if (action) action(key.data)
+  });
 
 export function getIsFormIncomeSelected() {
   return state.isFormIncomeSelected.data;
@@ -55,6 +69,7 @@ export function toggleFormBtns() {
   publish(state.isFormIncomeSelected);
   publish(state.isFormOutcomeSelected);
 }
+
 
 export function addNewPayment(newPayment) {
   // const tmp = { payment_name: newPayment };
@@ -73,6 +88,7 @@ export function addNewLedgeritem(date, newItem) {
   else state.ledgerItem.data[date].push(newItem[date]);
   publish(state.ledgerItem);
   const inputs = $all(".form-input-text");
+
   inputs.forEach((input) => {
     input.value = "";
   });
@@ -141,4 +157,28 @@ export function getIsLedgerOutcomeVisible() {
 export function toggleLedgerOutcomeVisible() {
   state.isLedgerOutcomeVisible.data = !state.isLedgerOutcomeVisible.data;
   publish(state.isLedgerOutcomeVisible);
+}
+
+export function getCurrentDate() {
+  return state.currentDate.data;
+}
+
+export function toPrevMonth() {
+  if (state.currentDate.data.month === 1) {
+    --state.currentDate.data.year;
+    state.currentDate.data.month = 12;
+  } else {
+    --state.currentDate.data.month;
+  }
+  publish(state.currentDate);
+}
+
+export function toNextMonth() {
+  if (state.currentDate.data.month === 12) {
+    ++state.currentDate.data.year;
+    state.currentDate.data.month = 1;
+  } else {
+    ++state.currentDate.data.month;
+  }
+  publish(state.currentDate);
 }
