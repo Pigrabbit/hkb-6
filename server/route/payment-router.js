@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const db = require("../db");
@@ -8,9 +8,17 @@ const Payment = require("../model/payment");
 const paymentModelInstance = new Payment(db);
 const paymentControllerInstance = new PaymentController(paymentModelInstance);
 
-router.get("/", paymentControllerInstance.getAllPayment
-            .bind(paymentControllerInstance));
-router.post("/", );
-router.delete("/:p_id", );
+router.get(
+  "/",
+  paymentControllerInstance.getAllPayment.bind(paymentControllerInstance)
+);
+router.post(
+  "/",
+  paymentControllerInstance.createPayment.bind(paymentControllerInstance)
+);
+router.delete(
+  "/:p_id",
+  paymentControllerInstance.deletePayment.bind(paymentControllerInstance)
+);
 
 module.exports = router;

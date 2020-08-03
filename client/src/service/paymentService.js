@@ -1,12 +1,16 @@
-const API_URL = "http://localhost:3000/api";
+import {
+  getFetchManger,
+  postFetchManger,
+  deleteFetchManager,
+  patchFetchManger,
+} from "../util/fetchManager";
 
-export function getPaymentListFromServer() {
-  return new Promise((resolve, reject) => {
-    fetch(`${process.env.API_URL}/payment`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => resolve(data))
-      .catch((err) => reject(err));
-  });
+export async function getPaymentListFromServer() {
+  return await getFetchManger("/payment");
 }
+
+export async function createNewPayment(newItem) {
+  return await postFetchManger("/payment", newItem);
+}
+
+

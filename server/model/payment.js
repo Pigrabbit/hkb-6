@@ -6,7 +6,7 @@ class Payment {
   async findAll() {
     const conn = await this.db.getConnection();
     try {
-      const query = "select payment_name from payment";
+      const query = "select id as payment_id, payment_name from payment";
       const [rows] = await conn.query(query);
 
       return rows;
@@ -17,9 +17,42 @@ class Payment {
     }
   }
 
-  // create() {}
-  // findById() {}
-  // removeById() {}
+  async create(payment_name) {
+    const conn = await this.db.getConnection();
+    try {
+      await conn.beginTransaction();
+
+      const insertPaymentQuery = `INSERT INTO payment
+              (payment_name,user_id) 
+              VALUES (?, ?)`;
+
+      await conn.query(insertPaymentQuery, [payment_name, 11]);
+      await conn.commit();
+    } catch (error) {
+      conn.rollback();
+      throw error;
+    } finally {
+      conn.release();
+    }
+  }
+
+  async deleteById(p_id) {
+    const conn = await this.db.getConnection();
+    try {
+      await conn.beginTransaction();
+
+      const deletePaymentQuery = `DELETE FROM payment
+              WHERE id=?`;
+
+      await conn.query(deletePaymentQuery, [p_id]);
+      await conn.commit();
+    } catch (error) {
+      conn.rollback();
+      throw error;
+    } finally {
+      conn.release();
+    }
+  }
 }
 
 module.exports = Payment;

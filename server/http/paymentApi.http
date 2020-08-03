@@ -1,2 +1,14 @@
-### GET payment/ api
+### GET /payment api
 GET http://localhost:3000/api/payment
+
+### POST /payment api
+POST http://localhost:3000/api/payment
+Content-Type: application/json
+Cookie: username=coldbrew
+
+{
+    "payment_name": "배민뱅크"
+}
+
+### DELETE /payment api  
+DELETE  http://localhost:3000/api/payment/41
