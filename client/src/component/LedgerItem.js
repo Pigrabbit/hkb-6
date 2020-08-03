@@ -55,9 +55,9 @@ export default function LedgerItem(props, idx) {
         <div class="ledger-item-header-date">${props.date}</div>
         <div class="ledger-item-header-amount">
           <p class="ledger-item-header-amount-income income-text
-           ${isLedgerIncomeVisible? "" : "hidden"}">+${incomeSum} 원</p>
+           ${isLedgerIncomeVisible ? "" : "hidden"}">+${incomeSum} 원</p>
           <p class="ledger-item-header-amount-outcome outcome-text
-           ${isLedgerOutcomeVisible? "" : "hidden"}">-${outcomeSum} 원</p>
+           ${isLedgerOutcomeVisible ? "" : "hidden"}">-${outcomeSum} 원</p>
         </div>
       </li>
       ${records
