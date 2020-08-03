@@ -26,6 +26,16 @@ class PaymentController {
       throw err;
     }
   }
+
+  async deletePayment(req, res, next) {
+    try {
+      const p_id = req.params.p_id;
+      await this.payment.deleteById(p_id);
+      res.status(httpStatusCode.NO_CONTENT);
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 module.exports = PaymentController;

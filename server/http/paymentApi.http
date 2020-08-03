@@ -9,3 +9,6 @@ Cookie: username=coldbrew
 {
     "payment_name": "배민뱅크"
 }
+
+### DELETE /payment api  
+DELETE  http://localhost:3000/api/payment/41

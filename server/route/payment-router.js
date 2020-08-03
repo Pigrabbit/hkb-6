@@ -16,6 +16,9 @@ router.post(
   "/",
   paymentControllerInstance.createPayment.bind(paymentControllerInstance)
 );
-router.delete("/:p_id");
+router.delete(
+  "/:p_id",
+  paymentControllerInstance.deletePayment.bind(paymentControllerInstance)
+);
 
 module.exports = router;
