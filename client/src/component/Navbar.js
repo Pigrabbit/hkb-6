@@ -1,6 +1,7 @@
 import "./Navbar.scss";
 import { bindEventAll } from "../util/util";
 import Router from "../router";
+import { getYearMonth, subscribe } from "../store";
 
 export default function Navbar() {
   const componentName = "navbar";
@@ -11,10 +12,12 @@ export default function Navbar() {
   }
 
   function render() {
+    const { year, month } = getYearMonth();
+
     const html = `
         <div class="navbar-month">
             <i class="fa fa-caret-left fa-3x" aria-hidden="true"></i>
-            <p>6월</p>
+            <p>${year}년 ${month}월</p>
             <i class="fa fa-caret-right fa-3x" aria-hidden="true"></i>
         </div>
         <ul class="navbar-tab">
@@ -30,7 +33,7 @@ export default function Navbar() {
     bindEventAll("li.navbar-tab-item", "click", onTabClick);
   }
 
-  // subscribe(componentName, "", );
+  subscribe(componentName, "yearMonth", render);
   setTimeout(render, 0);
 
   return `<nav class=${componentName}></nav>`;
