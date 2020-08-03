@@ -49,8 +49,9 @@ export default function Modal() {
             .map((item) => {
               return `
             <li class="modal-payment-item">
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
               <p class="modal-payment-item-name">${item.payment_name}</p>
-              <button class="modal-payment-delete-btn">x</button>
+              <button class="modal-payment-delete-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
             </li>
             `;
             })

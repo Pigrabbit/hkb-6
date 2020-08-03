@@ -42,6 +42,8 @@
     justify-content: center;
     border-radius: 10px 10px 0 0;
     border-bottom:2px solid darkgray;
+
+  
   }
 
   &-header h1 {
@@ -98,23 +100,38 @@
     padding: 0;
     border: none;
     border-top: 2px solid darkgray;
+    height:250px;
+    overflow:auto;
+    margin:0;
 
     & li {
-      border-bottom: 2px solid #ddd;
+      border-bottom: 1px solid #ddd;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-template-areas: ".  p  button";
+      grid-template-areas: "i  p  button";
+      align-items: center;
       margin: 0;
+
+      & i{
+        grid-area:i;
+      }
       & p {
         grid-area: p;
-        margin: 10px 0;
       }
 
       & button {
         grid-area: button;
         border: none;
         background: none;
+ 
+      }
+
+      & *{
         margin: 10px 0;
+
+        &:hover{
+          color:$outcome-color;
+        }
       }
     }
   }
