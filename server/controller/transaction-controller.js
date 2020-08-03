@@ -1,3 +1,6 @@
+const httpStatusCode = require("../utils/http-status-code");
+const resMsg = require("../utils/response-message");
+
 class TransactionController {
   constructor(transaction) {
     this.transaction = transaction;
@@ -10,7 +13,9 @@ class TransactionController {
 
       await this.transaction.create(data);
 
-      res.status(201).json({ message: "transaction successfully created"});
+      res
+        .status(httpStatusCode.CREATED)
+        .json({ message: resMsg.TRANSACTION_CREATED });
     } catch (error) {
       next(error);
     }
@@ -19,12 +24,36 @@ class TransactionController {
   async getTransactionByDate(req, res, next) {
     try {
       const date = req.params.date;
-      
       const transactions = await this.transaction.findByDate(date);
-
-      res.status(200).json(transactions);
+      res.status(httpStatusCode.OK).json(transactions);
     } catch (error) {
       next(error);
+    }
+  }
+
+  async patchTransaction(req, res, next) {
+    try {
+      const data = req.body;
+      const t_id = req.params.t_id;
+      await this.transaction.update(data, t_id);
+
+      res
+        .status(httpStatusCode.OK)
+        .json({ message: resMsg.TRANSACTION_UPDATED });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async deleteTransaction(req, res, next) {
+    try {
+      const t_id = req.params.t_id;
+      await this.transaction.delete(t_id);
+      res
+        .status(httpStatusCode.OK)
+        .json({ message: resMsg.TRANSACTION_DELETED });
+    } catch (err) {
+      next(err);
     }
   }
 }
