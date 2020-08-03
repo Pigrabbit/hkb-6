@@ -15,16 +15,15 @@ export default function Modal() {
     toggleModal();
   }
 
-  function registerPayment(e) {
+  async function registerPayment(e) {
     e.preventDefault();
     const $input = $id("modal-payment-name-input");
-    addNewPayment($input.value);
+    await addNewPayment($input.value);
   }
 
   function render() {
     const isVisible = getIsModalVisible();
     const paymentList = getPaymentList();
-    console.log(paymentList);
 
     const html = `
     <div class="${componentName} ${isVisible ? "" : "hidden"}">
