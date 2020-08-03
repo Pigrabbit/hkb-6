@@ -12,6 +12,6 @@ export async function createNewPayment(newItem) {
   return await postFetchManger("/payment", newItem);
 }
 
-export async function deletePayment(p_id) {
+export async function deletePaymentFromServer(p_id) {
   return await deleteFetchManager(`/payment/${p_id}`);
 }

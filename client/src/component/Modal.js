@@ -5,8 +5,9 @@ import {
   getPaymentList,
   toggleModal,
   addNewPayment,
+  deletePaymentById,
 } from "../store";
-import { bindEvent, $id } from "../util/util";
+import { bindEvent, $id, bindEventAll } from "../util/util";
 
 export default function Modal() {
   const componentName = "modal";
@@ -21,7 +22,10 @@ export default function Modal() {
     await addNewPayment($input.value);
   }
 
-  function deletePayment() {}
+  async function deletePayment(e) {
+    const p_id = e.target.closest("li").id;
+    await deletePaymentById(p_id);
+  }
 
   function render() {
     const isVisible = getIsModalVisible();
@@ -48,9 +52,8 @@ export default function Modal() {
           <ul class="modal-payment-list">
           ${paymentList
             .map((item) => {
-              console.log(item);
               return `
-            <li class="modal-payment-item">
+            <li id="${item.payment_id}" class="modal-payment-item">
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
               <p class="modal-payment-item-name">${item.payment_name}</p>
               <button class="modal-payment-delete-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -68,6 +71,7 @@ export default function Modal() {
 
     bindEvent("button.modal-close-btn", "click", onCloseBtnClick);
     bindEvent("button.modal-payment-submit-btn", "click", registerPayment);
+    bindEventAll("i.fa-times", "click", deletePayment);
   }
 
   subscribe(componentName, "isModalVisible", render);

@@ -1,7 +1,7 @@
 import {
   getPaymentListFromServer,
-  getFetchManger,
   createNewPayment,
+  deletePaymentFromServer,
 } from "./service/paymentService";
 import { fetchMockLedgerItem } from "./Data";
 import { $id, $all } from "./util/util";
@@ -76,6 +76,11 @@ export async function addNewPayment(newPayment) {
   await createNewPayment(data);
   await fetchPaymentList();
   $id("modal-payment-name-input").value = "";
+}
+
+export async function deletePaymentById(p_id) {
+  await deletePaymentFromServer(p_id);
+  await fetchPaymentList();
 }
 
 export function addNewLedgeritem(date, newItem) {
