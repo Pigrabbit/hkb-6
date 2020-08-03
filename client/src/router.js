@@ -13,7 +13,7 @@ class Router {
       statistics: StatisticsPage, // TODO: make statistics page
     };
     this.componentList = {
-      "": [], 
+      "": ["form", "filter", "ledger", "ledger-item"], 
       "list": ["form", "filter", "ledger", "ledger-item"],
       "calendar": ["filter", "calendar", "calendar-day"],
       "statistics": []

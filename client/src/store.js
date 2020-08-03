@@ -59,6 +59,14 @@ export const unsubscribe = (component) => {
   }
 };
 
+export function unsubscribeByKey(component, key) {
+  console.log(`in unsubscribeByKey ${component}, ${key}`);
+  console.log(state[key].listeners);
+  
+  delete state[key].listeners[component];
+  console.log(state[key].listeners);
+}
+
 const publish = (key) =>
   Object.values(key.listeners).forEach((action) => {
     if (action) action(key.data)

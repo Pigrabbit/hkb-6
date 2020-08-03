@@ -11,10 +11,10 @@ import { fetchLedgerItem, unsubscribe, fetchPaymentList } from "./store";
 
 export default function App() {
   window.addEventListener("popstate", (e) => {
-    const getPrevComponents = Router.getPrevComponents(history.state.prevURL);
-    getPrevComponents.forEach(component => {
-      unsubscribe(component);
-    })
+    // const getPrevComponents = Router.getPrevComponents(history.state.prevURL);
+    // getPrevComponents.forEach(component => {
+    //   unsubscribe(component);
+    // })
     render();
   });
 

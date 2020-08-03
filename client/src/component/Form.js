@@ -131,7 +131,7 @@ export default function Form() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
     const paymentList = getPaymentList();
-    console.log(paymentList);
+    
     const html = `
         <div class="form-row">
             <div class="form-col">

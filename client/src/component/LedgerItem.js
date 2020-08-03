@@ -4,6 +4,8 @@ import {
   getLedgerItemByDate,
   getIsLedgerIncomeVisible,
   getIsLedgerOutcomeVisible,
+  unsubscribeByKey,
+  unsubscribe,
 } from "../store";
 import { $ } from "../util/util";
 import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
@@ -11,6 +13,17 @@ import { getDailyIncomeSum, getDailyOutcomeSum } from "../util/sumCalculator";
 
 export default function LedgerItem(props, idx) {
   const componentName = `ledger-item`;
+
+  function onPopState() {
+    console.log(`${componentName}-${idx}`);
+    const componentId = `${componentName}-${idx}`;
+
+    unsubscribeByKey(componentName, "ledgerItem");
+    unsubscribeByKey(componentId, "isLedgerIncomeVisible");
+    unsubscribeByKey(componentId, "isLedgerOutcomeVisible");
+  }
+
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function filterTransaction(records) {
     const isLedgerIncomeVisible = getIsLedgerIncomeVisible();

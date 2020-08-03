@@ -5,12 +5,18 @@ import {
   getIsLedgerIncomeVisible,
   getIsLedgerOutcomeVisible,
   subscribe,
+  unsubscribeByKey,
 } from "../store";
 import { getDailyOutcomeSum, getDailyIncomeSum } from "../util/sumCalculator";
 
 export default function CalendarDay(props) {
   const componentClass = "calendar-day";
   const componentName = `calendar-day-${props.month}-${props.day + 1}`;
+
+  function onMonthMove() {
+    unsubscribeByKey(componentName, "isLedgerIncomeVisible");
+    unsubscribeByKey(componentName, "isLedgerOutcomeVisible");
+  }
 
   let { isToday, isPrevMonthDay, isNextMonthDay, year, month, day } = props;
   const isCurrentMonthDay = !(isPrevMonthDay || isNextMonthDay);
@@ -51,8 +57,12 @@ export default function CalendarDay(props) {
     $calendarDay.innerHTML = html;
   }
 
-  subscribe(componentName, "isLedgerIncomeVisible", render);
-  subscribe(componentName, "isLedgerOutcomeVisible", render);
+  
+  if (isCurrentMonthDay) {
+    subscribe(componentName, "currentDate", onMonthMove.bind(this));
+    subscribe(componentName, "isLedgerIncomeVisible", render);
+    subscribe(componentName, "isLedgerOutcomeVisible", render);
+  }
 
   setTimeout(render, 0);
 

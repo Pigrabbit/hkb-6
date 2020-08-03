@@ -45,6 +45,15 @@ export function fetchMockLedgerItem() {
         amount: "-100000",
         t_type: "지출"
       },
+    ],
+    "2020-08-03": [
+      {
+        category: "식품",
+        content: "빽다방",
+        payment: "현금",
+        amount: "-3000",
+        t_type: "지출"
+      }
     ]
   };
 }
