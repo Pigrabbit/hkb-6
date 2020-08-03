@@ -1,5 +1,6 @@
 const httpStatusCode = require("../utils/http-status-code");
 const resMsg = require("../utils/response-message");
+const responseMessage = require("../utils/response-message");
 
 class TransactionController {
   constructor(transaction) {
@@ -15,7 +16,7 @@ class TransactionController {
 
       res
         .status(httpStatusCode.CREATED)
-        .json({ message: resMsg.TRANSACTION_CREATED });
+        .json({ message: responseMessage.TRANSACTION_CREATED });
     } catch (error) {
       next(error);
     }
@@ -24,6 +25,7 @@ class TransactionController {
   async getTransactionByDate(req, res, next) {
     try {
       const date = req.params.date;
+
       const transactions = await this.transaction.findByDate(date);
       res.status(httpStatusCode.OK).json(transactions);
     } catch (error) {

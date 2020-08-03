@@ -54,12 +54,12 @@ export function toggleFormBtns() {
 }
 
 export function addNewPayment(newPayment) {
-  const tmp = { payment_name: newPayment };
-  if (isNotInKey(newPayment, state.paymentList.data)) {
-    state.paymentList.data.push(tmp);
-  } else {
-    state.paymentList.data = [tmp];
-  }
+  // const tmp = { payment_name: newPayment };
+  // if (isNotInKey(newPayment, state.paymentList.data)) {
+  //   state.paymentList.data.push(tmp);
+  // } else {
+  //   state.paymentList.data = [tmp];
+  // }
   $id("modal-payment-name-input").value = "";
   publish(state.paymentList);
 }
