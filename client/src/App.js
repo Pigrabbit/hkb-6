@@ -15,18 +15,11 @@ export default function App() {
   function render() {
     const renderingPage = Router.getCurrentURLView(location.pathname);
 
-    const $container = document.querySelector("main#app");
-    $container.innerHTML = renderingPage();
+    const $app = document.querySelector("main#app");
+    $app.innerHTML = renderingPage();
   }
-  
+
   setTimeout(render, 0);
 
-  // return `
-  //   ${Header()}
-  //   ${Navbar()}
-  //   <section class="container"></section>
-  //   ${Modal()}
-  //   <img id="brocolli" alt="브로콜리" src=${brocolli}/>
-  //   `;
   return "";
 }
