@@ -14,6 +14,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
 
+const passportConfig = require("./config/passport-config");
+
 const authRouter = require("./route/auth-router");
 const apiRouter = require("./route/api-router");
 
