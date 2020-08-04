@@ -8,6 +8,7 @@ import {
   unsubscribe,
 } from "../store";
 import { getDailyOutcomeSum, getDailyIncomeSum } from "../util/sumCalculator";
+import { addCommaToNumber } from "../util/validation";
 
 export default function CalendarDay(props) {
   const componentClass = "calendar-day";
@@ -61,12 +62,12 @@ export default function CalendarDay(props) {
               isCurrentMonthDay && isLedgerIncomeVisble && incomeSum
                 ? ""
                 : "hidden"
-            }">+${incomeSum}원</p>
+            }">+${addCommaToNumber(+incomeSum)}원</p>
             <p class="calendar-day-outcome outcome-text ${
               isCurrentMonthDay && isLedgerOutcomeVisible && outcomeSum
                 ? ""
                 : "hidden"
-            }">-${outcomeSum}원</p>
+            }">-${addCommaToNumber(+outcomeSum)}원</p>
         `;
 
     const $calendarDay = $(`div#${componentId}`);
