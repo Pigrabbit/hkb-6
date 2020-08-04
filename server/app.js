@@ -4,6 +4,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const passport = require("passport");
+const passportConfig = require("./config/passport-config");
 
 const app = express();
 
@@ -13,8 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
-
-const passportConfig = require("./config/passport-config");
+app.use(passport.initialize());
 
 const authRouter = require("./route/auth-router");
 const apiRouter = require("./route/api-router");

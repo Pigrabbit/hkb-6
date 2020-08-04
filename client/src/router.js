@@ -26,7 +26,7 @@ class Router {
 
   navigateTo(path) {
     history.pushState({ prevURL: location.pathname }, null, this.root + this.removeSlashes(path));
-
+    
     const popStateEvent = new PopStateEvent("popstate");
     dispatchEvent(popStateEvent);
   }
