@@ -8,6 +8,9 @@ export default function Calendar() {
   const componentName = "calendar";
 
   function onPopState() {
+    const nextPage = location.pathname.toString().replace(/^\//, "");
+    if (nextPage === "calendar") return;
+    
     unsubscribe(componentName, "currentDate");
   }
 

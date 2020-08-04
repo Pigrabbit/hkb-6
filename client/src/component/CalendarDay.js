@@ -14,6 +14,9 @@ export default function CalendarDay(props) {
   const componentId = `calendar-day-${props.month}-${props.day + 1}`;
 
   function onPopState() {
+    const nextPage = location.pathname.toString().replace(/^\//, "");
+    if (nextPage === "calendar") return;
+    
     unsubscribe(componentId, "currentDate");
     unsubscribe(componentId, "isLedgerIncomeVisible");
     unsubscribe(componentId, "isLedgerOutcomeVisible");
