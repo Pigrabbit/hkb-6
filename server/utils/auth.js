@@ -1,15 +1,23 @@
 const jwt = require("jsonwebtoken");
-const User = require("../model/user");
+
+const { UNAUTHORIZED } = require("./http-status-code");
+const { NO_TOKEN } = require("../utils/response-message")
+
 require("dotenv").config();
 
 function isLoggined(req, res, next) {
   const token = req.headers["x-access-token"];
+  if (!token) {
+      res.status(UNAUTHORIZED).json({ message: NO_TOKEN})
+  }
   // auth
   const isValid = jwt.verify(token, process.env.JWT_SECRET);
   if (!isValid) {
     res.redirect("/auth/login");
   }
-  console.log("valid token!");
+  
+  const userId = jwt.decode(token).id;
+  res.locals.userId = userId;
   next();
 }
 

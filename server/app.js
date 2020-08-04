@@ -17,11 +17,12 @@ app.use(cookieParser());
 app.use(express.static("public"));
 app.use(passport.initialize());
 
+const { isLoggined } = require("./utils/auth");
 const authRouter = require("./route/auth-router");
 const apiRouter = require("./route/api-router");
 
 app.use("/auth", authRouter);
-app.use("/api", apiRouter);
+app.use("/api", isLoggined, apiRouter);
 
 app.use("/", (req, res, next) => {
   res.sendFile("public/index.html", { root: __dirname });
