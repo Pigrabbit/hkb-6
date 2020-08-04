@@ -9,6 +9,7 @@ import {
 import { $ } from "../util/util";
 import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
 import { getDailyIncomeSum, getDailyOutcomeSum } from "../util/sumCalculator";
+import { addCommaToNumber } from "../util/validation";
 
 export default function LedgerItem(props, idx) {
   const componentClass = `ledger-item`;
@@ -68,9 +69,13 @@ export default function LedgerItem(props, idx) {
         <div class="ledger-item-header-date">${props.date}</div>
         <div class="ledger-item-header-amount">
           <p class="ledger-item-header-amount-income income-text
-           ${isLedgerIncomeVisible ? "" : "hidden"}">+${incomeSum} 원</p>
+           ${isLedgerIncomeVisible ? "" : "hidden"}">+${addCommaToNumber(
+      incomeSum
+    )} 원</p>
           <p class="ledger-item-header-amount-outcome outcome-text
-           ${isLedgerOutcomeVisible ? "" : "hidden"}">-${outcomeSum} 원</p>
+           ${isLedgerOutcomeVisible ? "" : "hidden"}">-${addCommaToNumber(
+      outcomeSum
+    )} 원</p>
         </div>
       </li>
       ${records
@@ -87,7 +92,9 @@ export default function LedgerItem(props, idx) {
           <div class="record-amount ${
             record.t_type === OUTCOME_TYPE ? "outcome-text" : "income-text"
           }">${
-            record.t_type === INCOME_TYPE ? "+" + record.amount : record.amount
+            record.t_type === INCOME_TYPE
+              ? "+" + addCommaToNumber(record.amount)
+              : addCommaToNumber(record.amount)
           } 원</div>
       </li>`;
         })

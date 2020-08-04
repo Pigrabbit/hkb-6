@@ -16,7 +16,7 @@ export default function CalendarDay(props) {
   function onPopState() {
     const nextPage = location.pathname.toString().replace(/^\//, "");
     if (nextPage === "calendar") return;
-    
+
     unsubscribe(componentId, "currentDate");
     unsubscribe(componentId, "isLedgerIncomeVisible");
     unsubscribe(componentId, "isLedgerOutcomeVisible");
@@ -58,10 +58,14 @@ export default function CalendarDay(props) {
     const html = `
             <div class="calendar-day-number">${props.day + 1}</div>
             <p class="calendar-day-income income-text ${
-              isCurrentMonthDay && isLedgerIncomeVisble && incomeSum ? "" : "hidden"
+              isCurrentMonthDay && isLedgerIncomeVisble && incomeSum
+                ? ""
+                : "hidden"
             }">+${incomeSum}원</p>
             <p class="calendar-day-outcome outcome-text ${
-              isCurrentMonthDay && isLedgerOutcomeVisible && outcomeSum ? "" : "hidden"
+              isCurrentMonthDay && isLedgerOutcomeVisible && outcomeSum
+                ? ""
+                : "hidden"
             }">-${outcomeSum}원</p>
         `;
 
@@ -69,7 +73,6 @@ export default function CalendarDay(props) {
     $calendarDay.innerHTML = html;
   }
 
-  
   if (isCurrentMonthDay) {
     subscribe(componentId, "currentDate", onMonthMove.bind(this));
     subscribe(componentId, "isLedgerIncomeVisible", render);

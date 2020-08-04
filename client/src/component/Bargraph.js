@@ -1,6 +1,7 @@
 import "./Bargraph.scss";
 import { bindEvent } from "../util/util";
 import { getStatisticsData } from "../store";
+import { addCommaToNumber } from "../util/validation";
 
 export default function Bargraph() {
   const componentName = "bargraph";
@@ -37,7 +38,7 @@ export default function Bargraph() {
         </g>
         </svg>
         </div>
-        <div class="bar-price">${item.totalPrice} 원</div>
+        <div class="bar-price">${addCommaToNumber(item.totalPrice)} 원</div>
         </li>`;
         })
         .join("")}
