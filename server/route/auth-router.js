@@ -18,4 +18,8 @@ router.get("/google", (req, res, next) => {
   res.json({ messsage: "oauth with google" });
 });
 
+router.get("/google/redirect", (req, res, next) => {
+    
+})
+
 module.exports = router;
