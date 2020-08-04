@@ -7,7 +7,7 @@ import StatisticsPage from "./pages/statisticsPage";
 class Router {
   constructor() {
     this.routes = {
-      "": ListPage, // TODO: make home page
+      "": HomePage,
       list: ListPage,
       calendar: CalendarPage,
       statistics: StatisticsPage, // TODO: make statistics page

@@ -3,7 +3,7 @@ const router = express.Router();
 
 // auth login
 router.get("/login", (req, res, next) => {
-  res.json({ message: "login page" });
+  res.json({ message: "logging in" });
 });
 
 // auth logout
