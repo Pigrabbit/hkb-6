@@ -15,19 +15,18 @@ export default function App() {
   function render() {
     const renderingPage = Router.getCurrentURLView(location.pathname);
 
-    const $container = document.querySelector("section.container");
+    const $container = document.querySelector("main#app");
     $container.innerHTML = renderingPage();
   }
-
-  fetchLedgerItem();
-  fetchPaymentList();
+  
   setTimeout(render, 0);
 
-  return `
-    ${Header()}
-    ${Navbar()}
-    <section class="container"></section>
-    ${Modal()}
-    <img id="brocolli" alt="브로콜리" src=${brocolli}/>
-    `;
+  // return `
+  //   ${Header()}
+  //   ${Navbar()}
+  //   <section class="container"></section>
+  //   ${Modal()}
+  //   <img id="brocolli" alt="브로콜리" src=${brocolli}/>
+  //   `;
+  return "";
 }

@@ -1,8 +1,13 @@
 import "./Header.scss";
-import { bindEvent } from "../util/util";
-import { toggleModal, fetchPaymentList } from "../store";
+import {
+  bindEvent
+} from "../util/util";
+import {
+  toggleModal,
+  fetchPaymentList
+} from "../store";
 
-export default function Header() {
+export default function Header(props) {
   const componentName = "header";
 
   function onPaymentBtnClick(e) {
@@ -17,7 +22,9 @@ export default function Header() {
         style="margin-right: 10px;"
       ></i>
       <div class="header-title">배민 샐러드</div>
-      <button class="header-payment-btn">결제수단관리</button>
+      ${props.isPaymentVisible ? 
+        "<button class=\"header-payment-btn\">결제수단관리</button>" 
+        : ""}
       `;
 
     const $header = document.querySelector(`.${componentName}`);
@@ -26,8 +33,8 @@ export default function Header() {
     bindEvent("button.header-payment-btn", "click", onPaymentBtnClick);
   }
 
- 
-  setTimeout(render, 0);
+
+  setTimeout(render.bind(this), 0);
 
   return `<header class=${componentName}></header>`;
 }
