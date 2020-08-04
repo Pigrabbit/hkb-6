@@ -5,7 +5,19 @@ class User {
     this.google_id = google_id;
   }
 
-  async findByGoogleId() {}
+  async findByGoogleId() {
+    const conn = await this.db.getConnection();
+    try {
+      const query = "SELECT id, username FROM user where google_id=?";
+      const [rows] = await conn.query(query, [this.google_id]);
+
+      return rows[0];
+    } catch (error) {
+      throw error;
+    } finally {
+      conn.release();
+    }
+  }
 
   async create() {
     const conn = await this.db.getConnection();
