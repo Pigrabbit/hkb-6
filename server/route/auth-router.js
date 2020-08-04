@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const { OK } = require("../utils/http-status-code");
 
 require("dotenv").config();
 
@@ -25,13 +26,13 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res, next)
     const payload = { id: req.user.id };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
 
-    res.status(200)
-    .cookie("token", token, {
-        // expires after 7 days (1 week)
-        expires: new Date(Date.now() +7 * 24 * 60 * 60 * 1000)
-    })
-    .redirect("../../list");
-    // res.json({ message: "we are redirecting to...", token });
+    // res.status(200)
+    // .cookie("token", token, {
+    //     // expires after 7 days (1 week)
+    //     expires: new Date(Date.now() +7 * 24 * 60 * 60 * 1000)
+    // })
+    // .redirect("../../list");
+    res.status(OK).json({ token });
 });
 
 module.exports = router;

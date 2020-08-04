@@ -4,6 +4,7 @@ module.exports = {
   DB_ERROR: "데이터베이스 오류",
   // JWT
   NO_TOKEN: "필요한 토큰이 없습니다",
+  INVALID_TOKEN: "유효하지 않은 토큰입니다",
   // 회원가입
   CREATED_USER: "회원 가입 성공",
   DELETE_USER: "회원 탈퇴 성공",
