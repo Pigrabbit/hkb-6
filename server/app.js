@@ -14,7 +14,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("public"));
 
+const authRouter = require("./route/auth-router");
 const apiRouter = require("./route/api-router");
+
+app.use("/auth", authRouter);
 app.use("/api", apiRouter);
 
 app.use("/", (req, res, next) => {
@@ -33,5 +36,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("running!!!! ");
+  console.log("running!!!");
 });
