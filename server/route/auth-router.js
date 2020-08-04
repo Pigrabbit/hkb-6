@@ -31,6 +31,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res, next)
         expires: new Date(Date.now() +7 * 24 * 60 * 60 * 1000)
     })
     .redirect("../../list");
+    // res.json({ message: "we are redirecting to...", token });
 });
 
 module.exports = router;
