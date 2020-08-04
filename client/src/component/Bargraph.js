@@ -28,11 +28,12 @@ export default function Bargraph() {
         <div class="bar-graph">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="chart" width="100%" height="40" aria-labelledby="title" role="img">
         <g class="bar">
-        <rect y="10" width="${item.percentage * 5}" height="20" fill="${color}">
+        <rect y="10" width="${item.percentage * 3}" height="20" fill="${color}">
           <animate attributeName="width" from="0" to ="${
-            item.percentage * 5
+            item.percentage * 3
           }" dur="1s" fill="freeze"/>
-        </rect>
+          </rect>
+          <text x="${item.percentage * 3 + 20}" y="25">${item.category}</text>
         </g>
         </svg>
         </div>

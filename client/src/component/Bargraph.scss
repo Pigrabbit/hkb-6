@@ -1,5 +1,5 @@
 figure{
-  width:90%;
+  width:800px;
 
   ul{
     width:90%;
@@ -24,7 +24,7 @@ figure{
 }
 
 .bar-category, .bar-percentage {
-  width:10%;
+  width:100px;
 }
 
 .bar-percentage{
@@ -34,12 +34,13 @@ figure{
   padding:5px 0;
 }
 .bar-price{
-  width:30%;
+  width:150px;
   text-align: right;
 }
 
 .bar-graph{
-  width:40%;
+  width:500px;
+  margin-left:30px;
 }
 
 
@@ -58,20 +59,22 @@ figure{
 
   rect{
     transition: width 2s ease;
+    &:hover,
+    &:focus {
+      fill: red !important;
+    } 
+    &:hover ~ .bar-category,
+    &:focus ~ .bar-category {
+      color: red !important;
+    } 
+
   }
 
   .chart{
     margin:0;
   }
   
-  .bar:hover,
-  .bar:focus {
-    fill: red !important;
-    
-    text {
-      fill: red;
-    }
-  }
+ 
   
   figcaption {
     font-weight: bold;

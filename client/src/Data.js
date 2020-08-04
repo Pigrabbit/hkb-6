@@ -53,7 +53,7 @@ export function fetchMockBarData() {
   return [
     {
       category: "생활",
-      percentage: "71",
+      percentage: "100",
       totalPrice: "315000",
     },
     {
