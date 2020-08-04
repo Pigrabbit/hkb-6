@@ -15,6 +15,9 @@ export default function LedgerItem(props, idx) {
   const componentId = `${componentClass}-${idx}`;
 
   function onPopState() {
+    const nextPage = location.pathname.toString().replace(/^\//, "");
+    if (nextPage === "list") return;
+
     unsubscribe(componentClass, "ledgerItem");
     unsubscribe(componentId, "isLedgerIncomeVisible");
     unsubscribe(componentId, "isLedgerOutcomeVisible");

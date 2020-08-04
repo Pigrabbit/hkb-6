@@ -7,6 +7,8 @@ export default function Ledger() {
   const componentName = "ledger";
   
   function onPopState() {
+    const nextPage = location.pathname.toString().replace(/^\//, "");
+    if (nextPage === "list") return;
     unsubscribe(componentName, "ledgerItem");
   }
 

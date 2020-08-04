@@ -1,10 +1,5 @@
 import "./Form.scss";
-import {
-  bindEventAll,
-  bindEvent,
-  $,
-  $id
-} from "../util/util";
+import { bindEventAll, bindEvent, $, $id } from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -21,12 +16,20 @@ import {
   removeComma,
   isNormalText,
 } from "../util/validation";
-import { INCOME_CATEGORY, OUTCOME_CATEGORY } from "../util/constant";
+import {
+  INCOME_CATEGORY,
+  OUTCOME_CATEGORY,
+  OUTCOME_TYPE,
+  INCOME_TYPE,
+} from "../util/constant";
 
 export default function Form() {
   const componentName = "form";
 
   function onPopState() {
+    const nextPage = location.pathname.toString().replace(/^\//, "");
+    if (nextPage === "list") return;
+
     unsubscribe(componentName, "paymentList");
     unsubscribe(componentName, "isFormIncomeSelected", render);
     unsubscribe(componentName, "isFormOutcomeSelected", render);
@@ -96,9 +99,12 @@ export default function Form() {
     });
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
     let absoluteAmount = removeComma(tmp[curdate.value]["amount"]);
-    tmp[curdate.value]["amount"] = isFormOutcomeSelected ?
-      -absoluteAmount :
-      +absoluteAmount;
+    tmp[curdate.value]["amount"] = isFormOutcomeSelected
+      ? -absoluteAmount
+      : +absoluteAmount;
+    tmp[curdate.value]["t_type"] = isFormOutcomeSelected
+      ? OUTCOME_TYPE
+      : INCOME_TYPE;
     addNewLedgeritem(curdate.value, tmp);
   }
 
@@ -171,11 +177,15 @@ export default function Form() {
               <label for="form-category">카테고리</label>
               <select name="transaction-category" id="transaction-category" msg="카테고리">
                 <option value="default">선택하세요</option>
-                  ${isFormIncomeSelected ? INCOME_CATEGORY.map(category => {
-                    return `<option value=${category}>${category}</option>`
-                  }).join("") : OUTCOME_CATEGORY.map(category => {
-                    return `<option value=${category}>${category}</option>`
-                  }).join("")}
+                  ${
+                    isFormIncomeSelected
+                      ? INCOME_CATEGORY.map((category) => {
+                          return `<option value=${category}>${category}</option>`;
+                        }).join("")
+                      : OUTCOME_CATEGORY.map((category) => {
+                          return `<option value=${category}>${category}</option>`;
+                        }).join("")
+                  }
               </select>
             </div>
             <div class="form-col-2">
@@ -226,6 +236,7 @@ export default function Form() {
     bindEvent("input#transaction-content", "keyup", submitByEnter);
     bindEvent("button.form-submit-btn", "click", submitForm);
   }
+
   subscribe(componentName, "paymentList", render);
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
