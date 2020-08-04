@@ -69,20 +69,3 @@ section {
 }
 
 
-// 통계 페이지 header
-
-.statistics-header{
-  display:flex;
-  justify-content: space-between;
-  padding:0;
-  margin:0;
-  font-size:1.2em;
-
-  & div{
-    margin:0;
-  }
-}
-
-.current-month-total-price{
-  text-align: right;
-}

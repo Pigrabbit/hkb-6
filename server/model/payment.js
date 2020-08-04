@@ -26,7 +26,7 @@ class Payment {
               (payment_name,user_id) 
               VALUES (?, ?)`;
 
-      await conn.query(insertPaymentQuery, [payment_name, 11]);
+      await conn.query(insertPaymentQuery, [payment_name, 1]);
       await conn.commit();
     } catch (error) {
       conn.rollback();
