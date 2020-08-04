@@ -4,7 +4,6 @@ import {
 } from "../util/util";
 import {
   toggleModal,
-  fetchPaymentList
 } from "../store";
 
 export default function Header(props) {

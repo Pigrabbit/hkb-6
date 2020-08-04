@@ -13,8 +13,7 @@ function isLoggined(req, res, next) {
   // auth
   const isValid = jwt.verify(token, process.env.JWT_SECRET);
   if (!isValid) {
-    res.status(UNAUTHORIZED).json({ message: INVALID_TOKEN })
-    // res.redirect("/auth/login");
+    res.status(UNAUTHORIZED).json({ message: INVALID_TOKEN });
   }
   
   const userId = jwt.decode(token).id;

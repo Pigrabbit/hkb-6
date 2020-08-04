@@ -25,14 +25,13 @@ router.get("/google", passport.authenticate("google", {
 router.get("/google/redirect", passport.authenticate("google"), (req, res, next) => {
     const payload = { id: req.user.id };
     const token = jwt.sign(payload, process.env.JWT_SECRET);
-
-    // res.status(200)
-    // .cookie("token", token, {
-    //     // expires after 7 days (1 week)
-    //     expires: new Date(Date.now() +7 * 24 * 60 * 60 * 1000)
-    // })
-    // .redirect("../../list");
-    res.status(OK).json({ token });
+    
+    res.status(OK)
+    .cookie("token", token, {
+        // expires after 7 days (1 week)
+        expires: new Date(Date.now() +7 * 24 * 60 * 60 * 1000)
+    })
+    .redirect("../../list");
 });
 
 module.exports = router;

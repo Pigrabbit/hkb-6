@@ -10,6 +10,11 @@ const passportConfig = require("./config/passport-config");
 const app = express();
 
 app.use(cors({ origin: "*" }));
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

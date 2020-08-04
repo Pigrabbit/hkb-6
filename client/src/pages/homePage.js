@@ -12,7 +12,7 @@ import {
 export default function HomePage() {
 
     function onGoogleOauthBtnClick(e) {
-        console.log(e.target);
+        location.href = "/auth/google";
     }
 
     function render() {
