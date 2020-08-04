@@ -1,6 +1,7 @@
 import {
   getPaymentListFromServer,
-  getFetchManger,
+  createNewPayment,
+  deletePaymentFromServer,
 } from "./service/paymentService";
 import { fetchMockLedgerItem } from "./Data";
 import { $id, $all } from "./util/util";
@@ -54,7 +55,7 @@ export function unsubscribe(component, key) {
 
 const publish = (key) =>
   Object.values(key.listeners).forEach((action) => {
-    if (action) action(key.data)
+    if (action) action(key.data);
   });
 
 export function getIsFormIncomeSelected() {
@@ -70,16 +71,16 @@ export function toggleFormBtns() {
   publish(state.isFormOutcomeSelected);
 }
 
-
-export function addNewPayment(newPayment) {
-  // const tmp = { payment_name: newPayment };
-  // if (isNotInKey(newPayment, state.paymentList.data)) {
-  //   state.paymentList.data.push(tmp);
-  // } else {
-  //   state.paymentList.data = [tmp];
-  // }
+export async function addNewPayment(newPayment) {
+  const data = { payment_name: newPayment };
+  await createNewPayment(data);
+  await fetchPaymentList();
   $id("modal-payment-name-input").value = "";
-  publish(state.paymentList);
+}
+
+export async function deletePaymentById(p_id) {
+  await deletePaymentFromServer(p_id);
+  await fetchPaymentList();
 }
 
 export function addNewLedgeritem(date, newItem) {

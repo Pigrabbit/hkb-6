@@ -31,7 +31,9 @@ class PaymentController {
     try {
       const p_id = req.params.p_id;
       await this.payment.deleteById(p_id);
-      res.status(httpStatusCode.NO_CONTENT);
+      res
+        .status(httpStatusCode.OK)
+        .json({ message: responseMessage.TRANSACTION_DELETED });
     } catch (err) {
       throw err;
     }

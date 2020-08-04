@@ -66,6 +66,7 @@
     align-items: center;
     font-size: $small-font;
     width: 100%;
+    height:100%;
 
     & form {
       display: flex;
@@ -90,51 +91,45 @@
         margin: 0 10px;
       }
     }
-  }
 
-  & ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    padding: 0;
-    border: none;
-    border-top: 2px solid darkgray;
-    height:250px;
-    overflow:auto;
-    margin:0;
+    & ul {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 0;
+      border: none;
+      border-top: 2px solid darkgray;
+      overflow:auto;
+      margin:10px;
+      height:270px;
+      
+      & li{
+        display:flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding:10px;
+        margin:0;
+        border-bottom:1px solid #ddd;
 
-    & li {
-      border-bottom: 1px solid #ddd;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-areas: "i  p  button";
-      align-items: center;
-      margin: 0;
+        & button{
+          background:none;
+          border:none;
+        }
 
-      & i{
-        grid-area:i;
-      }
-      & p {
-        grid-area: p;
-      }
-
-      & button {
-        grid-area: button;
-        border: none;
-        background: none;
- 
-      }
-
-      & *{
-        margin: 10px 0;
-
-        &:hover{
+        *{
+          margin:0 10px;
+          width:33%;
+        }
+        *:hover{
           color:$outcome-color;
+          cursor:pointer;
         }
       }
+    
     }
   }
+
+ 
 }
 
 /* modal  동작 */
