@@ -1,0 +1,84 @@
+figure{
+  width:90%;
+
+  ul{
+    width:90%;
+    border-top:2px solid darkgray;
+    border-bottom:2px solid darkgray;
+  }
+  
+  li{
+    list-style:none;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    height:40px;
+    border-bottom:1px solid #ddd;
+    padding-right:40px;
+    margin:0;
+  }
+  
+  li *{
+    margin:0;
+  }
+}
+
+.bar-category, .bar-percentage {
+  width:10%;
+}
+
+.bar-percentage{
+  text-align: center;
+  border-radius:15px;
+  background:#baf1a1;
+  padding:5px 0;
+}
+.bar-price{
+  width:30%;
+  text-align: right;
+}
+
+.bar-graph{
+  width:40%;
+}
+
+
+.bar{
+    fill: #aaa;
+    height: 20px;
+    transition: fill .3s ease;
+    cursor: pointer;
+    font-family: Helvetica, sans-serif;
+    
+    text {
+      fill: #555;
+    }
+    stroke:1px solid #ddd;
+  }
+
+  rect{
+    transition: width 2s ease;
+  }
+
+  .chart{
+    margin:0;
+  }
+  
+  .bar:hover,
+  .bar:focus {
+    fill: red !important;
+    
+    text {
+      fill: red;
+    }
+  }
+  
+  figcaption {
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  
+
+
+  

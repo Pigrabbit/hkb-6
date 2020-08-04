@@ -53,7 +53,7 @@ export default function LedgerItem(props, idx) {
       clearLedgerItem();
       return;
     }
-    
+
     const incomeSum = getDailyIncomeSum(records);
     const outcomeSum = getDailyOutcomeSum(records);
 

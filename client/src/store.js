@@ -3,7 +3,7 @@ import {
   createNewPayment,
   deletePaymentFromServer,
 } from "./service/paymentService";
-import { fetchMockLedgerItem } from "./Data";
+import { fetchMockLedgerItem, fetchMockBarData } from "./Data";
 import { $id, $all } from "./util/util";
 
 export const state = {
@@ -43,6 +43,10 @@ export const state = {
     },
     listeners: {},
   },
+  statistics: {
+    data: [],
+    listeners: {},
+  },
 };
 
 export const subscribe = (component, key, action) => {
@@ -57,6 +61,16 @@ const publish = (key) =>
   Object.values(key.listeners).forEach((action) => {
     if (action) action(key.data);
   });
+
+export function fetchStatisticsData() {
+  state.statistics.data = fetchMockBarData();
+  publish(state.statistics);
+}
+
+export function getStatisticsData() {
+  fetchStatisticsData();
+  return state.statistics.data;
+}
 
 export function getIsFormIncomeSelected() {
   return state.isFormIncomeSelected.data;
