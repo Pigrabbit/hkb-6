@@ -18,6 +18,7 @@ class PaymentController {
   async createPayment(req, res, next) {
     try {
       const payment_name = req.body.payment_name;
+      
       await this.payment.create(payment_name);
       res
         .status(httpStatusCode.CREATED)

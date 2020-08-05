@@ -1,3 +1,8 @@
+
+@mixin random-bgr(){
+  fill: rgb(random(255), random(255), random(255));
+}
+
 figure{
   width:100%;
   display:flex;
@@ -8,7 +13,17 @@ figure{
     width:800px;
     border-top:2px solid darkgray;
     border-bottom:2px solid darkgray;
+
+    $no:attr('data-fesa-num');
+    
+    @for $i from 0 to str-length($no){
+      & li:nth-child(#{$i}) rect {
+        @include random-bgr();
+      }
+    }
   }
+
+    
   
   li{
     list-style:none;
@@ -19,11 +34,14 @@ figure{
     border-bottom:1px solid #ddd;
     padding-right:40px;
     margin:0;
+
+    
   }
   
   li *{
     margin:0;
   }
+
 }
 
 .bar-category, .bar-percentage {
@@ -70,6 +88,7 @@ figure{
     &:focus ~ .bar-category {
       color: red !important;
     } 
+   
 
   }
 

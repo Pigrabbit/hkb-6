@@ -3,6 +3,7 @@ import Header from "../component/Header";
 import Navbar from "../component/Navbar";
 
 import brocolli from "../images/brocolli.png";
+import StatisticsMenu from "../component/StatisticsMenu";
 
 export default function StatisticsPage() {
   return `

@@ -1,5 +1,4 @@
 import "./Bargraph.scss";
-import { bindEvent } from "../util/util";
 import { getStatisticsData } from "../store";
 import { addCommaToNumber } from "../util/validation";
 
@@ -8,18 +7,9 @@ export default function Bargraph() {
 
   function render() {
     const statistics = getStatisticsData();
-    const colorPalette = [
-      "#035aa6",
-      "#df5e88",
-      "#05dfd7",
-      "#f37121",
-      "#96bb7c",
-      "#abc2e8",
-    ];
-
     const html = `
       <figcaption>카테고리별 지출</figcaption>
-      <ul>
+      <ul data-fesa-num="${statistics.length}">
       ${statistics
         .map((item, idx) => {
           const color = colorPalette[idx % colorPalette.length];
@@ -29,7 +19,7 @@ export default function Bargraph() {
         <div class="bar-graph">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="chart" width="100%" height="40" aria-labelledby="title" role="img">
         <g class="bar">
-        <rect y="10" width="${item.percentage * 3}" height="20" fill="${color}">
+        <rect y="10" width="${item.percentage * 3}" height="20">
           <animate attributeName="width" from="0" to ="${
             item.percentage * 3
           }" dur="1s" fill="freeze"/>
@@ -53,7 +43,7 @@ export default function Bargraph() {
     // bindEvent("button.header-payment-btn", "click", onPaymentBtnClick);
   }
 
-  setTimeout(render, 0);
+  setTimeout(render, 1000);
 
   return `<figure class=${componentName}></figure>`;
 }
