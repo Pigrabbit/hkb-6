@@ -76,5 +76,15 @@ export function fetchMockBarData() {
       percentage: "4",
       totalPrice: "100000",
     },
+    {
+      category: "문화/여가",
+      percentage: "2",
+      totalPrice: "50000",
+    },
+    {
+      category: "미분류",
+      percentage: "5",
+      totalPrice: "125000",
+    },
   ];
 }

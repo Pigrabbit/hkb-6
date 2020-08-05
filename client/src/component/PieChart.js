@@ -11,12 +11,11 @@ import {
 export default function PieChart() {
   const componentName = "piechart";
 
-  const categories = statisticsData.map((item) => item.category);
-  categories.push("기타");
-  categories.reverse();
-
   function render() {
     const statisticsData = getStatisticsData();
+
+    const categories = statisticsData.map((item) => item.category);
+    categories.reverse();
 
     function getAccumulatedPecentages(statisticsData) {
       const accumulatedPercentages = Object.values(statisticsData)
@@ -31,7 +30,7 @@ export default function PieChart() {
       accumulatedPercentages.unshift(100);
       return accumulatedPercentages;
     }
-    
+
     const accumulatedPercentages = getAccumulatedPecentages(statisticsData);
 
     function getLabelCoords() {
@@ -41,8 +40,7 @@ export default function PieChart() {
       const percentages = statisticsData.map((item) =>
         parseInt(item.percentage)
       );
-      const etcPercent = 100 - percentages.reduce((acc, cur) => acc + cur);
-      percentages.push(etcPercent);
+
       percentages.forEach((percentage, idx) => {
         let theta;
 
