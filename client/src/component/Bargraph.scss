@@ -13,14 +13,6 @@ figure{
     width:800px;
     border-top:2px solid darkgray;
     border-bottom:2px solid darkgray;
-
-    $no:attr('data-fesa-num');
-    
-    @for $i from 0 to str-length($no){
-      & li:nth-child(#{$i}) rect {
-        @include random-bgr();
-      }
-    }
   }
 
     
