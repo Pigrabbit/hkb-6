@@ -17,9 +17,12 @@ class PaymentController {
 
   async createPayment(req, res, next) {
     try {
-      const payment_name = req.body.payment_name;
-      
-      await this.payment.create(payment_name);
+      const data = {
+        payment_name: req.body.payment_name,
+        user_id: res.locals.userId
+      };
+
+      await this.payment.create(data);
       res
         .status(httpStatusCode.CREATED)
         .json({ message: responseMessage.TRANSACTION_CREATED });
