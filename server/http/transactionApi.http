@@ -1,16 +1,19 @@
-### GET /transaction api
-GET http://localhost:3000/api/transaction/2020_07
+### 모든 API에 jwt를 X-ACCESS-TOKEN에 담아서 보내주세요
 
+
+### GET /transaction api
+GET http://localhost:3000/api/transaction/2020-08
+X-ACCESS-TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTk2NTE2Mjc0fQ.JHzCy3wzRMf2G1A2gPfQ4f64qtSBC6BADV0NhIePbLk
 
 ### POST /transaction api
 POST http://localhost:3000/api/transaction
 Content-Type: application/json
-Cookie: username=coldbrew
+X-ACCESS-TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTk2NTE2Mjc0fQ.JHzCy3wzRMf2G1A2gPfQ4f64qtSBC6BADV0NhIePbLk
 
 {
     "category": "생활",
     "content": "저녁먹음",
-    "payment_name": "국민은행",
+    "payment_name": "신한카드",
     "amount": "-15000",
     "t_type": "지출",
     "created_at": "2020-07-27"

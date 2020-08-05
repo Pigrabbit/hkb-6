@@ -1,5 +1,6 @@
 ### GET /payment api
 GET http://localhost:3000/api/payment
+X-ACCESS-TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTk2NTE2Mjc0fQ.JHzCy3wzRMf2G1A2gPfQ4f64qtSBC6BADV0NhIePbLk
 
 ### POST /payment api
 POST http://localhost:3000/api/payment
