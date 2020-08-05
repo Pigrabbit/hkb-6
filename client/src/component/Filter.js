@@ -39,7 +39,6 @@ export default function Filter() {
     const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
 
     const ledgerItem = getLedgerItem();
-
     const monthlyIncomeSum = getMonthlyIncomeSum(ledgerItem);
     const monthlyOutcomeSum = getMonthlyOutcomeSum(ledgerItem);
 

@@ -16,6 +16,10 @@ export function bindEventAll(query, event, handler, capturing = false) {
   });
 }
 
+export function getRandomColor() {
+  return Math.floor(Math.random() * 16777215).toString(16);
+}
+
 export const $ = document.querySelector.bind(document);
 
 export const $all = document.querySelectorAll.bind(document);
