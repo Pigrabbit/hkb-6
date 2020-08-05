@@ -1,0 +1,29 @@
+.linegraph{
+    width:100%;
+    height:600px;
+}
+
+.graph .labels.x-labels {
+  text-anchor: middle;
+}
+
+.graph .labels.y-labels {
+  text-anchor: end;
+}
+
+
+.graph {
+  height: 500px;
+  width: 800px;
+}
+
+.graph .grid {
+  stroke: black;
+  stroke-dasharray: 0;
+  stroke-width: 1;
+}
+
+.data {
+  fill: red;
+  stroke-width: 1; 
+}
