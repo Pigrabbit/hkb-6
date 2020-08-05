@@ -5,6 +5,10 @@ import {
 } from "./service/paymentService";
 import { fetchMockLedgerItem, fetchMockBarData } from "./Data";
 import { $id, $all } from "./util/util";
+import {
+  createTransactionFromServer,
+  getTransactionFromServer,
+} from "./service/transactionService";
 
 export const state = {
   isModalVisible: {
@@ -62,6 +66,7 @@ const publish = (key) =>
     if (action) action(key.data);
   });
 
+// 통계
 export function fetchStatisticsData() {
   state.statistics.data = fetchMockBarData();
   publish(state.statistics);
@@ -72,6 +77,7 @@ export function getStatisticsData() {
   return state.statistics.data;
 }
 
+// 폼
 export function getIsFormIncomeSelected() {
   return state.isFormIncomeSelected.data;
 }
@@ -85,6 +91,8 @@ export function toggleFormBtns() {
   publish(state.isFormOutcomeSelected);
 }
 
+// 결제수단
+
 export async function addNewPayment(newPayment) {
   const data = { payment_name: newPayment };
   await createNewPayment(data);
@@ -97,49 +105,8 @@ export async function deletePaymentById(p_id) {
   await fetchPaymentList();
 }
 
-export function addNewLedgeritem(date, newItem) {
-  if (isNotInKey(date, state.ledgerItem.data))
-    state.ledgerItem.data[date] = [newItem[date]];
-  else state.ledgerItem.data[date].push(newItem[date]);
-  publish(state.ledgerItem);
-  const inputs = $all(".form-input-text");
-
-  inputs.forEach((input) => {
-    input.value = "";
-  });
-}
-
 function isNotInKey(x, data) {
   return Object.keys(data).find((elem) => elem === x) === undefined;
-}
-
-export function getLedgerItem() {
-  return state.ledgerItem.data;
-}
-
-export function getLedgerItemDate() {
-  return Object.keys(state.ledgerItem.data);
-}
-
-export function getLedgerItemByDate(date) {
-  return state.ledgerItem.data[date];
-}
-
-export function getIsModalVisible() {
-  return state.isModalVisible.data;
-}
-export function getIsAlertlVisible() {
-  return state.isAlertVisible.data;
-}
-
-export function toggleAlertMsg() {
-  state.isAlertVisible.data = !state.isAlertVisible.data;
-  publish(state.isAlertVisible);
-}
-
-export function toggleModal() {
-  state.isModalVisible.data = !state.isModalVisible.data;
-  publish(state.isModalVisible);
 }
 
 export async function fetchPaymentList() {
@@ -151,8 +118,39 @@ export function getPaymentList() {
   return state.paymentList.data;
 }
 
-export function fetchLedgerItem() {
-  state.ledgerItem.data = fetchMockLedgerItem();
+// 가계부
+
+export async function addNewLedgeritem(date, newItem) {
+  if (isNotInKey(date, state.ledgerItem.data))
+    state.ledgerItem.data[date] = [newItem[date]];
+  else state.ledgerItem.data[date].push(newItem[date]);
+
+  const data = { ...newItem[date], created_at: date };
+  await createTransactionFromServer(data);
+  await fetchLedgerItem();
+  // publish(state.ledgerItem);
+  console.log(data);
+  const inputs = $all(".form-input-text");
+  inputs.forEach((input) => {
+    input.value = "";
+  });
+}
+
+export function getLedgerItemDate() {
+  return Object.keys(state.ledgerItem.data);
+}
+
+export function getLedgerItemByDate(date) {
+  return state.ledgerItem.data[date];
+}
+
+export function getLedgerItem() {
+  return state.ledgerItem.data;
+}
+
+export async function fetchLedgerItem() {
+  state.ledgerItem.data = await getTransactionFromServer(state.currentDate);
+  console.log(state.ledgerItem.data);
   publish(state.ledgerItem);
 }
 
@@ -173,6 +171,27 @@ export function toggleLedgerOutcomeVisible() {
   state.isLedgerOutcomeVisible.data = !state.isLedgerOutcomeVisible.data;
   publish(state.isLedgerOutcomeVisible);
 }
+
+//모달
+
+export function getIsModalVisible() {
+  return state.isModalVisible.data;
+}
+export function getIsAlertlVisible() {
+  return state.isAlertVisible.data;
+}
+
+export function toggleAlertMsg() {
+  state.isAlertVisible.data = !state.isAlertVisible.data;
+  publish(state.isAlertVisible);
+}
+
+export function toggleModal() {
+  state.isModalVisible.data = !state.isModalVisible.data;
+  publish(state.isModalVisible);
+}
+
+// 달력
 
 export function getCurrentDate() {
   return state.currentDate.data;

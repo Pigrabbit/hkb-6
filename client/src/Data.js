@@ -78,3 +78,5 @@ export function fetchMockBarData() {
     },
   ];
 }
+
+export function fetchMockLineData() {}
