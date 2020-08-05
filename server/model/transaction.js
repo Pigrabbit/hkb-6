@@ -63,6 +63,7 @@ class Transaction {
           ORDER BY created_at DESC`;
 
       const [rows] = await conn.query(query, [month, year]);
+      if (rows.length === 0) return [];
       const { payment_id } = rows[0];
 
       const getPaymentNameQuery = "SELECT payment_name FROM payment WHERE id=?";

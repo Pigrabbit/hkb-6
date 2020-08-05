@@ -16,8 +16,8 @@ export default function LedgerItem(props, idx) {
   const componentId = `${componentClass}-${idx}`;
 
   function onPopState() {
-    const nextPage = location.pathname.toString().replace(/^\//, "");
-    if (nextPage === "list") return;
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "list") return;
 
     unsubscribe(componentClass, "ledgerItem");
     unsubscribe(componentId, "isLedgerIncomeVisible");
@@ -53,7 +53,7 @@ export default function LedgerItem(props, idx) {
     // 수정 버튼 눌렀을 때 현재 레코드의 내용을 input form에 default로 채워주기
     records = filterTransaction(records);
 
-    if (records.length === 0) {
+    if (!records || records.length === 0) {
       clearLedgerItem();
       return;
     }
@@ -106,7 +106,6 @@ export default function LedgerItem(props, idx) {
     $ledgerItem.innerHTML = html;
   }
 
-  subscribe(componentClass, "ledgerItem", render);
   subscribe(`${componentId}`, "isLedgerIncomeVisible", render);
   subscribe(`${componentId}`, "isLedgerOutcomeVisible", render);
 
