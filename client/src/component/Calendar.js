@@ -58,7 +58,7 @@ export default function Calendar() {
                       year,
                       month,
                       day,
-                      isToday: (day + 1 === today) ? true : false,
+                      isToday: day + 1 === today ? true : false,
                     });
                   })
                   .join("")}
@@ -66,7 +66,7 @@ export default function Calendar() {
                     .map((day) => {
                       return CalendarDay({
                         year: month === 12 ? year + 1 : year,
-                        month: month % 12 + 1,
+                        month: (month % 12) + 1,
                         day: day,
                         isNextMonthDay: true,
                       });

@@ -9,15 +9,19 @@ import {
   getLedgerItem,
   unsubscribe,
 } from "../store";
-import { getMonthlyIncomeSum, getMonthlyOutcomeSum } from "../util/sumCalculator";
+import {
+  getMonthlyIncomeSum,
+  getMonthlyOutcomeSum,
+} from "../util/sumCalculator";
+import { addCommaToNumber } from "../util/validation";
 
 export default function Filter() {
   const componentName = "filter";
 
   function onPopState() {
-    unsubscribe(componentName, "isLedgerIncomeVisible")
-    unsubscribe(componentName, "isLedgerOutcomeVisible")
-    unsubscribe(componentName, "ledgerItem")
+    unsubscribe(componentName, "isLedgerIncomeVisible");
+    unsubscribe(componentName, "isLedgerOutcomeVisible");
+    unsubscribe(componentName, "ledgerItem");
   }
 
   window.addEventListener("popstate", onPopState.bind(this));
@@ -35,7 +39,7 @@ export default function Filter() {
     const isLedgerOutcomeVisible = getIsLedgerOutcomeVisible();
 
     const ledgerItem = getLedgerItem();
-    
+
     const monthlyIncomeSum = getMonthlyIncomeSum(ledgerItem);
     const monthlyOutcomeSum = getMonthlyOutcomeSum(ledgerItem);
 
@@ -50,7 +54,9 @@ export default function Filter() {
         />
         <label for="filter-item-income"></label>
         <div class="filter-item-income-label">수입</div>
-        <div class="filter-item-income-amount filter-item-amount">${monthlyIncomeSum} 원</div>
+        <div class="filter-item-income-amount filter-item-amount">${addCommaToNumber(
+          monthlyIncomeSum
+        )} 원</div>
       </li>
       <li class="filter-item">
         <input
@@ -62,7 +68,9 @@ export default function Filter() {
         />
         <label for="filter-item-outcome"></label>
         <div class="filter-item-outcome-label">지출</div>
-        <div class="filter-item-outcome-amount filter-item-amount">${monthlyOutcomeSum} 원</div>
+        <div class="filter-item-outcome-amount filter-item-amount">${addCommaToNumber(
+          monthlyOutcomeSum
+        )} 원</div>
       </li>`;
 
     const $filter = $(`.${componentName}`);

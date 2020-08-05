@@ -1,0 +1,27 @@
+.statistics{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .statistics-menu{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    padding:0;
+    margin:0;
+    font-size:1.2em;
+  
+    & div{
+      margin:0;
+    }
+  
+    label{
+      margin-right: 20px;
+    }
+  }
+  
+  .current-month-total-price{
+    text-align: right;
+  }
+  

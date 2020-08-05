@@ -8,6 +8,7 @@ import {
   unsubscribe,
 } from "../store";
 import { getDailyOutcomeSum, getDailyIncomeSum } from "../util/sumCalculator";
+import { addCommaToNumber } from "../util/validation";
 
 export default function CalendarDay(props) {
   const componentClass = "calendar-day";
@@ -16,7 +17,7 @@ export default function CalendarDay(props) {
   function onPopState() {
     const nextPage = location.pathname.toString().replace(/^\//, "");
     if (nextPage === "calendar") return;
-    
+
     unsubscribe(componentId, "currentDate");
     unsubscribe(componentId, "isLedgerIncomeVisible");
     unsubscribe(componentId, "isLedgerOutcomeVisible");
@@ -58,18 +59,21 @@ export default function CalendarDay(props) {
     const html = `
             <div class="calendar-day-number">${props.day + 1}</div>
             <p class="calendar-day-income income-text ${
-              isCurrentMonthDay && isLedgerIncomeVisble && incomeSum ? "" : "hidden"
-            }">+${incomeSum}원</p>
+              isCurrentMonthDay && isLedgerIncomeVisble && incomeSum
+                ? ""
+                : "hidden"
+            }">+${addCommaToNumber(+incomeSum)}원</p>
             <p class="calendar-day-outcome outcome-text ${
-              isCurrentMonthDay && isLedgerOutcomeVisible && outcomeSum ? "" : "hidden"
-            }">-${outcomeSum}원</p>
+              isCurrentMonthDay && isLedgerOutcomeVisible && outcomeSum
+                ? ""
+                : "hidden"
+            }">-${addCommaToNumber(+outcomeSum)}원</p>
         `;
 
     const $calendarDay = $(`div#${componentId}`);
     $calendarDay.innerHTML = html;
   }
 
-  
   if (isCurrentMonthDay) {
     subscribe(componentId, "currentDate", onMonthMove.bind(this));
     subscribe(componentId, "isLedgerIncomeVisible", render);
