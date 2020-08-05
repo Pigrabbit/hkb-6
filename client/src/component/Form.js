@@ -64,11 +64,11 @@ export default function Form() {
     alertMsg.innerText = "";
 
     const $inputElements = [
-      ...$form.querySelectorAll("input:not(#transaction-date),select"),
+      ...$form.querySelectorAll("input:not(#transaction-created_at),select"),
     ];
 
     // 아직 입력하지 않은 부분이 있다면 관련 알림 메세지를 표시하고 포커스를 이동시킵니다.
-    let curdate = $id("transaction-date");
+    let curdate = $id("transaction-created_at");
     if (curdate.value === "" || curdate.value === "undefined") {
       showAlertMessage(curdate, alertMsg, "날짜를 입력해주세요");
       return;
@@ -105,6 +105,7 @@ export default function Form() {
     tmp[curdate.value]["t_type"] = isFormOutcomeSelected
       ? OUTCOME_TYPE
       : INCOME_TYPE;
+    console.log(tmp);
     addNewLedgeritem(curdate.value, tmp);
   }
 
@@ -169,8 +170,8 @@ export default function Form() {
               <label for="form-date">날짜</label>
               <input
                 type="date"
-                name="transaction-date"
-                id="transaction-date"
+                name="transaction-created_at"
+                id="transaction-created_at"
               />
             </div>
             <div class="form-col-2">

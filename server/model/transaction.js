@@ -55,6 +55,7 @@ class Transaction {
       await conn.beginTransaction();
 
       const [year, month] = date.split("-");
+      console.log(year, month);
       const query = `SELECT * FROM transaction T
           JOIN payment P
           ON T.payment_id = P.id
