@@ -10,7 +10,7 @@ class TransactionController {
   async createTransaction(req, res, next) {
     try {
       const data = req.body;
-      data.username = req.cookies.username;
+      data.user_id = res.locals.userId;
 
       await this.transaction.create(data);
 

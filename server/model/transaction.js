@@ -11,7 +11,7 @@ class Transaction {
       await conn.beginTransaction();
 
       let {
-        username,
+        user_id,
         category,
         content,
         payment_name,
@@ -22,13 +22,9 @@ class Transaction {
       // 지출: 0, 수입: 1
       t_type = t_type === OUTCOME_TYPE ? 0 : 1;
 
-      const getUserIdQuery = "SELECT id as user_id FROM user WHERE username=?";
-      let [rows] = await conn.query(getUserIdQuery, [username]);
-      const { user_id } = rows[0];
-
       const getPaymentIdQuery =
         "SELECT id as payment_id FROM payment WHERE payment_name=?";
-      [rows] = await conn.query(getPaymentIdQuery, [payment_name]);
+      const [rows] = await conn.query(getPaymentIdQuery, [payment_name]);
       const { payment_id } = rows[0];
 
       const insertTxQuery = `INSERT INTO transaction 
@@ -58,7 +54,7 @@ class Transaction {
     try {
       await conn.beginTransaction();
 
-      const [year, month] = date.split("_");
+      const [year, month] = date.split("-");
       const query = `SELECT * FROM transaction T
           JOIN payment P
           ON T.payment_id = P.id

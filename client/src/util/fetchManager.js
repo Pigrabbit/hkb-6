@@ -3,8 +3,10 @@ const API_URL = process.env.API_URL;
 const options = {
   headers: {
     "Content-Type": "application/json",
+    "X-ACCESS-TOKEN": localStorage.getItem("token"),
   },
 };
+
 const getOptions = { ...options, method: "GET" };
 const postOptions = { ...options, method: "POST" };
 const deleteOptions = {

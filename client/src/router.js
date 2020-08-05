@@ -7,7 +7,11 @@ import StatisticsPage from "./pages/statisticsPage";
 class Router {
   constructor() {
     this.routes = {
+<<<<<<< HEAD
       "": StatisticsPage, // TODO: make home page
+=======
+      "": HomePage,
+>>>>>>> f8a5560e6be2a7641e091f013c22d8345124dd26
       list: ListPage,
       calendar: CalendarPage,
       statistics: StatisticsPage, // TODO: make statistics page
@@ -25,12 +29,17 @@ class Router {
   }
 
   navigateTo(path) {
+<<<<<<< HEAD
     history.pushState(
       { prevURL: location.pathname },
       null,
       this.root + this.removeSlashes(path)
     );
 
+=======
+    history.pushState({ prevURL: location.pathname }, null, this.root + this.removeSlashes(path));
+    
+>>>>>>> f8a5560e6be2a7641e091f013c22d8345124dd26
     const popStateEvent = new PopStateEvent("popstate");
     dispatchEvent(popStateEvent);
   }
