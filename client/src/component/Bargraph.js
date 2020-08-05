@@ -13,7 +13,7 @@ export default function Bargraph() {
       <figcaption>카테고리별 지출</figcaption>
       <ul>
       ${statistics
-        .map((item, idx) => {
+        .map((item) => {
           const color = getRandomColor();
           return `<li>
         <div class="bar-category">${item.category}</div>
@@ -43,11 +43,9 @@ export default function Bargraph() {
 
     const $header = document.querySelector(`.${componentName}`);
     $header.innerHTML = html;
-
-    // bindEvent("button.header-payment-btn", "click", onPaymentBtnClick);
   }
 
-  setTimeout(render, 1000);
+  setTimeout(render, 0);
 
   return `<figure class=${componentName}></figure>`;
 }
