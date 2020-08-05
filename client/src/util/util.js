@@ -1,3 +1,5 @@
+import { PI } from "./constant";
+
 export function bindEvent(query, event, handler, capturing = false) {
   const element = document.querySelector(query);
   if (!element) return;
@@ -19,3 +21,7 @@ export const $ = document.querySelector.bind(document);
 export const $all = document.querySelectorAll.bind(document);
 
 export const $id = document.getElementById.bind(document);
+
+export function toRadian(degree) {
+  return degree * (PI / 180);
+} 

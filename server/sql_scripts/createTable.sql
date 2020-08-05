@@ -3,8 +3,7 @@ use banksalad;
 CREATE TABLE IF NOT EXISTS user (
   id int PRIMARY KEY AUTO_INCREMENT,
   username varchar(255) NOT NULL,
-  login_id varchar(255) NOT NULL,
-  password varchar(255) NOT NULL
+  google_id varchar(255) NOT NULL
 ) ENGINE=InnoDB;
 
 
