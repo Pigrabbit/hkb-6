@@ -53,28 +53,28 @@ export function fetchMockBarData() {
   return [
     {
       category: "생활",
-      percentage: "100",
-      totalPrice: "315000",
+      percentage: "63",
+      totalPrice: "1575000",
     },
     {
       category: "식비",
       percentage: "16",
-      totalPrice: "72000",
+      totalPrice: "400000",
     },
     {
       category: "의료/건강",
-      percentage: "16",
-      totalPrice: "30000",
+      percentage: "6",
+      totalPrice: "150000",
     },
     {
       category: "교통",
       percentage: "4",
-      totalPrice: "18000",
+      totalPrice: "100000",
     },
     {
       category: "쇼핑/뷰티",
       percentage: "4",
-      totalPrice: "10000",
+      totalPrice: "100000",
     },
   ];
 }

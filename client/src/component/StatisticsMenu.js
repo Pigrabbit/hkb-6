@@ -19,8 +19,6 @@ export default function StatisticsMenu() {
 
     const $header = document.querySelector(`.${componentName}`);
     $header.innerHTML = html;
-
-    // bindEvent("button.header-payment-btn", "click", onPaymentBtnClick);
   }
 
   setTimeout(render, 0);

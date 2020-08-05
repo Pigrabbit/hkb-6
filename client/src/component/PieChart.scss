@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.pie-chart-svg {
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    // height: 600px;
+    // width: 600px;
+}
+
+.target {
+    animation: paint 1s ease-in-out;
+    animation-fill-mode: forwards;
+   
+}
+
+.etc {
+    stroke: navy;
+}
+
+.shopping {
+    stroke: #0984e3;
+}
+
+.transportation {
+    stroke: #74b9ff;
+}
+
+.health {
+    stroke: seagreen;
+}
+
+.grocery {
+    stroke: #00cec9;
+}
+
+.life {
+    stroke: #81ecec;
+}
+
+.inner {
+    border: none;
+}
+
+@keyframes paint {
+    from {
+        stroke-dasharray: 0 62.83;
+    }
+}
+
