@@ -5,6 +5,7 @@ import LineGraph from "../component/LineGraph";
 import StatisticsMenu from "../component/StatisticsMenu";
 
 import brocolli from "../images/brocolli.png";
+import PieChart from "../component/PieChart";
 
 export default function StatisticsPage() {
   return `
@@ -13,6 +14,7 @@ export default function StatisticsPage() {
     <section class="container">
         <div class="statistics">
         ${StatisticsMenu()}
+        ${PieChart()}
         ${Bargraph()}
         ${LineGraph()}
         </div>
