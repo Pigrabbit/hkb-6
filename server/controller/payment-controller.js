@@ -6,9 +6,9 @@ class PaymentController {
     this.payment = payment;
   }
 
-  async getAllPayment(req, res, next) {
+  async getUserPayments(req, res, next) {
     try {
-      const result = await this.payment.findAll();
+      const result = await this.payment.findByUserId(res.locals.userId);
       res.json(result);
     } catch (err) {
       next(err);

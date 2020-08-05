@@ -2,13 +2,12 @@ class Payment {
   constructor(db) {
     this.db = db;
   }
-
-  async findAll() {
+  
+  async findByUserId(id) {
     const conn = await this.db.getConnection();
     try {
-      const query = "select id as payment_id, payment_name from payment";
-      const [rows] = await conn.query(query);
-
+      const query = "select id as payment_id, payment_name from payment where user_id=?";
+      const [rows] = await conn.query(query, [id]);
       return rows;
     } catch (error) {
       throw error;
