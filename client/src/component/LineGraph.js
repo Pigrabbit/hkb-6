@@ -15,8 +15,10 @@ export default function LineGraph() {
     const lastDay = new Date(year, month, 0).toString().split(" ")[2];
     const iter = lastDay % 5 === 0 ? lastDay / 5 : parseInt(lastDay / 5) + 1;
     const html = `
-    <div class="${getCategoryRadioChecked() ? "hidden" : ""}">
-      <figcaption>일별 지출</figcaption>
+    <div style="margin:-20px" class="${
+      getCategoryRadioChecked() ? "hidden" : ""
+    }">
+      <figcaption style="margin:0">일별 지출</figcaption>
       <svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="graph" aria-labelledby="title" role="img">
     <g class="grid x-grid" id="xGrid">
       <line x1="90" x2="90" y1="5" y2="370"></line>
