@@ -88,7 +88,7 @@ export default function LedgerItem(props, idx) {
               : "income-element"
           }">${record.category}</div>
           <div class="record-content">${record.content}</div>
-          <div class="record-payment">${record.payment}</div>
+          <div class="record-payment">${record.payment_name}</div>
           <div class="record-amount ${
             record.t_type === OUTCOME_TYPE ? "outcome-text" : "income-text"
           }">${
