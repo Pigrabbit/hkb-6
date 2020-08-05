@@ -51,6 +51,10 @@ export const state = {
     data: [],
     listeners: {},
   },
+  isCategoryRadioChecked: {
+    data: true,
+    listeners: {},
+  },
 };
 
 export const subscribe = (component, key, action) => {
@@ -65,6 +69,15 @@ const publish = (key) =>
   Object.values(key.listeners).forEach((action) => {
     if (action) action(key.data);
   });
+//라디오 버튼
+export function toggleCategoryRadioChecked() {
+  state.isCategoryRadioChecked.data = !state.isCategoryRadioChecked.data;
+  publish(state.isCategoryRadioChecked);
+}
+
+export function getCategoryRadioChecked() {
+  return state.isCategoryRadioChecked.data;
+}
 
 // 통계
 export function fetchStatisticsData() {

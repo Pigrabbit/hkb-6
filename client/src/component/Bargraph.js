@@ -1,5 +1,9 @@
 import "./Bargraph.scss";
-import { getStatisticsData } from "../store";
+import {
+  getStatisticsData,
+  getCategoryRadioChecked,
+  subscribe,
+} from "../store";
 import { addCommaToNumber } from "../util/validation";
 import { getRandomColor } from "../util/util";
 
@@ -10,6 +14,7 @@ export default function Bargraph() {
     const statistics = getStatisticsData();
 
     const html = `
+    <div class="${getCategoryRadioChecked() ? "" : "hidden"}">
       <figcaption>카테고리별 지출</figcaption>
       <ul>
       ${statistics
@@ -37,6 +42,7 @@ export default function Bargraph() {
         })
         .join("")}
       </ul>
+      </div>
     
     
       `;
@@ -44,7 +50,7 @@ export default function Bargraph() {
     const $header = document.querySelector(`.${componentName}`);
     $header.innerHTML = html;
   }
-
+  subscribe(componentName, "isCategoryRadioChecked", render);
   setTimeout(render, 0);
 
   return `<figure class=${componentName}></figure>`;
