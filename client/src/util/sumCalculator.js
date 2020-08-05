@@ -27,6 +27,7 @@ export function getDailyOutcomeSum(records) {
 }
 
 export function getMonthlyIncomeSum(ledgerItem) {
+  console.log("getmonthly", ledgerItem);
   let monthlyIncomeSum = 0;
   Object.values(ledgerItem).forEach((dailyTransactions) => {
     dailyTransactions.forEach((tx) => {
