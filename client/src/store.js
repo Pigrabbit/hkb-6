@@ -125,11 +125,10 @@ export async function addNewLedgeritem(date, newItem) {
     state.ledgerItem.data[date] = [newItem[date]];
   else state.ledgerItem.data[date].push(newItem[date]);
 
-  const data = { ...newItem[date], created_at: date };
-  await createTransactionFromServer(data);
+  const newLedgerItem = { ...newItem[date], created_at: date };
+  await createTransactionFromServer(newLedgerItem);
   await fetchLedgerItem();
-  // publish(state.ledgerItem);
-  console.log(data);
+  console.log("add item", newLedgerItem);
   const inputs = $all(".form-input-text");
   inputs.forEach((input) => {
     input.value = "";
@@ -150,7 +149,6 @@ export function getLedgerItem() {
 
 export async function fetchLedgerItem() {
   state.ledgerItem.data = await getTransactionFromServer(state.currentDate);
-  console.log(state.ledgerItem.data);
   publish(state.ledgerItem);
 }
 

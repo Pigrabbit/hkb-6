@@ -8,7 +8,6 @@ export function getDailyIncomeSum(records) {
     incomeRecords.length > 0
       ? incomeRecords.reduce((acc, cur) => acc + parseInt(cur.amount), 0)
       : 0;
-  console.log("incomesum", incomeSum);
   return incomeSum;
 }
 
@@ -27,7 +26,6 @@ export function getDailyOutcomeSum(records) {
 }
 
 export function getMonthlyIncomeSum(ledgerItem) {
-  console.log("getmonthly", ledgerItem);
   let monthlyIncomeSum = 0;
   Object.values(ledgerItem).forEach((dailyTransactions) => {
     dailyTransactions.forEach((tx) => {

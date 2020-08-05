@@ -191,7 +191,7 @@ export default function Form() {
             </div>
             <div class="form-col-2">
               <label for="form-payment">결제수단</label>
-              <select name="transaction-payment" id="transaction-payment" msg="결제수단">
+              <select name="transaction-payment" id="transaction-payment_name" msg="결제수단">
                 <option value="default">선택하세요</option>
                 ${paymentList.map((item) => {
                   return `<option value="${item.payment_name}">${item.payment_name}</option>`;
@@ -238,6 +238,7 @@ export default function Form() {
     bindEvent("button.form-submit-btn", "click", submitForm);
   }
 
+  subscribe(componentName, "ledgerItem", render);
   subscribe(componentName, "paymentList", render);
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
