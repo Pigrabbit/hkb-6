@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const logFormat = require("./config/logger-config");
 const cors = require("cors");
 const passport = require("passport");
 const passportConfig = require("./config/passport-config");
@@ -15,7 +16,7 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
-app.use(logger("dev"));
+app.use(logger(logFormat));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
