@@ -12,6 +12,8 @@ import {
   getIsFormUpdateMode,
   updateLedgerItem,
   setIsFormUpdateMode,
+  deleteLedgerItem,
+  clearToUpdateTransaction,
 } from "../store";
 import {
   isNumber,
@@ -119,6 +121,7 @@ export default function Form() {
       tmp[curdate.value]["t_id"] = t_id;
       updateLedgerItem(curdate.value, tmp);
       setIsFormUpdateMode(false);
+      clearToUpdateTransaction();
       return;
     }
     addNewLedgeritem(curdate.value, tmp);
@@ -168,7 +171,15 @@ export default function Form() {
     if (!isFormUpdateMode) {
       clearInputForm();
       resetSelectElements();
+      return;
     }
+
+    const toDeleteTransaction = getToUpdateTransaction();
+    const { t_id } = toDeleteTransaction;
+
+    deleteLedgerItem(t_id);
+    setIsFormUpdateMode(false);
+    clearToUpdateTransaction();
   }
 
   function render() {
@@ -183,14 +194,14 @@ export default function Form() {
             <div class="form-col">
               <label for="inout">분류</label>
               <button class="form-income-btn ${
-                (!isFormUpdateMode && isFormIncomeSelected) ||
-                toUpdateTransaction.t_type === INCOME_TYPE
+                ((!isFormUpdateMode && isFormIncomeSelected) ||
+                (toUpdateTransaction && toUpdateTransaction.t_type === INCOME_TYPE))
                   ? "category-btn-income-clicked"
                   : ""
               }">수입</button>
               <button class="form-outcome-btn ${
-                (!isFormUpdateMode && isFormOutcomeSelected) ||
-                toUpdateTransaction.t_type === OUTCOME_TYPE
+                ((!isFormUpdateMode && isFormOutcomeSelected) ||
+                (toUpdateTransaction && toUpdateTransaction.t_type === OUTCOME_TYPE))
                   ? "category-btn-outcome-clicked"
                   : ""
               }">지출</button>

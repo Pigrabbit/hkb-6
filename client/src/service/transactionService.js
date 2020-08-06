@@ -18,6 +18,6 @@ export async function updateTransaction(t_id, editedItem) {
   return await patchFetchManger(`/transaction/${t_id}`, editedItem);
 }
 
-export async function deleteTransactionFromServer(t_id) {
+export async function deleteTransaction(t_id) {
   return await deleteFetchManager(`/transaction/${t_id}`);
 }

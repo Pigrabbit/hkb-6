@@ -9,6 +9,7 @@ import {
   createTransaction,
   getTransactionFromServer,
   updateTransaction,
+  deleteTransaction,
 } from "./service/transactionService";
 
 export const state = {
@@ -122,6 +123,10 @@ export function getToUpdateTransaction(data) {
   return state.toUpdateTransaction.data;
 }
 
+export function clearToUpdateTransaction() {
+  state.toUpdateTransaction.data = null;
+}
+
 export function setIsFormUpdateMode(data) {
   state.isFormUpdateMode.data = data;
   publish(state.isFormUpdateMode);
@@ -168,6 +173,11 @@ export async function updateLedgerItem(date, editedItem) {
   const editedLedgerItem = {...editedItem[date], created_at: date};  
 
   await updateTransaction(editedLedgerItem.t_id, editedItem);
+  await fetchLedgerItem();
+}
+
+export async function deleteLedgerItem(t_id) {
+  await deleteTransaction(t_id);
   await fetchLedgerItem();
 }
 
