@@ -6,7 +6,6 @@ import {
   getCurrentDate,
   subscribe,
   unsubscribe,
-  getLedgerItem,
 } from "../store";
 
 export default function Calendar() {
@@ -17,6 +16,7 @@ export default function Calendar() {
     if (nextPageURI === "calendar") return;
     
     unsubscribe(componentName, "currentDate");
+    unsubscribe(componentName, "ledgerItem");
   }
 
   window.addEventListener("popstate", onPopState.bind(this));

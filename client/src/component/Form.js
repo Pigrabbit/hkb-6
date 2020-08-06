@@ -184,6 +184,9 @@ export default function Form() {
                   ? "category-btn-outcome-clicked"
                   : ""
               }">지출</button>
+              <button class="form-delete-btn">
+                ${isFormUpdateMode? "삭제" : "내용 지우기"}
+              </button>
             </div>
           </div>
           <div class="form-row">
