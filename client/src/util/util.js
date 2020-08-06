@@ -28,6 +28,13 @@ export function isLoggined() {
   return localStorage.getItem("token") ? true : false;
 }
 
+export function clearInputForm() {
+  const inputElements = $all(".form-input-text");
+  inputElements.forEach((input) => {
+    input.value = "";
+  });
+}
+
 export const $ = document.querySelector.bind(document);
 
 export const $all = document.querySelectorAll.bind(document);

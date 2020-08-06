@@ -4,7 +4,7 @@ import {
   deletePaymentFromServer,
 } from "./service/paymentService";
 import { fetchMockLedgerItem, fetchMockBarData } from "./Data";
-import { $id, $all } from "./util/util";
+import { $id, $all, clearInputForm } from "./util/util";
 import {
   createTransactionFromServer,
   getTransactionFromServer,
@@ -101,7 +101,6 @@ export function toggleFormBtns() {
 
 export function setToUpdateTransaction(data) {
   state.toUpdateTransaction.data = data;
-  // console.log(state.toUpdateTransaction.data);
   setIsFormUpdateMode(true);
 }
 
@@ -132,10 +131,6 @@ export async function deletePaymentById(p_id) {
   await fetchPaymentList();
 }
 
-function isNotInKey(x, data) {
-  return Object.keys(data).find((elem) => elem === x) === undefined;
-}
-
 export async function fetchPaymentList() {
   state.paymentList.data = await getPaymentListFromServer();
   publish(state.paymentList);
@@ -148,19 +143,15 @@ export function getPaymentList() {
 // 가계부
 
 export async function addNewLedgeritem(date, newItem) {
-  if (isNotInKey(date, state.ledgerItem.data))
-    state.ledgerItem.data[date] = [newItem[date]];
-  else state.ledgerItem.data[date].push(newItem[date]);
-
   const newLedgerItem = { ...newItem[date], created_at: date };
   await createTransactionFromServer(newLedgerItem);
   await fetchLedgerItem();
   
-  console.log("add item", newLedgerItem);
-  const inputs = $all(".form-input-text");
-  inputs.forEach((input) => {
-    input.value = "";
-  });
+  clearInputForm();
+}
+
+export async function updateLedgerItem(date, toUpdateItem) {
+
 }
 
 export function getLedgerItemDate() {
@@ -168,7 +159,6 @@ export function getLedgerItemDate() {
 }
 
 export function getLedgerItemByDate(date) {
-  console.log(state.ledgerItem.data);
   return state.ledgerItem.data[date];
 }
 
@@ -178,7 +168,6 @@ export function getLedgerItem() {
 
 export async function fetchLedgerItem() {
   state.ledgerItem.data = await getTransactionFromServer(state.currentDate);
-  console.log(state.ledgerItem.data);
   publish(state.ledgerItem);
 }
 

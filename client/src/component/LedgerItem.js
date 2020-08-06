@@ -36,7 +36,6 @@ export default function LedgerItem(props, idx) {
     const $ledgerItemRecord = e.target.closest("li.ledger-item-record");
     const t_id = e.target.id.toString().split("-").pop();
 
-    // TODO: date, t_id를 이용해 state.ledgerItem에서 해당 tx 검색
     const $ledgerItem = e.target.closest("ul.ledger-item");
     const date = $ledgerItem.querySelector("div.ledger-item-header-date").innerText;
 
@@ -47,7 +46,6 @@ export default function LedgerItem(props, idx) {
     const $amount = $ledgerItemRecord.querySelector("div.record-amount");
     const amount = $amount.innerText.toString().replace(/^(\-|\+)/, "").split(" ")[0];
 
-    // TODO: 수입/지출 타입, 날짜 정보 추출
     setToUpdateTransaction({t_id, category, content, payment_name, amount, date, t_type });
   }
 

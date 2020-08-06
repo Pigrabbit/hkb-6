@@ -10,7 +10,7 @@ import {
   unsubscribe,
   getToUpdateTransaction,
   getIsFormUpdateMode,
-  getCurrentDate,
+  updateLedgerItem,
 } from "../store";
 import {
   isNumber,
@@ -64,6 +64,7 @@ export default function Form() {
 
   //새로운 가계부를 입력하도록 form을 제출하는 함수
   function submitForm() {
+    const isFormUpdateMode = getIsFormUpdateMode();
     const $form = $(".form");
     const alertMsg = $id("alert-msg");
     alertMsg.innerText = "";
@@ -110,7 +111,11 @@ export default function Form() {
     tmp[curdate.value]["t_type"] = isFormOutcomeSelected
       ? OUTCOME_TYPE
       : INCOME_TYPE;
-      
+
+    if (isFormUpdateMode) {
+      updateLedgerItem(curdate.value, tmp);
+      return;
+    }
     addNewLedgeritem(curdate.value, tmp);
   }
 
@@ -236,7 +241,7 @@ export default function Form() {
             </div>
           </div>
           <div id="alert-msg" class="form-row"></div>
-          <button class="form-submit-btn">확인</button>
+          <button class=\"form-submit-btn\">${isFormUpdateMode ? "수정" : "확인"}</button>
         `;
 
     const $form = $(`.${componentName}`);
