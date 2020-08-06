@@ -1,5 +1,5 @@
 import "./Calendar.scss";
-import { $ } from "../util/util";
+import { $, getNextPageURI } from "../util/util";
 import { WEEKDAYS } from "../util/constant";
 import CalendarDay from "./CalendarDay";
 import { getCurrentDate, subscribe, unsubscribe } from "../store";

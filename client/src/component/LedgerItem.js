@@ -6,7 +6,7 @@ import {
   getIsLedgerOutcomeVisible,
   unsubscribe,
 } from "../store";
-import { $ } from "../util/util";
+import { $, getNextPageURI } from "../util/util";
 import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
 import { getDailyIncomeSum, getDailyOutcomeSum } from "../util/sumCalculator";
 import { addCommaToNumber } from "../util/validation";
