@@ -127,7 +127,6 @@ ${parseInt(outcomeSum / 10000)} 만원</text>`
     const $header = document.querySelector(`.${componentName}`);
     $header.innerHTML = html;
   }
-  subscribe(componentName, "ledgerItem", render);
   subscribe(componentName, "isCategoryRadioChecked", render);
   subscribe(componentName, "currentDate", render);
   setTimeout(render, 0);

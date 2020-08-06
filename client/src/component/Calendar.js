@@ -2,11 +2,7 @@ import "./Calendar.scss";
 import { $, getNextPageURI } from "../util/util";
 import { WEEKDAYS } from "../util/constant";
 import CalendarDay from "./CalendarDay";
-import {
-  getCurrentDate,
-  subscribe,
-  unsubscribe,
-} from "../store";
+import { getCurrentDate, subscribe, unsubscribe } from "../store";
 
 export default function Calendar() {
   const componentName = "calendar";
