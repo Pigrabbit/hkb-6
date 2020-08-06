@@ -71,11 +71,11 @@ figure{
     transition: width 2s ease;
     &:hover,
     &:focus {
-      fill: red !important;
+      fill: red;
     } 
     &:hover ~ .bar-category,
     &:focus ~ .bar-category {
-      color: red !important;
+      color: red;
     } 
    
 
