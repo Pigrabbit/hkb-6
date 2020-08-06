@@ -116,7 +116,8 @@ export default function PieChart() {
             id="pie-chart-legend-row-colorbox-${category}">0</div>
         <div class="pie-chart-legend-row-text">${category}</div>
       </div>`;
-    }).join("")}
+      })
+      .join("")}
     </div>
     `;
 

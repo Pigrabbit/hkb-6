@@ -5,6 +5,7 @@ import {
   getCategoryRadioChecked,
   getLedgerItemByDate,
   unsubscribe,
+  fetchLedgerItem,
 } from "../store";
 import { getDailyOutcomeSum } from "../util/sumCalculator";
 import { CIRCLE_RADIUS } from "../util/constant";
@@ -100,11 +101,11 @@ export default function LineGraph() {
         if (unit === 0) {
           return `<circle cx="${
             110 + i * (650 / lastDay)
-          }" cy="370" data-value="${outcomeSum}" r="4"/>`;
+          }" cy="370" data-value="${outcomeSum}" r="${CIRCLE_RADIUS}"/>`;
         } else if (unit <= 9) {
           return `<circle cx="${110 + i * (650 / lastDay)}" cy="${
             370 - unit * 36.5
-          }" data-value="${outcomeSum}" r="4"/><text class="amount-label" x="${
+          }" data-value="${outcomeSum}" r="${CIRCLE_RADIUS}"/><text class="amount-label" x="${
             90 + i * (650 / lastDay)
           }" y="${350 - unit * 36.5}">${Math.floor(
             outcomeSum / 10000
