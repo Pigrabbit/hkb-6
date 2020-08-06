@@ -1,5 +1,5 @@
 import "./Form.scss";
-import { bindEventAll, bindEvent, $, $id, getNextPageURI } from "../util/util";
+import { bindEventAll, bindEvent, $, $id, getNextPageURI, clearInputForm, resetSelectElements } from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -11,6 +11,7 @@ import {
   getToUpdateTransaction,
   getIsFormUpdateMode,
   updateLedgerItem,
+  setIsFormUpdateMode,
 } from "../store";
 import {
   isNumber,
@@ -117,6 +118,7 @@ export default function Form() {
     if (isFormUpdateMode) {
       tmp[curdate.value]["t_id"] = t_id;
       updateLedgerItem(curdate.value, tmp);
+      setIsFormUpdateMode(false);
       return;
     }
     addNewLedgeritem(curdate.value, tmp);
@@ -159,6 +161,14 @@ export default function Form() {
       return false;
     }
     return true;
+  }
+
+  function onFormDeleteBtnClick(e) {
+    const isFormUpdateMode = getIsFormUpdateMode();
+    if (!isFormUpdateMode) {
+      clearInputForm();
+      resetSelectElements();
+    }
   }
 
   function render() {
@@ -285,6 +295,7 @@ export default function Form() {
     bindEvent("input#transaction-content", "input", contentValidationCheck);
     bindEvent("input#transaction-content", "keyup", submitByEnter);
     bindEvent("button.form-submit-btn", "click", submitForm);
+    bindEvent("button.form-delete-btn", "click", onFormDeleteBtnClick);
   }
 
   subscribe(componentName, "ledgerItem", render);
