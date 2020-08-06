@@ -5,8 +5,9 @@ import {
   getIsLedgerIncomeVisible,
   getIsLedgerOutcomeVisible,
   unsubscribe,
+  setToUpdateTransaction,
 } from "../store";
-import { $, getNextPageURI } from "../util/util";
+import { $, getNextPageURI, bindEventAll } from "../util/util";
 import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
 import { getDailyIncomeSum, getDailyOutcomeSum } from "../util/sumCalculator";
 import { addCommaToNumber } from "../util/validation";
@@ -25,6 +26,28 @@ export default function LedgerItem(props, idx) {
   }
 
   window.addEventListener("popstate", onPopState.bind(this));
+
+  function onMouseLeave(e) {
+    e.target.classList.remove("on-mouse-over");
+    e.target.querySelector("button.record-update-btn").classList.add("hidden");
+  }
+
+  function onUpdateBtnClick(e) {
+    const $ledgerItemRecord = e.target.closest("li.ledger-item-record");
+    const t_id = e.target.id.toString().split("-").pop();
+
+    const $ledgerItem = e.target.closest("ul.ledger-item");
+    const date = $ledgerItem.querySelector("div.ledger-item-header-date").innerText;
+
+    const targetTransaction = getLedgerItemByDate(date).find(item => item.t_id === parseInt(t_id));
+    
+    const {category, content, payment_name, t_type } = targetTransaction;
+
+    const $amount = $ledgerItemRecord.querySelector("div.record-amount");
+    const amount = $amount.innerText.toString().replace(/^(\-|\+)/, "").split(" ")[0];
+
+    setToUpdateTransaction({t_id, category, content, payment_name, amount, date, t_type });
+  }
 
   function filterTransaction(records) {
     const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
@@ -49,7 +72,6 @@ export default function LedgerItem(props, idx) {
   function render() {
     let records = getLedgerItemByDate(props.date);
     // TODO
-    // 마우스 오버 이벤트가 생기면 수정 버튼 만들기
     // 수정 버튼 눌렀을 때 현재 레코드의 내용을 input form에 default로 채워주기
     records = filterTransaction(records);
 
@@ -81,13 +103,16 @@ export default function LedgerItem(props, idx) {
       ${records
         .map((record) => {
           return `
-        <li class="ledger-item-record">
+        <li class="ledger-item-record" id=${record.t_id}>
           <div class="record-category ${
             record.t_type === OUTCOME_TYPE
               ? "outcome-element"
               : "income-element"
           }">${record.category}</div>
           <div class="record-content">${record.content}</div>
+          <button class="record-update-btn hidden" id=record-update-btn-${record.t_id}>
+            Edit
+          </button>
           <div class="record-payment">${record.payment_name}</div>
           <div class="record-amount ${
             record.t_type === OUTCOME_TYPE ? "outcome-text" : "income-text"
@@ -104,6 +129,9 @@ export default function LedgerItem(props, idx) {
 
     const $ledgerItem = $(`ul#${componentId}`);
     $ledgerItem.innerHTML = html;
+
+    bindEventAll("li.ledger-item-record", "mouseleave", onMouseLeave);
+    bindEventAll("button.record-update-btn", "click", onUpdateBtnClick);
   }
 
   subscribe(`${componentId}`, "isLedgerIncomeVisible", render);

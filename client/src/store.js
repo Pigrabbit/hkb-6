@@ -4,10 +4,11 @@ import {
   deletePaymentFromServer,
 } from "./service/paymentService";
 import { fetchMockLedgerItem, fetchMockBarData } from "./Data";
-import { $id, $all } from "./util/util";
+import { $id, $all, clearInputForm } from "./util/util";
 import {
-  createTransactionFromServer,
+  createTransaction,
   getTransactionFromServer,
+  updateTransaction,
 } from "./service/transactionService";
 
 export const state = {
@@ -49,6 +50,14 @@ export const state = {
   },
   statistics: {
     data: [],
+    listeners: {},
+  },
+  toUpdateTransaction: {
+    data: {},
+    listeners: {},
+  },
+  isFormUpdateMode: {
+    data: false,
     listeners: {},
   },
   isCategoryRadioChecked: {
@@ -104,6 +113,24 @@ export function toggleFormBtns() {
   publish(state.isFormOutcomeSelected);
 }
 
+export function setToUpdateTransaction(data) {
+  state.toUpdateTransaction.data = data;
+  setIsFormUpdateMode(true);
+}
+
+export function getToUpdateTransaction(data) {
+  return state.toUpdateTransaction.data;
+}
+
+export function setIsFormUpdateMode(data) {
+  state.isFormUpdateMode.data = data;
+  publish(state.isFormUpdateMode);
+}
+
+export function getIsFormUpdateMode() {
+  return state.isFormUpdateMode.data;
+}
+
 // 결제수단
 
 export async function addNewPayment(newPayment) {
@@ -118,10 +145,6 @@ export async function deletePaymentById(p_id) {
   await fetchPaymentList();
 }
 
-function isNotInKey(x, data) {
-  return Object.keys(data).find((elem) => elem === x) === undefined;
-}
-
 export async function fetchPaymentList() {
   state.paymentList.data = await getPaymentListFromServer();
   publish(state.paymentList);
@@ -134,19 +157,18 @@ export function getPaymentList() {
 // 가계부
 
 export async function addNewLedgeritem(date, newItem) {
-  if (isNotInKey(date, state.ledgerItem.data))
-    state.ledgerItem.data[date] = [newItem[date]];
-  else state.ledgerItem.data[date].push(newItem[date]);
-
   const newLedgerItem = { ...newItem[date], created_at: date };
-  await createTransactionFromServer(newLedgerItem);
+  await createTransaction(newLedgerItem);
   await fetchLedgerItem();
   
-  console.log("add item", newLedgerItem);
-  const inputs = $all(".form-input-text");
-  inputs.forEach((input) => {
-    input.value = "";
-  });
+  clearInputForm();
+}
+
+export async function updateLedgerItem(date, editedItem) {
+  const editedLedgerItem = {...editedItem[date], created_at: date};  
+
+  await updateTransaction(editedLedgerItem.t_id, editedItem);
+  await fetchLedgerItem();
 }
 
 export function getLedgerItemDate() {

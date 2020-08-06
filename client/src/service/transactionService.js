@@ -10,12 +10,12 @@ export async function getTransactionFromServer({ data }) {
   return await getFetchManger(`/transaction/${year}-${month}}`);
 }
 
-export async function createTransactionFromServer(newItem) {
+export async function createTransaction(newItem) {
   return await postFetchManger("/transaction", newItem);
 }
 
-export async function patchTransactionFromServer(t_id) {
-  return await patchFetchManger(`/transaction/${t_id}`);
+export async function updateTransaction(t_id, editedItem) {
+  return await patchFetchManger(`/transaction/${t_id}`, editedItem);
 }
 
 export async function deleteTransactionFromServer(t_id) {

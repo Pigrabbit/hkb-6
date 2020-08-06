@@ -8,6 +8,9 @@ import {
   toggleFormBtns,
   getPaymentList,
   unsubscribe,
+  getToUpdateTransaction,
+  getIsFormUpdateMode,
+  updateLedgerItem,
 } from "../store";
 import {
   isNumber,
@@ -30,9 +33,11 @@ export default function Form() {
     const nextPageURI = getNextPageURI();
     if (nextPageURI === "list") return;
 
+    unsubscribe(componentName, "ledgerItem");
     unsubscribe(componentName, "paymentList");
-    unsubscribe(componentName, "isFormIncomeSelected", render);
-    unsubscribe(componentName, "isFormOutcomeSelected", render);
+    unsubscribe(componentName, "isFormIncomeSelected");
+    unsubscribe(componentName, "isFormOutcomeSelected");
+    unsubscribe(componentName, "isFormUpdateMode");
   }
 
   window.addEventListener("popstate", onPopState.bind(this));
@@ -59,6 +64,9 @@ export default function Form() {
 
   //새로운 가계부를 입력하도록 form을 제출하는 함수
   function submitForm() {
+    const isFormUpdateMode = getIsFormUpdateMode();
+    const { t_id } = getToUpdateTransaction();
+
     const $form = $(".form");
     const alertMsg = $id("alert-msg");
     alertMsg.innerText = "";
@@ -75,7 +83,7 @@ export default function Form() {
     }
     let passed = true;
     $inputElements.forEach((element) => {
-      if (passed && (element.value === "" || element.value === "default")) {
+      if (passed && element.value === "") {
         passed = false;
         showAlertMessage(
           element,
@@ -105,7 +113,12 @@ export default function Form() {
     tmp[curdate.value]["t_type"] = isFormOutcomeSelected
       ? OUTCOME_TYPE
       : INCOME_TYPE;
-    console.log(tmp);
+
+    if (isFormUpdateMode) {
+      tmp[curdate.value]["t_id"] = t_id;
+      updateLedgerItem(curdate.value, tmp);
+      return;
+    }
     addNewLedgeritem(curdate.value, tmp);
   }
 
@@ -152,16 +165,24 @@ export default function Form() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
     const paymentList = getPaymentList();
+    const toUpdateTransaction = getToUpdateTransaction();
+    const isFormUpdateMode = getIsFormUpdateMode();
 
     const html = `
         <div class="form-row">
             <div class="form-col">
               <label for="inout">분류</label>
               <button class="form-income-btn ${
-                isFormIncomeSelected ? "category-btn-income-clicked" : ""
+                (!isFormUpdateMode && isFormIncomeSelected) ||
+                toUpdateTransaction.t_type === INCOME_TYPE
+                  ? "category-btn-income-clicked"
+                  : ""
               }">수입</button>
               <button class="form-outcome-btn ${
-                isFormOutcomeSelected ? "category-btn-outcome-clicked" : ""
+                (!isFormUpdateMode && isFormOutcomeSelected) ||
+                toUpdateTransaction.t_type === OUTCOME_TYPE
+                  ? "category-btn-outcome-clicked"
+                  : ""
               }">지출</button>
             </div>
           </div>
@@ -171,13 +192,23 @@ export default function Form() {
               <input
                 type="date"
                 name="transaction-created_at"
-                id="transaction-created_at"
+                id="transaction-created_at",
+                value=${
+                  isFormUpdateMode
+                    ? toUpdateTransaction.date
+                    : new Date().toISOString().split("T")[0]
+                }
               />
             </div>
             <div class="form-col-2">
               <label for="form-category">카테고리</label>
               <select name="transaction-category" id="transaction-category" msg="카테고리">
-                <option value="default">선택하세요</option>
+                <option value=${
+                  isFormUpdateMode ? toUpdateTransaction.category : "default"
+                  }>${
+                  isFormUpdateMode ? toUpdateTransaction.category : "선택하세요"
+                  }
+                </option>
                   ${
                     isFormIncomeSelected
                       ? INCOME_CATEGORY.map((category) => {
@@ -192,11 +223,14 @@ export default function Form() {
             <div class="form-col-2">
               <label for="form-payment">결제수단</label>
               <select name="transaction-payment" id="transaction-payment_name" msg="결제수단">
-                <option value="default">선택하세요</option>
+                <option value=${isFormUpdateMode ?
+                  toUpdateTransaction.payment_name : "default"}>
+                  ${isFormUpdateMode ?
+                    toUpdateTransaction.payment_name : "선택하세요"}
+                </option>
                 ${paymentList.map((item) => {
                   return `<option value="${item.payment_name}">${item.payment_name}</option>`;
                 })}
-
               </select>
             </div>
           </div>
@@ -208,6 +242,11 @@ export default function Form() {
                 class="form-input-text"
                 id="transaction-amount"
                 placeholder="1,000"
+                ${
+                  isFormUpdateMode
+                    ? `value=\"${toUpdateTransaction.amount}\"`
+                    : ""
+                }
                 msg="금액"
               /> 원
             </div>
@@ -218,12 +257,19 @@ export default function Form() {
                 class="form-input-text"
                 id="transaction-content"
                 placeholder="내용을 입력하세요"
+                ${
+                  isFormUpdateMode
+                    ? `value=\"${toUpdateTransaction.content}\"`
+                    : ""
+                }
                 msg="내용"
               />
             </div>
           </div>
           <div id="alert-msg" class="form-row"></div>
-          <button class="form-submit-btn">확인</button>
+          <button class=\"form-submit-btn\">${
+            isFormUpdateMode ? "수정" : "확인"
+          }</button>
         `;
 
     const $form = $(`.${componentName}`);
@@ -242,6 +288,7 @@ export default function Form() {
   subscribe(componentName, "paymentList", render);
   subscribe(componentName, "isFormIncomeSelected", render);
   subscribe(componentName, "isFormOutcomeSelected", render);
+  subscribe(componentName, "isFormUpdateMode", render);
 
   setTimeout(render, 0);
 
