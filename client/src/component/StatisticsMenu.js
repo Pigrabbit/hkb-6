@@ -18,12 +18,12 @@ export default function StatisticsMenu() {
     <div>
     <input type="radio" ${
       getCategoryRadioChecked() ? "checked" : ""
-    } id="male" name="gender" value="male">
-    <label for="male">카테고리별 지출</label>
+    } id="category_radio" name="category_radio" value="category_radio">
+    <label for="category_radio">카테고리별 지출</label>
     <input type="radio" ${
       getCategoryRadioChecked() ? "" : "checked"
-    } id="female" name="gender" value="female">
-    <label for="female">일별 지출</label>
+    } id="daily_radio" name="daily_radio" value="daily_radio">
+    <label for="daily_radio">일별 지출</label>
     </div>
     <div>
       <p>이번 달 지출 금액</p>

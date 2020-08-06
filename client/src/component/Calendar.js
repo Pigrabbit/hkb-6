@@ -2,7 +2,12 @@ import "./Calendar.scss";
 import { $ } from "../util/util";
 import { WEEKDAYS } from "../util/constant";
 import CalendarDay from "./CalendarDay";
-import { getCurrentDate, subscribe, unsubscribe } from "../store";
+import {
+  getCurrentDate,
+  subscribe,
+  unsubscribe,
+  getLedgerItem,
+} from "../store";
 
 export default function Calendar() {
   const componentName = "calendar";
@@ -10,7 +15,7 @@ export default function Calendar() {
   function onPopState() {
     const nextPage = location.pathname.toString().replace(/^\//, "");
     if (nextPage === "calendar") return;
-    
+
     unsubscribe(componentName, "currentDate");
   }
 
