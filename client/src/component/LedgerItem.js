@@ -52,6 +52,7 @@ export default function LedgerItem(props, idx) {
     // 마우스 오버 이벤트가 생기면 수정 버튼 만들기
     // 수정 버튼 눌렀을 때 현재 레코드의 내용을 input form에 default로 채워주기
     records = filterTransaction(records);
+    console.log(records);
 
     if (!records || records.length === 0) {
       clearLedgerItem();
@@ -81,7 +82,7 @@ export default function LedgerItem(props, idx) {
       ${records
         .map((record) => {
           return `
-        <li class="ledger-item-record">
+        <li class="ledger-item-record" id=${record.t_id}>
           <div class="record-category ${
             record.t_type === OUTCOME_TYPE
               ? "outcome-element"

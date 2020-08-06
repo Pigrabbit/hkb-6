@@ -57,7 +57,8 @@ class Transaction {
       const { user_id, date } = data;
       const [year, month] = date.split("-");
 
-      const query = `SELECT * FROM transaction T
+      const query = `SELECT T.id as t_id, T.category, T.amount, T.content, T.payment_id, T.created_at, T.t_type
+          FROM transaction T
           JOIN payment P
           ON T.payment_id = P.id
           WHERE MONTH(created_at) = ? 
@@ -76,7 +77,7 @@ class Transaction {
 
       const tmp = rows.map((row) => {
         return {
-          t_id: row.id,
+          t_id: row.t_id,
           category: row.category,
           amount: row.amount,
           content: row.content,

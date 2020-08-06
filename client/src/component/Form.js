@@ -106,7 +106,7 @@ export default function Form() {
     tmp[curdate.value]["t_type"] = isFormOutcomeSelected
       ? OUTCOME_TYPE
       : INCOME_TYPE;
-    console.log(tmp);
+      
     addNewLedgeritem(curdate.value, tmp);
   }
 
