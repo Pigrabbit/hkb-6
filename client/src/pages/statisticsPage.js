@@ -6,8 +6,11 @@ import StatisticsMenu from "../component/StatisticsMenu";
 
 import brocolli from "../images/brocolli.png";
 import PieChart from "../component/PieChart";
+import { fetchLedgerItem } from "../store";
 
 export default function StatisticsPage() {
+  fetchLedgerItem();
+
   return `
     ${Header({ isPaymentVisible: false })}
     ${Navbar()}

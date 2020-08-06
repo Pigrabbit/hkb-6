@@ -2,11 +2,7 @@ import "./Calendar.scss";
 import { $, getNextPageURI } from "../util/util";
 import { WEEKDAYS } from "../util/constant";
 import CalendarDay from "./CalendarDay";
-import {
-  getCurrentDate,
-  subscribe,
-  unsubscribe,
-} from "../store";
+import { getCurrentDate, subscribe, unsubscribe } from "../store";
 
 export default function Calendar() {
   const componentName = "calendar";
@@ -14,7 +10,7 @@ export default function Calendar() {
   function onPopState() {
     const nextPageURI = getNextPageURI();
     if (nextPageURI === "calendar") return;
-    
+
     unsubscribe(componentName, "currentDate");
     unsubscribe(componentName, "ledgerItem");
   }

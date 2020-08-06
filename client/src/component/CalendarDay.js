@@ -17,7 +17,7 @@ export default function CalendarDay(props) {
   function onPopState() {
     const nextPageURI = getNextPageURI();
     if (nextPageURI === "calendar") return;
-    
+
     unsubscribe(componentId, "currentDate");
     unsubscribe(componentId, "isLedgerIncomeVisible");
     unsubscribe(componentId, "isLedgerOutcomeVisible");

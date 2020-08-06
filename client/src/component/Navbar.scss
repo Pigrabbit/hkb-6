@@ -20,29 +20,47 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  align-items: center;
   list-style: none;
   margin-bottom: 2rem;
-  padding: 0;
   border-radius: 10px;
   background: #eee;
   height: 40px;
+  padding:0;
 
   & li {
-    margin: 0;
     padding: 0 50px;
+    height:100%;
+    border-radius:10px;
+
+    &:before{
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;       
+   }
+
+    & span{
+      display:inline-block;
+      vertical-align: middle;
+    }
 
 
     &:hover{
       cursor: pointer;
-      color:$brown-font;
-      text-shadow: 2px 2px 2px darkgray;
       transform:translateY(-3px)
     }
   }
 
-  & li:nth-child(2) {
-    border-left: 1px solid darkgray;
-    border-right: 1px solid darkgray;
-  }
+}
 
+.active-tab-style{
+  background:$brown-font;
+  color:#fff;
+
+  &:hover{
+    cursor: pointer;
+    text-shadow: none;
+    transform:translateY(-3px)
+  }
 }
