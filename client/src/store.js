@@ -150,6 +150,7 @@ export function getLedgerItem() {
 
 export async function fetchLedgerItem() {
   state.ledgerItem.data = await getTransactionFromServer(state.currentDate);
+  console.log(state.ledgerItem.data);
   publish(state.ledgerItem);
 }
 

@@ -76,6 +76,7 @@ class Transaction {
 
       const tmp = rows.map((row) => {
         return {
+          t_id: row.id,
           category: row.category,
           amount: row.amount,
           content: row.content,
