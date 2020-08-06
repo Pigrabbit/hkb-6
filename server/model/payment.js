@@ -8,6 +8,8 @@ class Payment {
     try {
       const query = "select id as payment_id, payment_name from payment where user_id=?";
       const [rows] = await conn.query(query, [id]);
+      if(rows.length === 0) return [];
+
       return rows;
     } catch (error) {
       throw error;
