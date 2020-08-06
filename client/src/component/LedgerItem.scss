@@ -45,6 +45,10 @@
     .record-update-btn {
       grid-column: 3 / 4;
       align-self: center;
+      background:#fff;
+      border-radius:0 10px 0 10px;
+      color:$brown-font;
+      border:2px solid $brown-font;
     }
 
     .record-payment {

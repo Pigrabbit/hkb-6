@@ -33,20 +33,35 @@ export default function LedgerItem(props, idx) {
   }
 
   function onUpdateBtnClick(e) {
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
     const $ledgerItemRecord = e.target.closest("li.ledger-item-record");
     const t_id = e.target.id.toString().split("-").pop();
 
     const $ledgerItem = e.target.closest("ul.ledger-item");
-    const date = $ledgerItem.querySelector("div.ledger-item-header-date").innerText;
+    const date = $ledgerItem.querySelector("div.ledger-item-header-date")
+      .innerText;
 
-    const targetTransaction = getLedgerItemByDate(date).find(item => item.t_id === parseInt(t_id));
-    
-    const {category, content, payment_name, t_type } = targetTransaction;
+    const targetTransaction = getLedgerItemByDate(date).find(
+      (item) => item.t_id === parseInt(t_id)
+    );
+
+    const { category, content, payment_name, t_type } = targetTransaction;
 
     const $amount = $ledgerItemRecord.querySelector("div.record-amount");
-    const amount = $amount.innerText.toString().replace(/^(\-|\+)/, "").split(" ")[0];
+    const amount = $amount.innerText
+      .toString()
+      .replace(/^(\-|\+)/, "")
+      .split(" ")[0];
 
-    setToUpdateTransaction({t_id, category, content, payment_name, amount, date, t_type });
+    setToUpdateTransaction({
+      t_id,
+      category,
+      content,
+      payment_name,
+      amount,
+      date,
+      t_type,
+    });
   }
 
   function filterTransaction(records) {
@@ -110,7 +125,9 @@ export default function LedgerItem(props, idx) {
               : "income-element"
           }">${record.category}</div>
           <div class="record-content">${record.content}</div>
-          <button class="record-update-btn hidden" id=record-update-btn-${record.t_id}>
+          <button class="record-update-btn hidden" id=record-update-btn-${
+            record.t_id
+          }>
             Edit
           </button>
           <div class="record-payment">${record.payment_name}</div>

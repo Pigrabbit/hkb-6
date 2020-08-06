@@ -76,8 +76,10 @@ export default function LineGraph() {
         if (records) {
           outcomeSum = getDailyOutcomeSum(records);
         }
-        const unit = outcomeSum / 10000 / 5;
-        if (unit <= 9)
+        const unit = Math.floor(outcomeSum / 10000 / 5);
+        if (unit === 0) {
+          return `${110 + i * (650 / lastDay)}, 370`;
+        } else if (unit <= 9)
           return `${110 + i * (650 / lastDay)}, ${370 - unit * 36.5}`;
         else return `${110 + i * (650 / lastDay)}, ${370 - 9.5 * 36.5}`;
       })}
@@ -95,29 +97,28 @@ export default function LineGraph() {
         if (records) {
           outcomeSum = getDailyOutcomeSum(records);
         }
-        const unit = outcomeSum / 10000 / 5;
-        return `${
-          unit <= 9
-            ? `<circle cx="${110 + i * (650 / lastDay)}" cy="${
-                370 - unit * 36.5
-              }" data-value="${outcomeSum}" r="4"/>`
-            : `<circle cx="${110 + i * (650 / lastDay)}" cy="${
-                370 - 9.5 * 36.5
-              }" data-value="${outcomeSum}" r="${CIRCLE_RADIUS}"/>`
+        const unit = Math.floor(outcomeSum / 10000 / 5);
+        if (unit === 0) {
+          return `<circle cx="${
+            110 + i * (650 / lastDay)
+          }" cy="370" data-value="${outcomeSum}" r="4"/>`;
+        } else if (unit <= 9) {
+          return `<circle cx="${110 + i * (650 / lastDay)}" cy="${
+            370 - unit * 36.5
+          }" data-value="${outcomeSum}" r="4"/><text class="amount-label" x="${
+            90 + i * (650 / lastDay)
+          }" y="${350 - unit * 36.5}">${Math.floor(
+            outcomeSum / 10000
+          )} 만원</text>`;
+        } else {
+          return `<circle cx="${110 + i * (650 / lastDay)}" cy="${
+            370 - 9.5 * 36.5
+          }" data-value="${outcomeSum}" r="${CIRCLE_RADIUS}"/><text class="amount-label" x="${
+            90 + i * (650 / lastDay)
+          }" y="${350 - 9.2 * 36.5}">${Math.floor(
+            outcomeSum / 10000
+          )} 만원</text>`;
         }
-        ${
-          outcomeSum === 0
-            ? ""
-            : outcomeSum > 450000
-            ? `<text class="amount-label" x="${90 + i * (650 / lastDay)}" y="${
-                350 - 9.2 * 36.5
-              }">
-      ${parseInt(outcomeSum / 10000)} 만원</text>`
-            : `<text class="amount-label" x="${90 + i * (650 / lastDay)}" y="${
-                350 - unit * 36.5
-              }">
-${parseInt(outcomeSum / 10000)} 만원</text>`
-        }`;
       })}
     </g>
     </svg>
