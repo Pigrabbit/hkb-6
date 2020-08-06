@@ -19,7 +19,6 @@ export default function Navbar() {
     if (nextPageURI === "list") return;
 
     unsubscribe(componentName, "currentTab");
-    unsubscribe(componentName, "currentDate");
   }
   window.addEventListener("popstate", onPopState.bind(this));
 
