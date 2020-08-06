@@ -160,7 +160,7 @@ export async function addNewLedgeritem(date, newItem) {
   const newLedgerItem = { ...newItem[date], created_at: date };
   await createTransaction(newLedgerItem);
   await fetchLedgerItem();
-  
+
   clearInputForm();
 }
 
@@ -227,6 +227,10 @@ export function toggleModal() {
 
 // 달력
 
+export function fetchCurrentDate(){
+  
+}
+
 export function getCurrentDate() {
   return state.currentDate.data;
 }
@@ -238,9 +242,9 @@ export async function toPrevMonth() {
   } else {
     --state.currentDate.data.month;
   }
-  
+
   publish(state.currentDate);
-  
+
   await fetchLedgerItem(state.currentDate);
   publish(state.ledgerItem);
 }
