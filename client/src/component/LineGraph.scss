@@ -1,9 +1,12 @@
 
 .linegraph{
     width:100%;
-    height:600px;
+    height:800px;
 }
 
+// .svg-line-graph{
+//   height:700px;
+// }
 
 .graph .labels.x-labels {
   text-anchor: middle;
@@ -15,7 +18,8 @@
 
 
 .graph {
-  height: 500px;
+  padding:20px;
+  height: 700px;
   width: 800px;
 }
 
@@ -37,7 +41,7 @@
 }
 
 polyline{
-  stroke-dasharray: 2000;
+  stroke-dasharray: 3000;
   stroke-dashoffset: 2000;
   animation: dash 2s linear forwards;
 }
@@ -46,4 +50,10 @@ polyline{
   to {
     stroke-dashoffset: 0;
   }
+}
+
+.amount-label{
+  fill:#142850;
+  z-index:1;
+  font-size:20px;
 }
