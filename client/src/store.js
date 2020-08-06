@@ -101,7 +101,7 @@ export function toggleFormBtns() {
 
 export function setToUpdateTransaction(data) {
   state.toUpdateTransaction.data = data;
-  console.log(state.toUpdateTransaction.data);
+  // console.log(state.toUpdateTransaction.data);
   setIsFormUpdateMode(true);
 }
 
@@ -168,6 +168,7 @@ export function getLedgerItemDate() {
 }
 
 export function getLedgerItemByDate(date) {
+  console.log(state.ledgerItem.data);
   return state.ledgerItem.data[date];
 }
 

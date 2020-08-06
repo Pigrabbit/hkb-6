@@ -36,21 +36,19 @@ export default function LedgerItem(props, idx) {
     const $ledgerItemRecord = e.target.closest("li.ledger-item-record");
     const t_id = e.target.id.toString().split("-").pop();
 
-    // TODO: extract value from $ledgerItemRecord
-    const $category = $ledgerItemRecord.querySelector("div.record-category");
-    const category = $category.innerText;
+    // TODO: date, t_id를 이용해 state.ledgerItem에서 해당 tx 검색
+    const $ledgerItem = e.target.closest("ul.ledger-item");
+    const date = $ledgerItem.querySelector("div.ledger-item-header-date").innerText;
 
-    const $content = $ledgerItemRecord.querySelector("div.record-content");
-    const content = $content.innerText;
-
-    const $payment = $ledgerItemRecord.querySelector("div.record-payment");
-    const payment_name = $payment.innerText;
+    const targetTransaction = getLedgerItemByDate(date).find(item => item.t_id === parseInt(t_id));
+    
+    const {category, content, payment_name, t_type } = targetTransaction;
 
     const $amount = $ledgerItemRecord.querySelector("div.record-amount");
-    const amount = $amount.innerText.toString().replace(/^-/, "").split(" ")[0];
+    const amount = $amount.innerText.toString().replace(/^(\-|\+)/, "").split(" ")[0];
 
     // TODO: 수입/지출 타입, 날짜 정보 추출
-    setToUpdateTransaction({t_id, category, content, payment_name, amount});
+    setToUpdateTransaction({t_id, category, content, payment_name, amount, date, t_type });
   }
 
   function filterTransaction(records) {

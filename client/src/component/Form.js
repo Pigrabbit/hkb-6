@@ -10,6 +10,7 @@ import {
   unsubscribe,
   getToUpdateTransaction,
   getIsFormUpdateMode,
+  getCurrentDate,
 } from "../store";
 import {
   isNumber,
@@ -164,10 +165,12 @@ export default function Form() {
             <div class="form-col">
               <label for="inout">분류</label>
               <button class="form-income-btn ${
-                isFormIncomeSelected ? "category-btn-income-clicked" : ""
+                ((!isFormUpdateMode && isFormIncomeSelected) || toUpdateTransaction.t_type === INCOME_TYPE) ?
+                 "category-btn-income-clicked" : ""
               }">수입</button>
               <button class="form-outcome-btn ${
-                isFormOutcomeSelected ? "category-btn-outcome-clicked" : ""
+                ((!isFormUpdateMode && isFormOutcomeSelected) || toUpdateTransaction.t_type === OUTCOME_TYPE) ?
+                 "category-btn-outcome-clicked" : ""
               }">지출</button>
             </div>
           </div>
@@ -177,7 +180,10 @@ export default function Form() {
               <input
                 type="date"
                 name="transaction-created_at"
-                id="transaction-created_at"
+                id="transaction-created_at",
+                value=${isFormUpdateMode? 
+                  toUpdateTransaction.date 
+                : (new Date()).toISOString().split("T")[0]}
               />
             </div>
             <div class="form-col-2">
