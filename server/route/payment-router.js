@@ -10,7 +10,7 @@ const paymentControllerInstance = new PaymentController(paymentModelInstance);
 
 router.get(
   "/",
-  paymentControllerInstance.getAllPayment.bind(paymentControllerInstance)
+  paymentControllerInstance.getUserPayments.bind(paymentControllerInstance)
 );
 router.post(
   "/",

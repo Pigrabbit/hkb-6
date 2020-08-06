@@ -1,4 +1,4 @@
-const { OUTCOME_TYPE, INCOME_TYPE } = require("../utils/contant");
+const { OUTCOME_TYPE, INCOME_TYPE, OUTCOME_BINARY_VALUE, INCOME_BINARY_VALUE } = require("../utils/contant");
 
 class Transaction {
   constructor(db) {
@@ -20,11 +20,11 @@ class Transaction {
         created_at,
       } = data;
       // 지출: 0, 수입: 1
-      t_type = t_type === OUTCOME_TYPE ? 0 : 1;
+      t_type = (t_type === OUTCOME_TYPE) ? OUTCOME_BINARY_VALUE : INCOME_BINARY_VALUE;
 
       const getPaymentIdQuery =
         "SELECT id as payment_id FROM payment WHERE payment_name=?";
-      const [rows] = await conn.query(getPaymentIdQuery, [payment_name]);
+      const [rows] = await conn.query(getPaymentIdQuery, [ payment_name ]);
       const { payment_id } = rows[0];
 
       const insertTxQuery = `INSERT INTO transaction 
@@ -49,21 +49,25 @@ class Transaction {
     }
   }
 
-  async findByDate(date) {
+  async findByDate(data) {
     const conn = await this.db.getConnection();
     try {
       await conn.beginTransaction();
 
+      const { user_id, date } = data;
       const [year, month] = date.split("-");
+
       const query = `SELECT * FROM transaction T
           JOIN payment P
           ON T.payment_id = P.id
           WHERE MONTH(created_at) = ? 
           AND YEAR(created_at) = ?
+          AND T.user_id = ?
           ORDER BY created_at DESC`;
 
-      const [rows] = await conn.query(query, [month, year]);
+      const [rows] = await conn.query(query, [month, year, user_id]);
       if (rows.length === 0) return [];
+
       const { payment_id } = rows[0];
 
       const getPaymentNameQuery = "SELECT payment_name FROM payment WHERE id=?";
