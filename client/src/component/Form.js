@@ -1,5 +1,13 @@
 import "./Form.scss";
-import { bindEventAll, bindEvent, $, $id, getNextPageURI, clearInputForm, resetSelectElements } from "../util/util";
+import {
+  bindEventAll,
+  bindEvent,
+  $,
+  $id,
+  getNextPageURI,
+  clearInputForm,
+  resetSelectElements,
+} from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -194,19 +202,21 @@ export default function Form() {
             <div class="form-col">
               <label for="inout">분류</label>
               <button class="form-income-btn ${
-                ((!isFormUpdateMode && isFormIncomeSelected) ||
-                (toUpdateTransaction && toUpdateTransaction.t_type === INCOME_TYPE))
+                (!isFormUpdateMode && isFormIncomeSelected) ||
+                (toUpdateTransaction &&
+                  toUpdateTransaction.t_type === INCOME_TYPE)
                   ? "category-btn-income-clicked"
                   : ""
               }">수입</button>
               <button class="form-outcome-btn ${
-                ((!isFormUpdateMode && isFormOutcomeSelected) ||
-                (toUpdateTransaction && toUpdateTransaction.t_type === OUTCOME_TYPE))
+                (!isFormUpdateMode && isFormOutcomeSelected) ||
+                (toUpdateTransaction &&
+                  toUpdateTransaction.t_type === OUTCOME_TYPE)
                   ? "category-btn-outcome-clicked"
                   : ""
               }">지출</button>
               <button class="form-delete-btn">
-                ${isFormUpdateMode? "삭제" : "내용 지우기"}
+                ${isFormUpdateMode ? "삭제" : "내용 지우기"}
               </button>
             </div>
           </div>
@@ -229,9 +239,9 @@ export default function Form() {
               <select name="transaction-category" id="transaction-category" msg="카테고리">
                 <option value=${
                   isFormUpdateMode ? toUpdateTransaction.category : "default"
-                  }>${
-                  isFormUpdateMode ? toUpdateTransaction.category : "선택하세요"
-                  }
+                }>${
+      isFormUpdateMode ? toUpdateTransaction.category : "선택하세요"
+    }
                 </option>
                   ${
                     isFormIncomeSelected
@@ -247,10 +257,16 @@ export default function Form() {
             <div class="form-col-2">
               <label for="form-payment">결제수단</label>
               <select name="transaction-payment" id="transaction-payment_name" msg="결제수단">
-                <option value=${isFormUpdateMode ?
-                  toUpdateTransaction.payment_name : "default"}>
-                  ${isFormUpdateMode ?
-                    toUpdateTransaction.payment_name : "선택하세요"}
+                <option value=${
+                  isFormUpdateMode
+                    ? toUpdateTransaction.payment_name
+                    : "default"
+                }>
+                  ${
+                    isFormUpdateMode
+                      ? toUpdateTransaction.payment_name
+                      : "선택하세요"
+                  }
                 </option>
                 ${paymentList.map((item) => {
                   return `<option value="${item.payment_name}">${item.payment_name}</option>`;
