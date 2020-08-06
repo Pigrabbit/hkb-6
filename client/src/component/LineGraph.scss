@@ -25,6 +25,12 @@
   stroke-width: 1;
 }
 
+.grid-line{
+  stroke: black;
+  stroke-dasharray: 2;
+  stroke-width: 1;
+}
+
 .data {
   fill: red;
   stroke-width: 1; 

@@ -39,10 +39,15 @@ export default function LineGraph() {
         .join("")}
       <text x="400" y="440" class="label-title">날짜</text>
     </g>
-    <g class="labels y-labels">
+    <g class="labels y-labels grid-line">
     ${Array(10)
       .fill()
-      .map((item, i) => `<text x="80" y="${370 - i * 36.5}">${5 * i}만</text>`)
+      .map(
+        (item, i) => `<text x="80" y="${370 - i * 36.5}">${5 * i}만</text>
+        <line x1="90" x2="760" y1="${370 - i * 36.5}" y2="${
+          370 - i * 36.5
+        }"></line>`
+      )
       .join("")}
   <text x="30" y="200" class="label-title">금액</text>
     </g>
