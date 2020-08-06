@@ -3,11 +3,12 @@ class Payment {
     this.db = db;
   }
 
-  async findAll() {
+  async findByUserId(id) {
     const conn = await this.db.getConnection();
     try {
-      const query = "select id as payment_id, payment_name from payment";
-      const [rows] = await conn.query(query);
+      const query = "select id as payment_id, payment_name from payment where user_id=?";
+      const [rows] = await conn.query(query, [id]);
+      if(rows.length === 0) return [];
 
       return rows;
     } catch (error) {
@@ -17,16 +18,16 @@ class Payment {
     }
   }
 
-  async create(payment_name) {
+  async create(data) {
     const conn = await this.db.getConnection();
     try {
       await conn.beginTransaction();
-
+      const { payment_name , user_id} = data;
       const insertPaymentQuery = `INSERT INTO payment
               (payment_name,user_id) 
               VALUES (?, ?)`;
 
-      await conn.query(insertPaymentQuery, [payment_name, 1]);
+      await conn.query(insertPaymentQuery, [payment_name, user_id]);
       await conn.commit();
     } catch (error) {
       conn.rollback();
