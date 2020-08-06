@@ -110,23 +110,20 @@ class Transaction {
     const conn = await this.db.getConnection();
     try {
       await conn.beginTransaction();
+      
+      const created_at = Object.keys(data).pop();
+      let {category, content, payment_name, amount, t_type} = data[created_at];
 
-      let {
-        category,
-        content,
-        payment_name,
-        amount,
-        t_type,
-        created_at,
-      } = data;
-      t_type = t_type === outcome ? 0 : 1;
+      console.log(t_id, category, content, payment_name, amount, t_type, created_at);
+      t_type = (t_type === OUTCOME_TYPE) ? 0 : 1;
 
       //t_id에 해당하는 payment_id를 가져옵니다
       const getPaymentIdQuery = "SELECT payment_id FROM transaction WHERE id=?";
 
-      const [rows] = await conn.query(getPaymentIdQuery, [t_id]);
+      const [rows] = await conn.query(getPaymentIdQuery, [ t_id ]);
+      console.log(rows[0]);
       const { payment_id } = rows[0];
-      console.log(payment_id);
+
       //payment table변경: 해당하는 payment_id의 payment_name을 변경합니다
       const updatePaymentNameQuery =
         "UPDATE payment SET payment_name=? where id=?";

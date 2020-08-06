@@ -65,6 +65,8 @@ export default function Form() {
   //새로운 가계부를 입력하도록 form을 제출하는 함수
   function submitForm() {
     const isFormUpdateMode = getIsFormUpdateMode();
+    const { t_id } = getToUpdateTransaction();
+
     const $form = $(".form");
     const alertMsg = $id("alert-msg");
     alertMsg.innerText = "";
@@ -113,6 +115,7 @@ export default function Form() {
       : INCOME_TYPE;
 
     if (isFormUpdateMode) {
+      tmp[curdate.value]["t_id"] = t_id;
       updateLedgerItem(curdate.value, tmp);
       return;
     }

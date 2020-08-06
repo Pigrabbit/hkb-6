@@ -40,6 +40,7 @@ class TransactionController {
     try {
       const data = req.body;
       const t_id = req.params.t_id;
+    
       await this.transaction.update(data, t_id);
 
       res
