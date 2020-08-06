@@ -8,6 +8,7 @@ import {
   toNextMonth,
   getCurrentTab,
   changeCurrentTab,
+  unsubscribe,
 } from "../store";
 
 export default function Navbar() {
