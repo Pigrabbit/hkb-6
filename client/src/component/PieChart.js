@@ -1,7 +1,11 @@
 import "./PieChart.scss";
 
 import { $, toRadian } from "../util/util";
-import { getStatisticsData } from "../store";
+import {
+  getStatisticsData,
+  getCategoryRadioChecked,
+  subscribe,
+} from "../store";
 import {
   PIECHART_RADIUS,
   PIECHART_CIRCUMFERENCE,
@@ -69,7 +73,9 @@ export default function PieChart() {
     const labelCoords = getLabelCoords();
 
     const html = `
-    <svg class="pie-chart-svg" viewBox="-50 -50 100 100">
+    <svg class="pie-chart-svg ${
+      getCategoryRadioChecked() ? "" : "hidden"
+    }" viewBox="-50 -50 100 100">
         ${accumulatedPercentages
           .map((percentage, idx) => {
             return `
@@ -93,7 +99,7 @@ export default function PieChart() {
     const $pieChart = $(`.${componentName}`);
     $pieChart.innerHTML = html;
   }
-
+  subscribe(componentName, "isCategoryRadioChecked", render);
   setTimeout(render, 0);
 
   return `<figure class=${componentName}></div>`;
