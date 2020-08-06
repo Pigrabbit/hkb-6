@@ -3,11 +3,12 @@ import ListPage from "./pages/listPage";
 import CalendarPage from "./pages/calendarPage";
 import HomePage from "./pages/homePage";
 import StatisticsPage from "./pages/statisticsPage";
+import { isLoggined } from "./util/util";
 
 class Router {
   constructor() {
     this.routes = {
-      "": HomePage,
+      "": isLoggined() ? ListPage : HomePage,
       list: ListPage,
       calendar: CalendarPage,
       statistics: StatisticsPage, // TODO: make statistics page

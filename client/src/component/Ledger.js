@@ -1,14 +1,14 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
 import { subscribe, getLedgerItemDate, unsubscribe } from "../store";
-import { $ } from "../util/util";
+import { $, getNextPageURI } from "../util/util";
 
 export default function Ledger() {
   const componentName = "ledger";
   
   function onPopState() {
-    const nextPage = location.pathname.toString().replace(/^\//, "");
-    if (nextPage === "list") return;
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "list") return;
     unsubscribe(componentName, "ledgerItem");
   }
 
