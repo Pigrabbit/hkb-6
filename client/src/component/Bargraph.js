@@ -60,6 +60,7 @@ export default function Bargraph() {
     $header.innerHTML = html;
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
+  subscribe(componentName, "statistics", render);
   setTimeout(render, 0);
 
   return `<figure class=${componentName}></figure>`;

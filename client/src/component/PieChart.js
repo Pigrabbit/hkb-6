@@ -40,7 +40,6 @@ export default function PieChart() {
             .slice(idx)
             .reduce((acc, cur) => acc + parseInt(cur.percentage), 0);
         });
-      accumulatedPercentages.unshift(100);
       return accumulatedPercentages;
     }
 
@@ -109,6 +108,7 @@ export default function PieChart() {
     $pieChart.innerHTML = html;
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
+  subscribe(componentName, "statistics", render);
   setTimeout(render, 0);
 
   return `<figure class=${componentName}></div>`;
