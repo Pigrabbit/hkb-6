@@ -35,6 +35,10 @@ export function clearInputForm() {
   });
 }
 
+export function resetSelectElements() {
+  [...$all("select")].forEach(selectElement => selectElement.value = "default");
+}
+
 export const $ = document.querySelector.bind(document);
 
 export const $all = document.querySelectorAll.bind(document);

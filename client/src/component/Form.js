@@ -1,5 +1,5 @@
 import "./Form.scss";
-import { bindEventAll, bindEvent, $, $id, getNextPageURI } from "../util/util";
+import { bindEventAll, bindEvent, $, $id, getNextPageURI, clearInputForm, resetSelectElements } from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -11,6 +11,9 @@ import {
   getToUpdateTransaction,
   getIsFormUpdateMode,
   updateLedgerItem,
+  setIsFormUpdateMode,
+  deleteLedgerItem,
+  clearToUpdateTransaction,
 } from "../store";
 import {
   isNumber,
@@ -117,6 +120,8 @@ export default function Form() {
     if (isFormUpdateMode) {
       tmp[curdate.value]["t_id"] = t_id;
       updateLedgerItem(curdate.value, tmp);
+      setIsFormUpdateMode(false);
+      clearToUpdateTransaction();
       return;
     }
     addNewLedgeritem(curdate.value, tmp);
@@ -161,6 +166,22 @@ export default function Form() {
     return true;
   }
 
+  function onFormDeleteBtnClick(e) {
+    const isFormUpdateMode = getIsFormUpdateMode();
+    if (!isFormUpdateMode) {
+      clearInputForm();
+      resetSelectElements();
+      return;
+    }
+
+    const toDeleteTransaction = getToUpdateTransaction();
+    const { t_id } = toDeleteTransaction;
+
+    deleteLedgerItem(t_id);
+    setIsFormUpdateMode(false);
+    clearToUpdateTransaction();
+  }
+
   function render() {
     const isFormIncomeSelected = getIsFormIncomeSelected();
     const isFormOutcomeSelected = getIsFormOutcomeSelected();
@@ -173,17 +194,20 @@ export default function Form() {
             <div class="form-col">
               <label for="inout">분류</label>
               <button class="form-income-btn ${
-                (!isFormUpdateMode && isFormIncomeSelected) ||
-                toUpdateTransaction.t_type === INCOME_TYPE
+                ((!isFormUpdateMode && isFormIncomeSelected) ||
+                (toUpdateTransaction && toUpdateTransaction.t_type === INCOME_TYPE))
                   ? "category-btn-income-clicked"
                   : ""
               }">수입</button>
               <button class="form-outcome-btn ${
-                (!isFormUpdateMode && isFormOutcomeSelected) ||
-                toUpdateTransaction.t_type === OUTCOME_TYPE
+                ((!isFormUpdateMode && isFormOutcomeSelected) ||
+                (toUpdateTransaction && toUpdateTransaction.t_type === OUTCOME_TYPE))
                   ? "category-btn-outcome-clicked"
                   : ""
               }">지출</button>
+              <button class="form-delete-btn">
+                ${isFormUpdateMode? "삭제" : "내용 지우기"}
+              </button>
             </div>
           </div>
           <div class="form-row">
@@ -282,6 +306,7 @@ export default function Form() {
     bindEvent("input#transaction-content", "input", contentValidationCheck);
     bindEvent("input#transaction-content", "keyup", submitByEnter);
     bindEvent("button.form-submit-btn", "click", submitForm);
+    bindEvent("button.form-delete-btn", "click", onFormDeleteBtnClick);
   }
 
   subscribe(componentName, "ledgerItem", render);
