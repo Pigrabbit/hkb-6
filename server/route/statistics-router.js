@@ -12,9 +12,9 @@ const statisticsControllerInstance = new StatisticsController(
 
 // data 로는
 // year, month와
-// 차트 종류: pie, bar, line 이 전달된다.
+// 차트 종류: pie, bar, line 이 전달된다. => cate
 router.get(
-  "/:data",
+  "/:date",
   statisticsControllerInstance.getStatistcs.bind(statisticsControllerInstance)
 );
 

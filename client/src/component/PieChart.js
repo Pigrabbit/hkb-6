@@ -31,7 +31,6 @@ export default function PieChart() {
             .slice(idx)
             .reduce((acc, cur) => acc + parseInt(cur.percentage), 0);
         });
-      accumulatedPercentages.unshift(100);
       return accumulatedPercentages;
     }
 
