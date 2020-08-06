@@ -1,10 +1,11 @@
 import "./PieChart.scss";
 
-import { $, toRadian } from "../util/util";
+import { $, toRadian, getNextPageURI } from "../util/util";
 import {
   getStatisticsData,
   getCategoryRadioChecked,
   subscribe,
+  unsubscribe,
 } from "../store";
 import {
   PIECHART_RADIUS,
@@ -14,6 +15,14 @@ import {
 
 export default function PieChart() {
   const componentName = "piechart";
+
+  function onPopState() {
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "statistics") return;
+
+    unsubscribe(componentName, "isCategoryRadioChecked");
+  }
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function render() {
     const statisticsData = getStatisticsData();

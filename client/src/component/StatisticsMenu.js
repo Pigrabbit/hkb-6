@@ -9,7 +9,9 @@ import { bindEventAll } from "../util/util";
 export default function StatisticsMenu() {
   const componentName = "statistics-menu";
 
-  function toggleRadioBtn() {
+  function toggleRadioBtn(e) {
+    if (getCategoryRadioChecked() && e.target.id === "category_radio") return;
+    if (!getCategoryRadioChecked() && e.target.id === "daily_radio") return;
     toggleCategoryRadioChecked();
   }
 

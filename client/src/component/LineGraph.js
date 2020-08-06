@@ -4,11 +4,24 @@ import {
   subscribe,
   getCategoryRadioChecked,
   getLedgerItemByDate,
+  unsubscribe,
 } from "../store";
 import { getDailyOutcomeSum } from "../util/sumCalculator";
+import { CIRCLE_RADIUS } from "../util/constant";
+import { getNextPageURI } from "../util/util";
 
 export default function LineGraph() {
   const componentName = "linegraph";
+
+  function onPopState() {
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "statistics") return;
+
+    unsubscribe(componentName, "currentDate");
+    unsubscribe(componentName, "ledgerItem");
+    unsubscribe(componentName, "isCategoryRadioChecked");
+  }
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function render() {
     const { year, month } = getCurrentDate();
@@ -18,7 +31,7 @@ export default function LineGraph() {
     const html = `
     <div class="${getCategoryRadioChecked() ? "hidden" : ""}">
       <figcaption style="margin:0">일별 지출</figcaption>
-      <svg viewBox="0 0 800 800" version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="graph" aria-labelledby="title" role="img">
+      <svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="graph" aria-labelledby="title" role="img">
     <g class="grid x-grid" id="xGrid">
       <line x1="90" x2="90" y1="5" y2="370"></line>
     </g>
@@ -90,7 +103,7 @@ export default function LineGraph() {
               }" data-value="${outcomeSum}" r="4"/>`
             : `<circle cx="${110 + i * (650 / lastDay)}" cy="${
                 370 - 9.5 * 36.5
-              }" data-value="${outcomeSum}" r="4"/>`
+              }" data-value="${outcomeSum}" r="${CIRCLE_RADIUS}"/>`
         }
         ${
           outcomeSum === 0
@@ -114,6 +127,7 @@ ${parseInt(outcomeSum / 10000)} 만원</text>`
     const $header = document.querySelector(`.${componentName}`);
     $header.innerHTML = html;
   }
+  subscribe(componentName, "ledgerItem", render);
   subscribe(componentName, "isCategoryRadioChecked", render);
   subscribe(componentName, "currentDate", render);
   setTimeout(render, 0);
