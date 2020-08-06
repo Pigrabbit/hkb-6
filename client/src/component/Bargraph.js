@@ -16,6 +16,7 @@ export default function Bargraph() {
     if (nextPageURI === "statistics") return;
 
     unsubscribe(componentName, "isCategoryRadioChecked");
+    unsubscribe(componentName, "statistics");
   }
   window.addEventListener("popstate", onPopState.bind(this));
 
@@ -61,6 +62,7 @@ export default function Bargraph() {
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
   subscribe(componentName, "statistics", render);
+
   setTimeout(render, 0);
 
   return `<figure class=${componentName}></figure>`;

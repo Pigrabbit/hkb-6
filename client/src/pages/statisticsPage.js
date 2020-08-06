@@ -10,8 +10,7 @@ import PieChart from "../component/PieChart";
 import { fetchStatisticsData, getCurrentDate, fetchLedgerItem } from "../store";
 
 export default function StatisticsPage() {
-  const currentDate = getCurrentDate();
-  fetchStatisticsData(currentDate);
+  fetchStatisticsData();
   fetchLedgerItem();
 
   return `

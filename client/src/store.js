@@ -105,8 +105,8 @@ export function getCategoryRadioChecked() {
 }
 
 // 통계
-export async function fetchStatisticsData(date) {
-  state.statistics.data = await fetchStatisticsByDate(date);
+export async function fetchStatisticsData() {
+  state.statistics.data = await fetchStatisticsByDate(state.currentDate.data);
   publish(state.statistics);
 }
 
@@ -264,8 +264,11 @@ export async function toPrevMonth() {
 
   publish(state.currentDate);
 
-  await fetchLedgerItem(state.currentDate);
+  await fetchLedgerItem();
   publish(state.ledgerItem);
+
+  await fetchStatisticsData();
+  publish(state.statistics);
 }
 
 export async function toNextMonth() {
@@ -277,6 +280,9 @@ export async function toNextMonth() {
   }
   publish(state.currentDate);
 
-  await fetchLedgerItem(state.currentDate);
+  await fetchLedgerItem();
   publish(state.ledgerItem);
+
+  await fetchStatisticsData();
+  publish(state.statistics);
 }

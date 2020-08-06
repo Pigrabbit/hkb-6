@@ -25,6 +25,7 @@ export default function PieChart() {
     if (nextPageURI === "statistics") return;
 
     unsubscribe(componentName, "isCategoryRadioChecked");
+    unsubscribe(componentName, "statistics");
   }
   window.addEventListener("popstate", onPopState.bind(this));
 
@@ -74,8 +75,8 @@ export default function PieChart() {
 
         labelCoords.unshift(
           (labelCoords[idx] = {
-            x: Math.sin(toRadian(theta)) * PIECHART_OUTER_RADIUS,
-            y: -Math.cos(toRadian(theta)) * PIECHART_OUTER_RADIUS,
+            x: Math.sin(toRadian(theta)) * (PIECHART_OUTER_RADIUS - (idx % 2) * 0.1 * PIECHART_OUTER_RADIUS),
+            y: -Math.cos(toRadian(theta)) * (PIECHART_OUTER_RADIUS - (idx % 2) * 0.1 * PIECHART_OUTER_RADIUS),
           })
         );
       });
@@ -107,10 +108,9 @@ export default function PieChart() {
             .join("")}
         <circle class="inner" r="10" cx="0" cy="0" fill="white"/>
     </svg>
-    <div class="pie-chart-legend  ${getCategoryRadioChecked() ? "" : "hidden"}">
-    ${categories
-      .map((category) => {
-        return `
+    <div class="pie-chart-legend ${getCategoryRadioChecked() ? "" : "hidden"}">
+    ${categories.map(category => {
+      return `
       <div class="pie-chart-legend-row">
         <div class="pie-chart-legend-row-colorbox" 
             id="pie-chart-legend-row-colorbox-${category}">0</div>
@@ -126,6 +126,7 @@ export default function PieChart() {
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
   subscribe(componentName, "statistics", render);
+
   setTimeout(render, 0);
 
   return `<div class=${componentName}></div>`;
