@@ -30,6 +30,7 @@ export default function Form() {
     const nextPageURI = getNextPageURI();
     if (nextPageURI === "list") return;
 
+    unsubscribe(componentName, "ledgerItem");
     unsubscribe(componentName, "paymentList");
     unsubscribe(componentName, "isFormIncomeSelected", render);
     unsubscribe(componentName, "isFormOutcomeSelected", render);

@@ -79,6 +79,7 @@ export default function Calendar() {
     $calendar.innerHTML = html;
   }
 
+  subscribe(componentName, "ledgerItem", render);
   subscribe(componentName, "currentDate", render);
   setTimeout(render, 0);
 
