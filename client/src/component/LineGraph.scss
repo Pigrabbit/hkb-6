@@ -41,9 +41,9 @@
 }
 
 polyline{
-  stroke-dasharray: 3000;
-  stroke-dashoffset: 2000;
-  animation: dash 2s linear forwards;
+  stroke-dasharray: 10000;
+  stroke-dashoffset: 10000;
+  animation: dash 3s linear forwards;
 }
 
 @keyframes dash {
@@ -54,6 +54,6 @@ polyline{
 
 .amount-label{
   fill:#142850;
-  z-index:1;
   font-size:20px;
+
 }

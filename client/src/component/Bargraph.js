@@ -3,12 +3,21 @@ import {
   getStatisticsData,
   getCategoryRadioChecked,
   subscribe,
+  unsubscribe,
 } from "../store";
 import { addCommaToNumber } from "../util/validation";
-import { getRandomColor } from "../util/util";
+import { getRandomColor, getNextPageURI } from "../util/util";
 
 export default function Bargraph() {
   const componentName = "bargraph";
+
+  function onPopState() {
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "statistics") return;
+
+    unsubscribe(componentName, "isCategoryRadioChecked");
+  }
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function render() {
     const statistics = getStatisticsData();

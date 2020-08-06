@@ -15,3 +15,4 @@ export const PIECHART_RADIUS = 30;
 export const PI = 3.141592;
 export const PIECHART_CIRCUMFERENCE = 2 * PIECHART_RADIUS * PI;
 export const PIECHART_OUTER_RADIUS = 45;
+export const CIRCLE_RADIUS = 4;

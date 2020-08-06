@@ -3,8 +3,8 @@ import {
   createNewPayment,
   deletePaymentFromServer,
 } from "./service/paymentService";
-import { fetchMockLedgerItem, fetchMockBarData } from "./Data";
-import { $id, $all, clearInputForm } from "./util/util";
+import { fetchMockBarData } from "./Data";
+import { $id, clearInputForm } from "./util/util";
 import {
   createTransaction,
   getTransactionFromServer,
@@ -66,6 +66,10 @@ export const state = {
     data: true,
     listeners: {},
   },
+  currentTab: {
+    data: "tab-list",
+    listeners: {},
+  },
 };
 
 export const subscribe = (component, key, action) => {
@@ -80,6 +84,16 @@ const publish = (key) =>
   Object.values(key.listeners).forEach((action) => {
     if (action) action(key.data);
   });
+
+export function getCurrentTab() {
+  return state.currentTab.data;
+}
+
+export function changeCurrentTab(now) {
+  state.currentTab.data = now;
+  publish(state.currentTab);
+}
+
 //라디오 버튼
 export function toggleCategoryRadioChecked() {
   state.isCategoryRadioChecked.data = !state.isCategoryRadioChecked.data;
@@ -170,7 +184,7 @@ export async function addNewLedgeritem(date, newItem) {
 }
 
 export async function updateLedgerItem(date, editedItem) {
-  const editedLedgerItem = {...editedItem[date], created_at: date};  
+  const editedLedgerItem = { ...editedItem[date], created_at: date };
 
   await updateTransaction(editedLedgerItem.t_id, editedItem);
   await fetchLedgerItem();

@@ -6,11 +6,21 @@ import {
   toggleModal,
   addNewPayment,
   deletePaymentById,
+  unsubscribe,
 } from "../store";
-import { bindEvent, $id, bindEventAll } from "../util/util";
+import { bindEvent, $id, bindEventAll, getNextPageURI } from "../util/util";
 
 export default function Modal() {
   const componentName = "modal";
+
+  function onPopState() {
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "list") return;
+
+    unsubscribe(componentName, "isModalVisible");
+    unsubscribe(componentName, "paymentList");
+  }
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function onCloseBtnClick() {
     toggleModal();
