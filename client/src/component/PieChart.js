@@ -25,6 +25,7 @@ export default function PieChart() {
     if (nextPageURI === "statistics") return;
 
     unsubscribe(componentName, "isCategoryRadioChecked");
+    unsubscribe(componentName, "statistics");
   }
   window.addEventListener("popstate", onPopState.bind(this));
 
@@ -107,7 +108,7 @@ export default function PieChart() {
             .join("")}
         <circle class="inner" r="10" cx="0" cy="0" fill="white"/>
     </svg>
-    <div class="pie-chart-legend">
+    <div class="pie-chart-legend ${getCategoryRadioChecked() ? "" : "hidden"}">
     ${categories.map(category => {
       return `
       <div class="pie-chart-legend-row">
@@ -124,6 +125,7 @@ export default function PieChart() {
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
   subscribe(componentName, "statistics", render);
+
   setTimeout(render, 0);
 
   return `<div class=${componentName}></div>`;

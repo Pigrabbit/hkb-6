@@ -17,7 +17,6 @@ export default function LineGraph() {
     const nextPageURI = getNextPageURI();
     if (nextPageURI === "statistics") return;
 
-    unsubscribe(componentName, "currentDate");
     unsubscribe(componentName, "ledgerItem");
     unsubscribe(componentName, "isCategoryRadioChecked");
   }
@@ -129,7 +128,7 @@ export default function LineGraph() {
     $header.innerHTML = html;
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
-  subscribe(componentName, "currentDate", render);
+  subscribe(componentName, "ledgerItem", render);
   setTimeout(render, 0);
 
   return `<figure class=${componentName}></figure>`;
