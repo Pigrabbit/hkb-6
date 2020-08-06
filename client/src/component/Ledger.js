@@ -12,17 +12,15 @@ export default function Ledger() {
     unsubscribe(componentName, "ledgerItem");
   }
 
+  window.addEventListener("popstate", onPopState.bind(this));
+  
   function onMouseOver(e) {
     if (e.target.closest("li.ledger-item-record")) {
       const targetRecord = e.target.closest("li.ledger-item-record");
-      // 마우스 오버 이벤트가 생기면 수정 버튼 보여주기 (default: hidden)
-
       targetRecord.classList.add("on-mouse-over");
       targetRecord.querySelector("button.record-update-btn").classList.remove("hidden");
     }
   }
-
-  window.addEventListener("popstate", onPopState.bind(this));
   
   function render() {
     const ledgerDate = getLedgerItemDate();

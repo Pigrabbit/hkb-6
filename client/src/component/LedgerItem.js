@@ -6,7 +6,7 @@ import {
   getIsLedgerOutcomeVisible,
   unsubscribe,
 } from "../store";
-import { $, getNextPageURI } from "../util/util";
+import { $, getNextPageURI, bindEventAll } from "../util/util";
 import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
 import { getDailyIncomeSum, getDailyOutcomeSum } from "../util/sumCalculator";
 import { addCommaToNumber } from "../util/validation";
@@ -25,6 +25,12 @@ export default function LedgerItem(props, idx) {
   }
 
   window.addEventListener("popstate", onPopState.bind(this));
+
+  function onMouseLeave(e) {
+    e.target.classList.remove("on-mouse-over");
+    e.target.querySelector("button.record-update-btn").classList.add("hidden");
+  }
+
 
   function filterTransaction(records) {
     const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
@@ -49,7 +55,6 @@ export default function LedgerItem(props, idx) {
   function render() {
     let records = getLedgerItemByDate(props.date);
     // TODO
-    // 마우스 오버 이벤트가 생기면 수정 버튼 만들기
     // 수정 버튼 눌렀을 때 현재 레코드의 내용을 input form에 default로 채워주기
     records = filterTransaction(records);
 
@@ -107,6 +112,8 @@ export default function LedgerItem(props, idx) {
 
     const $ledgerItem = $(`ul#${componentId}`);
     $ledgerItem.innerHTML = html;
+
+    bindEventAll("li.ledger-item-record", "mouseleave", onMouseLeave);
   }
 
   subscribe(`${componentId}`, "isLedgerIncomeVisible", render);
