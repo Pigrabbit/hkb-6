@@ -1,5 +1,5 @@
 import "./Navbar.scss";
-import { bindEventAll, bindEvent, $all } from "../util/util";
+import { bindEventAll, bindEvent, getNextPageURI } from "../util/util";
 import Router from "../router";
 import {
   getCurrentDate,
@@ -12,6 +12,15 @@ import {
 
 export default function Navbar() {
   const componentName = "navbar";
+
+  function onPopState() {
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "list") return;
+
+    unsubscribe(componentName, "currentTab");
+    unsubscribe(componentName, "currentDate");
+  }
+  window.addEventListener("popstate", onPopState.bind(this));
 
   function onTabClick(e) {
     const li = e.target.closest("li");
