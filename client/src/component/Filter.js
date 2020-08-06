@@ -1,5 +1,5 @@
 import "./Filter.scss";
-import { bindEvent, $ } from "../util/util";
+import { bindEvent, $, getNextPageURI } from "../util/util";
 import {
   getIsLedgerIncomeVisible,
   getIsLedgerOutcomeVisible,
@@ -19,6 +19,8 @@ export default function Filter() {
   const componentName = "filter";
 
   function onPopState() {
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "list" || nextPageURI === "calendar") return;
     unsubscribe(componentName, "isLedgerIncomeVisible");
     unsubscribe(componentName, "isLedgerOutcomeVisible");
     unsubscribe(componentName, "ledgerItem");

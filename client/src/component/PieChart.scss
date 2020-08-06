@@ -1,55 +1,120 @@
+.piechart {
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
+
 .pie-chart-svg {
-    width: 100%;
-    height: 100%;
+  grid-column: 1 / 2;
 }
 
 .target {
-    animation: paint 1s ease-in-out;
-    animation-fill-mode: forwards;
-   
+  animation: paint 1s ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 circle.미분류 {
-    stroke: navy;
+  stroke: navy;
 }
 
 circle.문화\/여가 {
-    stroke: #1e3799;
+  stroke: #1e3799;
 }
 
 circle.쇼핑\/뷰티 {
-    stroke: #0984e3;
+  stroke: #0984e3;
 }
 
 circle.교통 {
-    stroke: #74b9ff;
+  stroke: #74b9ff;
 }
 
 circle.의료\/건강 {
-    stroke: #079992;
+  stroke: #079992;
 }
 
 circle.식비 {
-    stroke: #00cec9;
+  stroke: #00cec9;
 }
 
 circle.생활 {
-    stroke: #81ecec;
+  stroke: #81ecec;
 }
 
 .inner {
-    border: none;
+  border: none;
 }
 
 text.label {
-    text-anchor: middle;
-    font-size: 4px;
-    fill: navy;
+  text-anchor: middle;
+  font-size: 4px;
+  fill: navy;
 }
 
 @keyframes paint {
-    from {
-        stroke-dasharray: 0 62.83;
-    }
+  from {
+    stroke-dasharray: 0 188.4;
+  }
 }
 
+.pie-chart-legend {
+  grid-column: 2 / 3;
+  align-self: end;
+  border: 1px solid black;
+  margin-bottom: 5rem;
+  padding: 1rem 0;
+
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 1rem;
+
+  &-row {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    height: 100%;
+    margin: 0;
+
+    &-colorbox {
+      grid-column: 1/2;
+      align-self: stretch;
+      justify-self: stretch;
+      margin: 0 1rem;
+      font-size: 0.5rem;
+      color: transparent;
+    }
+
+    &-text {
+      grid-column: 2/3;
+      margin: 0;
+      padding-left: 1rem;
+      align-self: center;
+    }
+  }
+}
+
+#pie-chart-legend-row-colorbox-미분류 {
+  background-color: navy;
+}
+
+#pie-chart-legend-row-colorbox-문화\/여가 {
+  background-color: #1e3799;
+}
+
+#pie-chart-legend-row-colorbox-쇼핑\/뷰티 {
+  background-color: #0984e3;
+}
+
+#pie-chart-legend-row-colorbox-교통 {
+  background-color: #74b9ff;
+}
+
+#pie-chart-legend-row-colorbox-의료\/건강 {
+  background-color: #079992;
+}
+
+#pie-chart-legend-row-colorbox-식비 {
+  background-color: #00cec9;
+}
+
+#pie-chart-legend-row-colorbox-생활 {
+  background-color: #81ecec;
+}

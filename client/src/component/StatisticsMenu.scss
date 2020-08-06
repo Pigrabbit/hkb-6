@@ -1,27 +1,40 @@
-.statistics{
-    display:flex;
-    justify-content: center;
-    flex-direction: column;
+.statistics {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.statistics-menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2em;
+
+  // & div {
+  //   margin: 0;
+  // }
+
+  label {
+    margin-right: 20px;
   }
-  
-  .statistics-menu{
-    width:100%;
-    display:flex;
-    justify-content: space-between;
-    padding:0;
-    margin:0;
-    font-size:1.2em;
-  
-    & div{
-      margin:0;
-    }
-  
-    label{
-      margin-right: 20px;
-    }
+}
+
+.statistics-menu-monthly-sum {
+  display: flex;
+  align-items: center;
+  margin-left: 200px;
+
+  &-label {
+    margin: 0;
   }
-  
-  .current-month-total-price{
-    text-align: right;
+
+  &-value {
+    margin: 0 0 0 1rem;
   }
-  
+}
+
+.statistics-menu-monthly-sum-value {
+  text-align: right;
+}
