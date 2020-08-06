@@ -1,5 +1,5 @@
 import "./Calendar.scss";
-import { $ } from "../util/util";
+import { $, getNextPageURI } from "../util/util";
 import { WEEKDAYS } from "../util/constant";
 import CalendarDay from "./CalendarDay";
 import {
@@ -13,9 +13,9 @@ export default function Calendar() {
   const componentName = "calendar";
 
   function onPopState() {
-    const nextPage = location.pathname.toString().replace(/^\//, "");
-    if (nextPage === "calendar") return;
-
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "calendar") return;
+    
     unsubscribe(componentName, "currentDate");
   }
 

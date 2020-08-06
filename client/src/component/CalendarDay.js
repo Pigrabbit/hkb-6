@@ -1,5 +1,5 @@
 import "./CalendarDay.scss";
-import { $ } from "../util/util";
+import { $, getNextPageURI } from "../util/util";
 import {
   getLedgerItemByDate,
   getIsLedgerIncomeVisible,
@@ -15,9 +15,9 @@ export default function CalendarDay(props) {
   const componentId = `calendar-day-${props.month}-${props.day + 1}`;
 
   function onPopState() {
-    const nextPage = location.pathname.toString().replace(/^\//, "");
-    if (nextPage === "calendar") return;
-
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "calendar") return;
+    
     unsubscribe(componentId, "currentDate");
     unsubscribe(componentId, "isLedgerIncomeVisible");
     unsubscribe(componentId, "isLedgerOutcomeVisible");

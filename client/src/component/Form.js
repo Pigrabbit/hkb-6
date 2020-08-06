@@ -1,5 +1,5 @@
 import "./Form.scss";
-import { bindEventAll, bindEvent, $, $id } from "../util/util";
+import { bindEventAll, bindEvent, $, $id, getNextPageURI } from "../util/util";
 import {
   subscribe,
   addNewLedgeritem,
@@ -27,8 +27,8 @@ export default function Form() {
   const componentName = "form";
 
   function onPopState() {
-    const nextPage = location.pathname.toString().replace(/^\//, "");
-    if (nextPage === "list") return;
+    const nextPageURI = getNextPageURI();
+    if (nextPageURI === "list") return;
 
     unsubscribe(componentName, "paymentList");
     unsubscribe(componentName, "isFormIncomeSelected", render);

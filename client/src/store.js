@@ -141,6 +141,7 @@ export async function addNewLedgeritem(date, newItem) {
   const newLedgerItem = { ...newItem[date], created_at: date };
   await createTransactionFromServer(newLedgerItem);
   await fetchLedgerItem();
+  
   console.log("add item", newLedgerItem);
   const inputs = $all(".form-input-text");
   inputs.forEach((input) => {
@@ -208,17 +209,21 @@ export function getCurrentDate() {
   return state.currentDate.data;
 }
 
-export function toPrevMonth() {
+export async function toPrevMonth() {
   if (state.currentDate.data.month === 1) {
     --state.currentDate.data.year;
     state.currentDate.data.month = 12;
   } else {
     --state.currentDate.data.month;
   }
+  
   publish(state.currentDate);
+  
+  await fetchLedgerItem(state.currentDate);
+  publish(state.ledgerItem);
 }
 
-export function toNextMonth() {
+export async function toNextMonth() {
   if (state.currentDate.data.month === 12) {
     ++state.currentDate.data.year;
     state.currentDate.data.month = 1;
@@ -226,4 +231,7 @@ export function toNextMonth() {
     ++state.currentDate.data.month;
   }
   publish(state.currentDate);
+
+  await fetchLedgerItem(state.currentDate);
+  publish(state.ledgerItem);
 }

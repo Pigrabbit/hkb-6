@@ -20,6 +20,14 @@ export function getRandomColor() {
   return Math.floor(Math.random() * 16777215).toString(16);
 }
 
+export function getNextPageURI() {
+  return location.pathname.toString().replace(/^\//, "");
+}
+
+export function isLoggined() {
+  return localStorage.getItem("token") ? true : false;
+}
+
 export const $ = document.querySelector.bind(document);
 
 export const $all = document.querySelectorAll.bind(document);

@@ -24,9 +24,12 @@ class TransactionController {
 
   async getTransactionByDate(req, res, next) {
     try {
-      const date = req.params.date;
+      const data = {
+        user_id: res.locals.userId,
+        date: req.params.date,
+      }
 
-      const transactions = await this.transaction.findByDate(date);
+      const transactions = await this.transaction.findByDate(data);
       res.status(httpStatusCode.OK).json(transactions);
     } catch (error) {
       next(error);

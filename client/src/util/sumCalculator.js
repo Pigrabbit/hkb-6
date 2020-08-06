@@ -26,6 +26,8 @@ export function getDailyOutcomeSum(records) {
 }
 
 export function getMonthlyIncomeSum(ledgerItem) {
+  if (ledgerItem.length === 0) return 0;
+
   let monthlyIncomeSum = 0;
   Object.values(ledgerItem).forEach((dailyTransactions) => {
     dailyTransactions.forEach((tx) => {
@@ -38,6 +40,8 @@ export function getMonthlyIncomeSum(ledgerItem) {
 }
 
 export function getMonthlyOutcomeSum(ledgerItem) {
+  if (ledgerItem.length === 0) return 0;
+
   let monthlyOutcomeSum = 0;
   Object.values(ledgerItem).forEach((dailyTransactions) => {
     dailyTransactions.forEach((tx) => {

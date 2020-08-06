@@ -7,6 +7,7 @@ import Navbar from "../component/Navbar";
 
 import brocolli from "../images/brocolli.png";
 import { fetchPaymentList, fetchLedgerItem } from "../store";
+import { isLoggined } from "../util/util";
 
 export default function ListPage() {
   function setTokenInLocalStorage() {
@@ -21,7 +22,7 @@ export default function ListPage() {
     document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
     location.href = "/list";
   }
-
+  
   setTokenInLocalStorage();
 
   fetchLedgerItem();
