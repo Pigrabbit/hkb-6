@@ -4,8 +4,10 @@ import Header from "../component/Header";
 import Navbar from "../component/Navbar";
 
 import brocolli from "../images/brocolli.png";
+import { fetchLedgerItem } from "../store";
 
 export default function CalendarPage() {
+    fetchLedgerItem();
 
     return `
     ${Header({ isPaymentVisible: false })}

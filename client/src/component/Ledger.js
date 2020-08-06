@@ -1,7 +1,7 @@
 import "./Ledger.scss";
 import LedgerItem from "./LedgerItem";
 import { subscribe, getLedgerItemDate, unsubscribe } from "../store";
-import { $, getNextPageURI } from "../util/util";
+import { $, getNextPageURI, bindEvent } from "../util/util";
 
 export default function Ledger() {
   const componentName = "ledger";
@@ -13,6 +13,14 @@ export default function Ledger() {
   }
 
   window.addEventListener("popstate", onPopState.bind(this));
+  
+  function onMouseOver(e) {
+    if (e.target.closest("li.ledger-item-record")) {
+      const targetRecord = e.target.closest("li.ledger-item-record");
+      targetRecord.classList.add("on-mouse-over");
+      targetRecord.querySelector("button.record-update-btn").classList.remove("hidden");
+    }
+  }
   
   function render() {
     const ledgerDate = getLedgerItemDate();
@@ -27,6 +35,8 @@ export default function Ledger() {
 
     const $ledger = $(`.${componentName}`);
     $ledger.innerHTML = html;
+
+    bindEvent(`article.${componentName}`, "mouseover", onMouseOver);
   }
 
   subscribe(componentName, "ledgerItem", render);
