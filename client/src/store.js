@@ -52,7 +52,11 @@ export const state = {
     listeners: {},
   },
   toUpdateTransaction: {
-    data: [],
+    data: {},
+    listeners: {},
+  },
+  isFormUpdateMode: {
+    data: false,
     listeners: {},
   }
 };
@@ -93,6 +97,25 @@ export function toggleFormBtns() {
   state.isFormOutcomeSelected.data = !state.isFormOutcomeSelected.data;
   publish(state.isFormIncomeSelected);
   publish(state.isFormOutcomeSelected);
+}
+
+export function setToUpdateTransaction(data) {
+  state.toUpdateTransaction.data = data;
+  console.log(state.toUpdateTransaction.data);
+  setIsFormUpdateMode(true);
+}
+
+export function getToUpdateTransaction(data) {
+  return state.toUpdateTransaction.data;
+}
+
+export function setIsFormUpdateMode(data) {
+  state.isFormUpdateMode.data = data;
+  publish(state.isFormUpdateMode);
+}
+
+export function getIsFormUpdateMode() {
+  return state.isFormUpdateMode.data;
 }
 
 // 결제수단

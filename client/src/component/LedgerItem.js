@@ -5,6 +5,7 @@ import {
   getIsLedgerIncomeVisible,
   getIsLedgerOutcomeVisible,
   unsubscribe,
+  setToUpdateTransaction,
 } from "../store";
 import { $, getNextPageURI, bindEventAll } from "../util/util";
 import { INCOME_TYPE, OUTCOME_TYPE } from "../util/constant";
@@ -32,10 +33,8 @@ export default function LedgerItem(props, idx) {
   }
 
   function onUpdateBtnClick(e) {
-    // console.dir(e.target.closest("li.ledger-item-record"));
     const $ledgerItemRecord = e.target.closest("li.ledger-item-record");
     const t_id = e.target.id.toString().split("-").pop();
-    // console.log(t_id);
 
     // TODO: extract value from $ledgerItemRecord
     const $category = $ledgerItemRecord.querySelector("div.record-category");
@@ -45,12 +44,13 @@ export default function LedgerItem(props, idx) {
     const content = $content.innerText;
 
     const $payment = $ledgerItemRecord.querySelector("div.record-payment");
-    const payment = $payment.innerText;
+    const payment_name = $payment.innerText;
 
     const $amount = $ledgerItemRecord.querySelector("div.record-amount");
     const amount = $amount.innerText.toString().replace(/^-/, "").split(" ")[0];
 
-    console.log(t_id, category, content, payment, amount);
+    // TODO: 수입/지출 타입, 날짜 정보 추출
+    setToUpdateTransaction({t_id, category, content, payment_name, amount});
   }
 
   function filterTransaction(records) {
