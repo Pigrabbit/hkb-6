@@ -11,6 +11,10 @@ import {
   PIECHART_RADIUS,
   PIECHART_CIRCUMFERENCE,
   PIECHART_OUTER_RADIUS,
+  PIECHART_VIEWBOX_MIN_X,
+  PIECHART_VIEWBOX_MIN_Y,
+  PIECHART_VIEWBOX_WIDTH,
+  PIECHART_VIEWBOX_HEIGHT,
 } from "../util/constant";
 
 export default function PieChart() {
@@ -83,7 +87,8 @@ export default function PieChart() {
     const html = `
     <svg class="pie-chart-svg ${
       getCategoryRadioChecked() ? "" : "hidden"
-    }" viewBox="-50 -50 100 100">
+    }" viewBox="${PIECHART_VIEWBOX_MIN_X} ${PIECHART_VIEWBOX_MIN_Y}
+                ${PIECHART_VIEWBOX_WIDTH} ${PIECHART_VIEWBOX_HEIGHT}">
         ${accumulatedPercentages
           .map((percentage, idx) => {
             return `
@@ -102,6 +107,16 @@ export default function PieChart() {
             .join("")}
         <circle class="inner" r="10" cx="0" cy="0" fill="white"/>
     </svg>
+    <div class="pie-chart-legend">
+    ${categories.map(category => {
+      return `
+      <div class="pie-chart-legend-row">
+        <div class="pie-chart-legend-row-colorbox" 
+            id="pie-chart-legend-row-colorbox-${category}">0</div>
+        <div class="pie-chart-legend-row-text">${category}</div>
+      </div>`;
+    }).join("")}
+    </div>
     `;
 
     const $pieChart = $(`.${componentName}`);
@@ -111,5 +126,5 @@ export default function PieChart() {
   subscribe(componentName, "statistics", render);
   setTimeout(render, 0);
 
-  return `<figure class=${componentName}></div>`;
+  return `<div class=${componentName}></div>`;
 }
