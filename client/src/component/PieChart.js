@@ -99,6 +99,7 @@ export default function PieChart() {
     $pieChart.innerHTML = html;
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
+  subscribe(componentName, "statistics", render);
   setTimeout(render, 0);
 
   return `<figure class=${componentName}></div>`;

@@ -11,6 +11,7 @@ import {
   updateTransaction,
   deleteTransaction,
 } from "./service/transactionService";
+import { fetchStatisticsByDate } from "./service/statisticsService";
 
 export const state = {
   isModalVisible: {
@@ -90,13 +91,12 @@ export function getCategoryRadioChecked() {
 }
 
 // 통계
-export function fetchStatisticsData() {
-  state.statistics.data = fetchMockBarData();
+export async function fetchStatisticsData(date) {
+  state.statistics.data = await fetchStatisticsByDate(date);
   publish(state.statistics);
 }
 
 export function getStatisticsData() {
-  fetchStatisticsData();
   return state.statistics.data;
 }
 
@@ -236,11 +236,6 @@ export function toggleModal() {
 }
 
 // 달력
-
-export function fetchCurrentDate(){
-  
-}
-
 export function getCurrentDate() {
   return state.currentDate.data;
 }

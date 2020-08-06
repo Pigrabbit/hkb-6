@@ -6,8 +6,13 @@ import StatisticsMenu from "../component/StatisticsMenu";
 
 import brocolli from "../images/brocolli.png";
 import PieChart from "../component/PieChart";
+import { fetchStatisticsData, getCurrentDate, fetchLedgerItem } from "../store";
 
 export default function StatisticsPage() {
+  const currentDate = getCurrentDate();
+  fetchStatisticsData(currentDate);
+  fetchLedgerItem();
+
   return `
     ${Header({ isPaymentVisible: false })}
     ${Navbar()}
