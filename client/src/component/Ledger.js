@@ -13,9 +13,11 @@ export default function Ledger() {
   }
 
   function onMouseOver(e) {
-    console.log(e.target.closest("li.ledger-item-record"));
-    if (e.target.closest("ledger.item-record")) {
-      console.log(e.target)
+    if (e.target.closest("li.ledger-item-record")) {
+      const targetRecord = e.target.closest("li.ledger-item-record");
+      // 마우스 오버 이벤트가 생기면 수정 버튼 보여주기 (default: hidden)
+
+      targetRecord.classList.add("on-mouse-over");
     }
   }
 
