@@ -57,7 +57,7 @@ class Transaction {
       const { user_id, date } = data;
       const [year, month] = date.split("-");
 
-      const query = `SELECT T.id as t_id, T.category, T.amount, T.content, T.payment_id, T.created_at, T.t_type
+      const query = `SELECT T.id as t_id, T.category, T.amount, T.content, P.payment_name, T.created_at, T.t_type
           FROM transaction T
           JOIN payment P
           ON T.payment_id = P.id
@@ -69,19 +69,13 @@ class Transaction {
       const [rows] = await conn.query(query, [month, year, user_id]);
       if (rows.length === 0) return [];
 
-      const { payment_id } = rows[0];
-
-      const getPaymentNameQuery = "SELECT payment_name FROM payment WHERE id=?";
-      const [paymentRows] = await conn.query(getPaymentNameQuery, [payment_id]);
-      const { payment_name } = paymentRows[0];
-
       const tmp = rows.map((row) => {
         return {
           t_id: row.t_id,
           category: row.category,
           amount: row.amount,
           content: row.content,
-          payment_name,
+          payment_name: row.payment_name,
           created_at: row.created_at.toISOString().split("T")[0],
           t_type: `${row.t_type === 0 ? OUTCOME_TYPE : INCOME_TYPE}`,
         };
@@ -114,14 +108,12 @@ class Transaction {
       const created_at = Object.keys(data).pop();
       let {category, content, payment_name, amount, t_type} = data[created_at];
 
-      console.log(t_id, category, content, payment_name, amount, t_type, created_at);
       t_type = (t_type === OUTCOME_TYPE) ? 0 : 1;
 
       //t_id에 해당하는 payment_id를 가져옵니다
       const getPaymentIdQuery = "SELECT payment_id FROM transaction WHERE id=?";
 
       const [rows] = await conn.query(getPaymentIdQuery, [ t_id ]);
-      console.log(rows[0]);
       const { payment_id } = rows[0];
 
       //payment table변경: 해당하는 payment_id의 payment_name을 변경합니다
