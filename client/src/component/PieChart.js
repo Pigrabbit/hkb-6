@@ -75,8 +75,8 @@ export default function PieChart() {
 
         labelCoords.unshift(
           (labelCoords[idx] = {
-            x: Math.sin(toRadian(theta)) * PIECHART_OUTER_RADIUS,
-            y: -Math.cos(toRadian(theta)) * PIECHART_OUTER_RADIUS,
+            x: Math.sin(toRadian(theta)) * (PIECHART_OUTER_RADIUS - (idx % 2) * 0.1 * PIECHART_OUTER_RADIUS),
+            y: -Math.cos(toRadian(theta)) * (PIECHART_OUTER_RADIUS - (idx % 2) * 0.1 * PIECHART_OUTER_RADIUS),
           })
         );
       });
