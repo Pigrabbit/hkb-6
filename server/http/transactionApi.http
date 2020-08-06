@@ -2,8 +2,8 @@
 
 
 ### GET /transaction api
-GET http://localhost:3000/api/transaction/2020-08-21
-X-ACCESS-TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNTk2NTE2Mjc0fQ.JHzCy3wzRMf2G1A2gPfQ4f64qtSBC6BADV0NhIePbLk
+GET http://localhost:3000/api/transaction/2020-08
+X-ACCESS-TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU5NjY4NjY1MH0.6O9MHcSZ2RsqS73d36UmSfAfCsBlQgaJUnTDlZK1m6E
 
 ### POST /transaction api
 POST http://localhost:3000/api/transaction

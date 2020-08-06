@@ -3,8 +3,11 @@ import {
   subscribe,
   toggleCategoryRadioChecked,
   getCategoryRadioChecked,
+  getLedgerItem,
 } from "../store";
 import { bindEventAll } from "../util/util";
+import { getMonthlyOutcomeSum } from "../util/sumCalculator";
+import { addCommaToNumber } from "../util/validation";
 
 export default function StatisticsMenu() {
   const componentName = "statistics-menu";
@@ -16,6 +19,10 @@ export default function StatisticsMenu() {
   }
 
   function render() {
+    const ledgerItem = getLedgerItem();
+    const monthlyOutcomeSum = getMonthlyOutcomeSum(ledgerItem);
+    const outcomeSumWithComma = addCommaToNumber(monthlyOutcomeSum);
+
     const html = `
     <div>
     <input type="radio" ${
@@ -29,7 +36,7 @@ export default function StatisticsMenu() {
     </div>
     <div>
       <p>이번 달 지출 금액</p>
-      <p class="current-month-total-price">444,790원</p>
+      <p class="current-month-total-price">${outcomeSumWithComma}원</p>
     </div>
       `;
 
