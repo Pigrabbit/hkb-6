@@ -81,7 +81,7 @@ export default function Form() {
     }
     let passed = true;
     $inputElements.forEach((element) => {
-      if (passed && (element.value === "" || element.value === "default")) {
+      if (passed && element.value === "") {
         passed = false;
         showAlertMessage(
           element,
@@ -170,12 +170,16 @@ export default function Form() {
             <div class="form-col">
               <label for="inout">분류</label>
               <button class="form-income-btn ${
-                ((!isFormUpdateMode && isFormIncomeSelected) || toUpdateTransaction.t_type === INCOME_TYPE) ?
-                 "category-btn-income-clicked" : ""
+                (!isFormUpdateMode && isFormIncomeSelected) ||
+                toUpdateTransaction.t_type === INCOME_TYPE
+                  ? "category-btn-income-clicked"
+                  : ""
               }">수입</button>
               <button class="form-outcome-btn ${
-                ((!isFormUpdateMode && isFormOutcomeSelected) || toUpdateTransaction.t_type === OUTCOME_TYPE) ?
-                 "category-btn-outcome-clicked" : ""
+                (!isFormUpdateMode && isFormOutcomeSelected) ||
+                toUpdateTransaction.t_type === OUTCOME_TYPE
+                  ? "category-btn-outcome-clicked"
+                  : ""
               }">지출</button>
             </div>
           </div>
@@ -186,15 +190,22 @@ export default function Form() {
                 type="date"
                 name="transaction-created_at"
                 id="transaction-created_at",
-                value=${isFormUpdateMode? 
-                  toUpdateTransaction.date 
-                : (new Date()).toISOString().split("T")[0]}
+                value=${
+                  isFormUpdateMode
+                    ? toUpdateTransaction.date
+                    : new Date().toISOString().split("T")[0]
+                }
               />
             </div>
             <div class="form-col-2">
               <label for="form-category">카테고리</label>
               <select name="transaction-category" id="transaction-category" msg="카테고리">
-                <option value="default">${isFormUpdateMode ? toUpdateTransaction.category : "선택하세요"}</option>
+                <option value=${
+                  isFormUpdateMode ? toUpdateTransaction.category : "default"
+                  }>${
+                  isFormUpdateMode ? toUpdateTransaction.category : "선택하세요"
+                  }
+                </option>
                   ${
                     isFormIncomeSelected
                       ? INCOME_CATEGORY.map((category) => {
@@ -209,7 +220,11 @@ export default function Form() {
             <div class="form-col-2">
               <label for="form-payment">결제수단</label>
               <select name="transaction-payment" id="transaction-payment_name" msg="결제수단">
-                <option value="default">${isFormUpdateMode ? toUpdateTransaction.payment_name : "선택하세요"}</option>
+                <option value=${isFormUpdateMode ?
+                  toUpdateTransaction.payment_name : "default"}>
+                  ${isFormUpdateMode ?
+                    toUpdateTransaction.payment_name : "선택하세요"}
+                </option>
                 ${paymentList.map((item) => {
                   return `<option value="${item.payment_name}">${item.payment_name}</option>`;
                 })}
@@ -224,7 +239,11 @@ export default function Form() {
                 class="form-input-text"
                 id="transaction-amount"
                 placeholder="1,000"
-                ${isFormUpdateMode? `value=\"${toUpdateTransaction.amount}\"` : ""}
+                ${
+                  isFormUpdateMode
+                    ? `value=\"${toUpdateTransaction.amount}\"`
+                    : ""
+                }
                 msg="금액"
               /> 원
             </div>
@@ -235,13 +254,19 @@ export default function Form() {
                 class="form-input-text"
                 id="transaction-content"
                 placeholder="내용을 입력하세요"
-                ${isFormUpdateMode? `value=\"${toUpdateTransaction.content}\"` : ""}
+                ${
+                  isFormUpdateMode
+                    ? `value=\"${toUpdateTransaction.content}\"`
+                    : ""
+                }
                 msg="내용"
               />
             </div>
           </div>
           <div id="alert-msg" class="form-row"></div>
-          <button class=\"form-submit-btn\">${isFormUpdateMode ? "수정" : "확인"}</button>
+          <button class=\"form-submit-btn\">${
+            isFormUpdateMode ? "수정" : "확인"
+          }</button>
         `;
 
     const $form = $(`.${componentName}`);

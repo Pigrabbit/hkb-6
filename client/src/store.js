@@ -150,8 +150,11 @@ export async function addNewLedgeritem(date, newItem) {
   clearInputForm();
 }
 
-export async function updateLedgerItem(date, toUpdateItem) {
-
+export async function updateLedgerItem(date, editedItem) {
+  const editedLedgerItem = {...editedItem[date], created_at: date};
+  console.log(editedLedgerItem);
+  
+  // TODO: PATCH /transaction api 연결하기
 }
 
 export function getLedgerItemDate() {
