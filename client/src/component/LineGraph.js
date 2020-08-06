@@ -1,19 +1,20 @@
 import "./LineGraph.scss";
 import {
-  getStatisticsData,
   getCurrentDate,
   subscribe,
   getCategoryRadioChecked,
+  getLedgerItemByDate,
 } from "../store";
+import { getDailyOutcomeSum } from "../util/sumCalculator";
 
 export default function LineGraph() {
   const componentName = "linegraph";
 
   function render() {
-    const statistics = getStatisticsData();
     const { year, month } = getCurrentDate();
     const lastDay = new Date(year, month, 0).toString().split(" ")[2];
     const iter = lastDay % 5 === 0 ? lastDay / 5 : parseInt(lastDay / 5) + 1;
+
     const html = `
     <div style="margin:-20px" class="${
       getCategoryRadioChecked() ? "hidden" : ""
@@ -46,22 +47,43 @@ export default function LineGraph() {
   <text x="30" y="200" class="label-title">금액</text>
     </g>
     <g class="data" data-setname="Our first data set">
-        <circle cx="90" cy="192" data-value="7.2" r="4"></circle>
-        <circle cx="240" cy="141" data-value="8.1" r="4"></circle>
-        <circle cx="388" cy="179" data-value="7.7" r="4"></circle>
-        <circle cx="531" cy="200" data-value="6.8" r="4"></circle>
-        <circle cx="677" cy="104" data-value="6.7" r="4"></circle>
+    ${Array(+lastDay)
+      .fill()
+      .map((item, i) => {
+        const date = `${year}-${month < 10 ? `0${month}` : month}-${
+          i < 9 ? `0${i + 1}` : i + 1
+        }`;
+        let records = getLedgerItemByDate(date);
+        let outcomeSum = 0;
+        if (records) {
+          outcomeSum = getDailyOutcomeSum(records);
+        }
+        const unit = outcomeSum / 10000 / 5;
+        return `<circle cx="${110 + i * (650 / lastDay)}" cy="${
+          370 - unit * 36.5
+        }" data-value="${outcomeSum}" r="4"/>`;
+      })}
     </g>
+   
     <polyline
     fill="none"
     stroke="#0074d9"
     stroke-width="3"
-    points="
-      90,192,
-      240,141
-      388,179
-      531,200,
-      677,104"/>
+    points="90,370,${Array(+lastDay)
+      .fill()
+      .map((item, i) => {
+        const date = `${year}-${month < 10 ? `0${month}` : month}-${
+          i < 9 ? `0${i + 1}` : i + 1
+        }`;
+        let records = getLedgerItemByDate(date);
+        let outcomeSum = 0;
+        if (records) {
+          outcomeSum = getDailyOutcomeSum(records);
+        }
+        const unit = outcomeSum / 10000 / 5;
+        return `${110 + i * (650 / lastDay)}, ${370 - unit * 36.5}`;
+      })}
+      "/>
     </svg>
     </div>
       `;
