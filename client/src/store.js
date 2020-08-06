@@ -51,6 +51,10 @@ export const state = {
     data: [],
     listeners: {},
   },
+  toUpdateTransaction: {
+    data: [],
+    listeners: {},
+  }
 };
 
 export const subscribe = (component, key, action) => {

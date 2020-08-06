@@ -31,6 +31,27 @@ export default function LedgerItem(props, idx) {
     e.target.querySelector("button.record-update-btn").classList.add("hidden");
   }
 
+  function onUpdateBtnClick(e) {
+    // console.dir(e.target.closest("li.ledger-item-record"));
+    const $ledgerItemRecord = e.target.closest("li.ledger-item-record");
+    const t_id = e.target.id.toString().split("-").pop();
+    // console.log(t_id);
+
+    // TODO: extract value from $ledgerItemRecord
+    const $category = $ledgerItemRecord.querySelector("div.record-category");
+    const category = $category.innerText;
+
+    const $content = $ledgerItemRecord.querySelector("div.record-content");
+    const content = $content.innerText;
+
+    const $payment = $ledgerItemRecord.querySelector("div.record-payment");
+    const payment = $payment.innerText;
+
+    const $amount = $ledgerItemRecord.querySelector("div.record-amount");
+    const amount = $amount.innerText.toString().replace(/^-/, "").split(" ")[0];
+
+    console.log(t_id, category, content, payment, amount);
+  }
 
   function filterTransaction(records) {
     const isLedgerIncomeVisible = getIsLedgerIncomeVisible();
@@ -93,7 +114,7 @@ export default function LedgerItem(props, idx) {
               : "income-element"
           }">${record.category}</div>
           <div class="record-content">${record.content}</div>
-          <button class="record-update-btn hidden">
+          <button class="record-update-btn hidden" id=record-update-btn-${record.t_id}>
             Edit
           </button>
           <div class="record-payment">${record.payment_name}</div>
@@ -114,6 +135,7 @@ export default function LedgerItem(props, idx) {
     $ledgerItem.innerHTML = html;
 
     bindEventAll("li.ledger-item-record", "mouseleave", onMouseLeave);
+    bindEventAll("button.record-update-btn", "click", onUpdateBtnClick);
   }
 
   subscribe(`${componentId}`, "isLedgerIncomeVisible", render);
