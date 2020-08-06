@@ -32,6 +32,7 @@ export default function StatisticsMenu() {
   function render() {
     const ledgerItem = getLedgerItem();
     const monthlyOutcomeSum = getMonthlyOutcomeSum(ledgerItem);
+    const outcomeSumWithComma = addCommaToNumber(monthlyOutcomeSum);
 
     const html = `
     <div class="statistics-menu-radio-btns">

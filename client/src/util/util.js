@@ -36,7 +36,9 @@ export function clearInputForm() {
 }
 
 export function resetSelectElements() {
-  [...$all("select")].forEach(selectElement => selectElement.value = "default");
+  [...$all("select")].forEach(
+    (selectElement) => (selectElement.value = "default")
+  );
 }
 
 export const $ = document.querySelector.bind(document);
@@ -47,4 +49,4 @@ export const $id = document.getElementById.bind(document);
 
 export function toRadian(degree) {
   return degree * (PI / 180);
-} 
+}

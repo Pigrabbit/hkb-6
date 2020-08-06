@@ -107,15 +107,17 @@ export default function PieChart() {
             .join("")}
         <circle class="inner" r="10" cx="0" cy="0" fill="white"/>
     </svg>
-    <div class="pie-chart-legend">
-    ${categories.map(category => {
-      return `
+    <div class="pie-chart-legend  ${getCategoryRadioChecked() ? "" : "hidden"}">
+    ${categories
+      .map((category) => {
+        return `
       <div class="pie-chart-legend-row">
         <div class="pie-chart-legend-row-colorbox" 
             id="pie-chart-legend-row-colorbox-${category}">0</div>
         <div class="pie-chart-legend-row-text">${category}</div>
       </div>`;
-    }).join("")}
+      })
+      .join("")}
     </div>
     `;
 
