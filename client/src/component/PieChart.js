@@ -1,4 +1,5 @@
 import "./PieChart.scss";
+import tung from "../images/tung.svg";
 
 import { $, toRadian, getNextPageURI } from "../util/util";
 import {
@@ -31,6 +32,15 @@ export default function PieChart() {
 
   function render() {
     const statisticsData = getStatisticsData();
+
+    if (statisticsData.length === 0) {
+      const html = `
+      <img class="statistics-no-data" src=${tung}>
+      `;
+      const $pieChart = $(`.${componentName}`);
+      $pieChart.innerHTML = html;
+      return;
+    }
 
     const categories = statisticsData.map((item) => item.category);
     categories.reverse();

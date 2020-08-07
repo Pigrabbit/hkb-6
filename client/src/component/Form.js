@@ -94,7 +94,7 @@ export default function Form() {
     }
     let passed = true;
     $inputElements.forEach((element) => {
-      if (passed && element.value === "") {
+      if (passed && (element.value === "" || element.value === "default")) {
         passed = false;
         showAlertMessage(
           element,

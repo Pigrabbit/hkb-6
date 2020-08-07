@@ -1,6 +1,11 @@
 .piechart {
   display: grid;
   grid-template-columns: 80% 20%;
+
+  .statistics-no-data {
+    width: 100%;
+    grid-column: 1 / 3;
+  }
 }
 
 .pie-chart-svg {

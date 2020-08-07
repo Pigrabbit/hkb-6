@@ -5,10 +5,11 @@ import {
   getCategoryRadioChecked,
   getLedgerItemByDate,
   unsubscribe,
+  getStatisticsData,
 } from "../store";
 import { getDailyOutcomeSum } from "../util/sumCalculator";
 import { CIRCLE_RADIUS } from "../util/constant";
-import { getNextPageURI } from "../util/util";
+import { getNextPageURI, $ } from "../util/util";
 
 export default function LineGraph() {
   const componentName = "linegraph";
@@ -19,6 +20,7 @@ export default function LineGraph() {
 
     unsubscribe(componentName, "ledgerItem");
     unsubscribe(componentName, "isCategoryRadioChecked");
+    unsubscribe(componentName, "statistics");
   }
   window.addEventListener("popstate", onPopState.bind(this));
 
@@ -26,6 +28,15 @@ export default function LineGraph() {
     const { year, month } = getCurrentDate();
     const lastDay = new Date(year, month, 0).toString().split(" ")[2];
     const iter = lastDay % 5 === 0 ? lastDay / 5 : parseInt(lastDay / 5) + 1;
+
+    const statisticsData = getStatisticsData();
+    if (statisticsData.length === 0) {
+      const html = "";
+
+      const $header = $(`.${componentName}`);
+      $header.innerHTML = html;
+      return;
+    }
 
     const html = `
     <div class="${getCategoryRadioChecked() ? "hidden" : ""}">
@@ -129,6 +140,7 @@ export default function LineGraph() {
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
   subscribe(componentName, "ledgerItem", render);
+  subscribe(componentName, "statistics", render);
   setTimeout(render, 0);
 
   return `<figure class=${componentName}></figure>`;
