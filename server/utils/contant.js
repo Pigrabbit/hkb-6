@@ -3,4 +3,5 @@ module.exports = {
   INCOME_TYPE: "수입",
   OUTCOME_BINARY_VALUE: 0,
   INCOME_BINARY_VALUE: 1,
+  DELETE_BINARY_VALUE: 1,
 };
