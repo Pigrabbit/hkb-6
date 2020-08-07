@@ -37,7 +37,6 @@ export default function LineGraph() {
       $header.innerHTML = html;
       return;
     }
-  
 
     const html = `
     <div class="${getCategoryRadioChecked() ? "hidden" : ""}">

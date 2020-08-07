@@ -45,9 +45,9 @@ export default function Navbar() {
     const currentTab = getCurrentTab();
     const html = `
         <div class="navbar-month">
-            <i class="fa fa-caret-left fa-3x" aria-hidden="true"></i>
+            <i class="fa fa-caret-left" aria-hidden="true"></i>
             <p>${year}년 ${month}월</p>
-            <i class="fa fa-caret-right fa-3x" aria-hidden="true"></i>
+            <i class="fa fa-caret-right" aria-hidden="true"></i>
         </div>
         <ul class="navbar-tab">
             <li id="tab-list" class="navbar-tab-item ${
