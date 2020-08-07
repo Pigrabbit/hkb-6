@@ -7,7 +7,7 @@ import {
   getPreviousStatisticsData,
   getCurrentDate,
 } from "../store";
-import { getNextPageURI } from "../util/util";
+import { getNextPageURI, $ } from "../util/util";
 
 export default function StackedBar() {
   const componentName = "stacked-bar";
@@ -28,6 +28,12 @@ export default function StackedBar() {
     const { month } = getCurrentDate();
 
     const thisMonthData = getStatisticsData();
+    if (thisMonthData.length === 0) {
+      const html = "";
+      const $header = $(`.${componentName}`);
+      $header.innerHTML = html;
+      return;
+    }
     const previousMonthData = getPreviousStatisticsData();
     const accumulatedSum = [];
     const previousAccumulatedSum = [];
@@ -129,7 +135,7 @@ export default function StackedBar() {
     </div>
       `;
 
-    const $header = document.querySelector(`.${componentName}`);
+    const $header = $(`.${componentName}`);
     $header.innerHTML = html;
   }
   subscribe(componentName, "isCategoryRadioChecked", render);
