@@ -2,9 +2,27 @@
     margin-top: 100px;
     padding: 0;
     border: none;
-    background-color: #ffffff;
+    background-color: #4285F4;
+    border-radius: 0.5rem;
+    padding: 0 0.25rem;
+    width: 25vw;
+
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+    justify-items: center;
 
     &-image {
-        width: 30vw;
+        width: 100%;
+        margin: 0;
+    }
+
+    &-text {
+        width: 100%;
+        font-size: 2rem;
+        color: #ffffff;
+        margin: 0;
     }
 }
