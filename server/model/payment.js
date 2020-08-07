@@ -1,3 +1,5 @@
+const { DELETE_BINARY_VALUE } = require("../utils/contant");
+
 class Payment {
   constructor(db) {
     this.db = db;
@@ -6,7 +8,7 @@ class Payment {
   async findByUserId(id) {
     const conn = await this.db.getConnection();
     try {
-      const query = "select id as payment_id, payment_name from payment where user_id=?";
+      const query = "select id as payment_id, payment_name from payment where user_id=? and is_deleted=0";
       const [rows] = await conn.query(query, [id]);
       if(rows.length === 0) return [];
 
@@ -40,15 +42,10 @@ class Payment {
   async deleteById(p_id) {
     const conn = await this.db.getConnection();
     try {
-      await conn.beginTransaction();
+      const deletePaymentQuery = "UPDATE payment SET is_deleted=? WHERE id=?";
 
-      const deletePaymentQuery = `DELETE FROM payment
-              WHERE id=?`;
-
-      await conn.query(deletePaymentQuery, [p_id]);
-      await conn.commit();
+      await conn.query(deletePaymentQuery, [DELETE_BINARY_VALUE, p_id]);
     } catch (error) {
-      conn.rollback();
       throw error;
     } finally {
       conn.release();
