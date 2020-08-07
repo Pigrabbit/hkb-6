@@ -1,13 +1,11 @@
 import Header from "../component/Header";
-
 import "./homePage.scss";
-
 import brocolli from "../images/brocolli.png";
 import googleBtn from "../images/google-signin-btn.svg";
 import { bindEvent, $ } from "../util/util";
 
 export default function HomePage() {
-  function onGoogleOauthBtnClick(e) {
+  function onGoogleOauthBtnClick() {
     location.href = "/auth/google";
   }
 
