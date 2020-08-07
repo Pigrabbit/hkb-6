@@ -5,6 +5,7 @@ import {
   unsubscribe,
   getStatisticsData,
   getPreviousStatisticsData,
+  getCurrentDate,
 } from "../store";
 import { getNextPageURI, getRandomColor } from "../util/util";
 
@@ -24,6 +25,8 @@ export default function StackedBar() {
   window.addEventListener("popstate", onPopState.bind(this));
 
   function render() {
+    const { month } = getCurrentDate();
+
     const thisMonthData = getStatisticsData();
     const previousMonthData = getPreviousStatisticsData();
     const accumulatedSum = [];
@@ -51,8 +54,8 @@ export default function StackedBar() {
       <line x1="90" x2="760" y1="370" y2="370"></line>
     </g>
       <g class="labels x-labels">
-      <text x="60" y="${370 - (360 / 3) * 2}">7월</text>
-      <text x="60" y="${370 - 360 / 3}">8월</text>
+      <text x="60" y="${370 - (360 / 3) * 2}">${month - 1}월</text>
+      <text x="60" y="${370 - 360 / 3}">${month}월</text>
       ${accumulatedSum
         .map((item, i) => {
           const color = getRandomColor();
@@ -61,7 +64,7 @@ export default function StackedBar() {
           }" height="20" fill="#${color}">
           <animate attributeName="width" from="0" to ="${
             item * 5
-          }" dur="4s" fill="freeze"/>
+          }" dur="2s" fill="freeze"/>
           </rect>
           ${
             i === 0
@@ -88,7 +91,7 @@ export default function StackedBar() {
             }" height="20" fill="#${color}">
             <animate attributeName="width" from="0" to ="${
               item * 5
-            }" dur="4s" fill="freeze"/>
+            }" dur="2s" fill="freeze"/>
             </rect>
             ${
               i === 0

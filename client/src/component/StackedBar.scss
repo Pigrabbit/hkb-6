@@ -11,6 +11,7 @@ path{
 
 .graph .labels.x-labels {
     text-anchor: middle;
+    fill:dodgerblue;
   }
   
   .graph .labels.y-labels {
@@ -66,8 +67,6 @@ path{
   
     rect{
       transition: width 2s ease;
-      transform-origin: left bottom;
-      transform: rotateX(90deg);
       &:hover,
       &:focus {
         fill: red;
@@ -91,5 +90,7 @@ path{
     }
     
   
-  
+  text{
+      fill:darkblue;
+  }
     
