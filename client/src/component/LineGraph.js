@@ -5,7 +5,6 @@ import {
   getCategoryRadioChecked,
   getLedgerItemByDate,
   unsubscribe,
-  fetchLedgerItem,
 } from "../store";
 import { getDailyOutcomeSum } from "../util/sumCalculator";
 import { CIRCLE_RADIUS } from "../util/constant";

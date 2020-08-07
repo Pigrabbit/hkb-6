@@ -3,7 +3,6 @@ import {
   createNewPayment,
   deletePaymentFromServer,
 } from "./service/paymentService";
-import { fetchMockBarData } from "./Data";
 import { $id, clearInputForm } from "./util/util";
 import {
   createTransaction,
@@ -51,6 +50,10 @@ export const state = {
     listeners: {},
   },
   statistics: {
+    data: [],
+    listeners: {},
+  },
+  previousStatistics: {
     data: [],
     listeners: {},
   },
@@ -112,6 +115,20 @@ export async function fetchStatisticsData() {
 
 export function getStatisticsData() {
   return state.statistics.data;
+}
+
+export function getPreviousStatisticsData() {
+  return state.previousStatistics.data;
+}
+
+export async function fetchPreviousStatisticsData() {
+  const previousMonthData = {
+    year: state.currentDate.data.year,
+    month: state.currentDate.data.month - 1,
+  };
+  state.previousStatistics.data = await fetchStatisticsByDate(
+    previousMonthData
+  );
 }
 
 // 폼
@@ -269,6 +286,9 @@ export async function toPrevMonth() {
 
   await fetchStatisticsData();
   publish(state.statistics);
+
+  await fetchPreviousStatisticsData();
+  publish(state.previousStatistics);
 }
 
 export async function toNextMonth() {
@@ -285,4 +305,7 @@ export async function toNextMonth() {
 
   await fetchStatisticsData();
   publish(state.statistics);
+
+  await fetchPreviousStatisticsData();
+  publish(state.previousStatistics);
 }

@@ -41,7 +41,7 @@ export default function Bargraph() {
         }" height="20" fill="#${color}">
           <animate attributeName="width" from="0" to ="${
             item.percentage * 3
-          }" dur="1s" fill="freeze"/>
+          }" dur="3s" fill="freeze"/>
           </rect>
           <text x="${item.percentage * 3 + 20}" y="25">${item.category}</text>
         </g>

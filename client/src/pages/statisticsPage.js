@@ -3,15 +3,21 @@ import Header from "../component/Header";
 import Navbar from "../component/Navbar";
 import LineGraph from "../component/LineGraph";
 import StatisticsMenu from "../component/StatisticsMenu";
+import StackedBar from "../component/StackedBar";
 
 import brocolli from "../images/brocolli.png";
 import PieChart from "../component/PieChart";
 
-import { fetchStatisticsData, getCurrentDate, fetchLedgerItem } from "../store";
+import {
+  fetchStatisticsData,
+  fetchLedgerItem,
+  fetchPreviousStatisticsData,
+} from "../store";
 
 export default function StatisticsPage() {
   fetchStatisticsData();
   fetchLedgerItem();
+  fetchPreviousStatisticsData();
 
   return `
     ${Header({ isPaymentVisible: false })}
@@ -22,6 +28,7 @@ export default function StatisticsPage() {
         ${PieChart()}
         ${Bargraph()}
         ${LineGraph()}
+        ${StackedBar()}
         </div>
     </section>
     <img id="brocolli" alt="브로콜리" src=${brocolli}/>
