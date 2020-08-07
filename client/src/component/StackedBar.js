@@ -7,7 +7,7 @@ import {
   getPreviousStatisticsData,
   getCurrentDate,
 } from "../store";
-import { getNextPageURI, getRandomColor } from "../util/util";
+import { getNextPageURI } from "../util/util";
 
 export default function StackedBar() {
   const componentName = "stacked-bar";
@@ -42,6 +42,17 @@ export default function StackedBar() {
 
     accumulatedSum.sort((a, b) => b - a);
     previousAccumulatedSum.sort((a, b) => b - a);
+    const color = [
+      "#e7305b",
+      "#fa7d09",
+      "#cedebd",
+      "#f9d56e",
+      "#f1c5c5",
+      "#fbd46d",
+      "#cf7500",
+      "#005086",
+      "#848ccf",
+    ];
 
     const html = `
     <div class="${getCategoryRadioChecked() ? "hidden" : ""}">
@@ -58,10 +69,9 @@ export default function StackedBar() {
       <text x="60" y="${370 - 360 / 3}">${month}월</text>
       ${accumulatedSum
         .map((item, i) => {
-          const color = getRandomColor();
           return `<rect x="90" y="${370 - 365 / 3}" width="${
             item * 5
-          }" height="20" fill="#${color}">
+          }" height="20" fill="${color[i % color.length]}">
           <animate attributeName="width" from="0" to ="${
             item * 5
           }" dur="2s" fill="freeze"/>
@@ -85,10 +95,9 @@ export default function StackedBar() {
 
         ${previousAccumulatedSum
           .map((item, i) => {
-            const color = getRandomColor();
             return `<rect x="90" y="${370 - (365 / 3) * 2}" width="${
               item * 5
-            }" height="20" fill="#${color}">
+            }" height="20" fill="${color[i % color.length]}">
             <animate attributeName="width" from="0" to ="${
               item * 5
             }" dur="2s" fill="freeze"/>
