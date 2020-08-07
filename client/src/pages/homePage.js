@@ -3,7 +3,7 @@ import Header from "../component/Header";
 import "./homePage.scss";
 
 import brocolli from "../images/brocolli.png";
-import googleBtn from "../images/google-btn.png";
+import googleBtn from "../images/google-signin-btn.svg";
 import {
     bindEvent,
     $
@@ -19,6 +19,7 @@ export default function HomePage() {
         const html = `
         <button class="google-oauth-btn">
             <img class="google-oauth-btn-image" src=${googleBtn}>
+            <div class="google-oauth-btn-text">Sign in with Google</div>
         </button>
         `;
 

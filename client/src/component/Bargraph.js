@@ -6,7 +6,7 @@ import {
   unsubscribe,
 } from "../store";
 import { addCommaToNumber } from "../util/validation";
-import { getRandomColor, getNextPageURI } from "../util/util";
+import { getRandomColor, getNextPageURI, $ } from "../util/util";
 
 export default function Bargraph() {
   const componentName = "bargraph";
@@ -22,6 +22,12 @@ export default function Bargraph() {
 
   function render() {
     const statistics = getStatisticsData();
+    if (statistics.length === 0) {
+      const html= "";
+      const $header = $(`.${componentName}`);
+      $header.innerHTML = html;      
+      return;
+    }
 
     const html = `
     <div class="${getCategoryRadioChecked() ? "" : "hidden"}">
