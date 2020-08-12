@@ -1,0 +1,80 @@
+@import "../scss/variable";
+
+.ledger-item {
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 3px solid darkgray;
+
+    &-date {
+      margin: 0 10px;
+    }
+
+    &-amount {
+      display: flex;
+      & p {
+        margin: 0 10px;
+      }
+    }
+  }
+
+  &-record {
+    display: grid;
+    grid-template-columns: 15% 35% 10% 20% 20%;
+    height: 100%;
+
+    .record-category {
+      grid-column: 1 / 2;
+      color: white;
+      width: 80%;
+      border-radius: 10px;
+      padding: 5px;
+
+      text-align: center;
+      justify-self: center;
+      align-self: center;
+    }
+
+    .record-content {
+      padding: 16px;
+      grid-column: 2 / 3;
+      align-self: center;
+    }
+
+    .record-update-btn {
+      grid-column: 3 / 4;
+      align-self: center;
+      background:#fff;
+      border-radius:0 10px 0 10px;
+      color:$brown-font;
+      border:2px solid $brown-font;
+    }
+
+    .record-payment {
+      grid-column: 4 / 5;
+      align-self: center;
+      text-align: center;
+    }
+
+    .record-amount {
+      grid-column: 5 / 6;
+      padding: 10px;
+      text-align: end;
+      justify-self: end;
+      align-self: center;
+    }
+  }
+
+  & li {
+    width: 100%;
+    border-bottom: 2px solid #ddd;
+    margin: 0;
+    background: #fff;
+  }
+
+  & li.on-mouse-over {
+    background-color: #ffeaa7;
+  }
+}
+

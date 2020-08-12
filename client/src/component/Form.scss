@@ -1,0 +1,127 @@
+@import "../scss/variable";
+
+
+
+.form {
+  font-size: $mid-font;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  width: 800px;
+  border-radius: 0 10px 0 10px;
+  border:1px solid $brown-font;
+  box-shadow: 3px 3px 4px darkgray;
+
+  &-income-btn,
+  &-outcome-btn {
+    padding: 5px 10px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #4cd3c2;
+    background: #fff;
+    border: 1px solid #4cd3c2;
+    border-radius: 0 10px 0 10px;
+    box-shadow: 0 4px #c1a57b;
+    transition:2s;
+  }
+  #transaction-amount{
+    text-align:right;
+  }
+
+
+  &-row {
+    margin: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & input,
+    & select
+     {
+      margin: 10px 0;
+      border: none;
+      border-bottom: 2px solid darkgray;
+      width:210px;
+      padding:5px;
+    }
+
+    & input:not(#transaction-date) {
+      width: 240px;
+    }
+   
+  }
+
+  &-col{
+    margin:0;
+    width:100%;
+    position:relative;
+
+    & .form-delete-btn{
+      position: absolute;
+      top: 1rem;
+      right: 0;
+      margin: 0;
+      background:none;
+      color:$outcome-color;
+      border:none;
+      border-radius:0 10px 0 10px;
+      padding: 5px 10px;
+      border:1px solid $outcome-color;
+    
+
+      &:hover{
+        transform:translateY(-5px);
+        background:none;
+        border:3px solid $outcome-color;
+        color:$outcome-color;
+        box-shadow:2px 2px 2px #c1a57b;
+      }
+    }
+  }
+
+  &-col-2 {
+    margin: 0;
+    display:flex;
+    flex-direction:column;
+
+    & label{
+      margin:0;
+    }
+  }
+
+  &-submit-btn {
+    margin: 0;
+    margin-top: 20px;
+    background:$brown-font;
+    border: none;
+    border-radius: 0 0 0 10px;
+    height: 40px;
+    color:#fff;
+  }
+}
+
+@mixin toggleBtn {
+  background: #4cd3c2;
+  color:black;
+  box-shadow: 0 1px #666;
+  transform: translateY(1.5px);
+}
+
+.category-btn-income-clicked{
+  @include toggleBtn;
+}
+
+.category-btn-outcome-clicked{
+ @include toggleBtn;
+ background:salmon;
+ border-color:salmon;
+ color:#fff;
+}
+
+#alert-msg{
+  color:red;
+  font-size:$small-font; 
+  height:20px;
+}

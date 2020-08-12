@@ -1,0 +1,3 @@
+### GET statistics API
+GET http://localhost:3000/api/statistics/2020-08
+X-ACCESS-TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTU5NjY4NjY1MH0.6O9MHcSZ2RsqS73d36UmSfAfCsBlQgaJUnTDlZK1m6E

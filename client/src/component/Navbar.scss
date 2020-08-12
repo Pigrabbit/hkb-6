@@ -1,0 +1,72 @@
+@import "../scss/variable";
+
+.navbar-month {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $mid-font;
+
+  & * {
+    margin: 20px 10px;
+    
+  }
+
+  & i{
+    font-size:40px;
+  }
+
+  i.fa:hover {
+    cursor: pointer;
+    color:#f9d56e;
+  }
+}
+
+.navbar-tab {
+  font-size: $mid-font;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  background: #eee;
+  height: 40px;
+  padding:0;
+
+  & li {
+    padding: 0 50px;
+    height:100%;
+    border-radius:10px;
+
+    &:before{
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;       
+   }
+
+    & span{
+      display:inline-block;
+      vertical-align: middle;
+    }
+
+
+    &:hover{
+      cursor: pointer;
+      transform:translateY(-3px)
+    }
+  }
+
+}
+
+.active-tab-style{
+  background:$brown-font;
+  color:#fff;
+
+  &:hover{
+    cursor: pointer;
+    text-shadow: none;
+    transform:translateY(-3px)
+  }
+}
